@@ -1,0 +1,188 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: TomParisDE TwitchTV Widget\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-22 18:54+0000\n"
+"POT-Revision-Date: Mon Jul 11 2016 15:29:18 GMT+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Generator: Loco - https://localise.biz/\n"
+"X-Poedit-SearchPath-0: ..\n"
+"Language: "
+
+#: views/widget_small.php:21
+msgid "Viewer:"
+msgstr ""
+
+#: views/widget_big.php:37
+msgid "Is Currently Playing:"
+msgstr ""
+
+#: views/widget_big.php:45 includes/widget.php:165
+msgid "Title:"
+msgstr ""
+
+#. Base ID
+#. Name of the plugin
+#: includes/widget.php:14
+msgid "TomParisDE Twitch Widget"
+msgstr ""
+
+#: includes/widget.php:15
+msgid ""
+"The TomParisDE Twitch Widget for Wordpress allows you to show all your "
+"visitors your online or offline status from your twitch stream. You can also "
+"enter a lot more stream channel if want to. It´s also possible to add one "
+"game with or without a specific language, it´s very handy for a theme based "
+"Clan-, Fan- or Community Site."
+msgstr ""
+
+#: includes/widget.php:162
+msgid "Global Settings"
+msgstr ""
+
+#: includes/widget.php:170
+msgid "Twitch API Key:"
+msgstr ""
+
+#: includes/widget.php:175
+msgid "Channel(s) or Game:"
+msgstr ""
+
+#: includes/widget.php:178
+msgid "Channel(s)"
+msgstr ""
+
+#: includes/widget.php:179
+msgid "Game"
+msgstr ""
+
+#: includes/widget.php:183
+msgid "Twitch Channel Settings"
+msgstr ""
+
+#: includes/widget.php:186
+msgid "Twitch Channels:"
+msgstr ""
+
+#: includes/widget.php:190
+msgid "Twitch Game Settings"
+msgstr ""
+
+#: includes/widget.php:193
+msgid "Twitch Game:"
+msgstr ""
+
+#: includes/widget.php:198
+msgid "Max Streams (1-100):"
+msgstr ""
+
+#: includes/widget.php:203
+msgid "Twitch Streamer Language:"
+msgstr ""
+
+#: includes/widget.php:207
+msgid "Front-end Output"
+msgstr ""
+
+#: includes/widget.php:210
+msgid "Template:"
+msgstr ""
+
+#: includes/widget.php:213
+msgid "Small"
+msgstr ""
+
+#: includes/widget.php:214
+msgid "Big"
+msgstr ""
+
+#: includes/widget.php:219
+msgid "Style:"
+msgstr ""
+
+#: includes/widget.php:222
+msgid "Light"
+msgstr ""
+
+#: includes/widget.php:223
+msgid "Dark"
+msgstr ""
+
+#: includes/widget.php:242
+msgid "Hide Title"
+msgstr ""
+
+#: includes/widget.php:247
+msgid "Hide Statistics"
+msgstr ""
+
+#: includes/widget.php:252
+msgid "Hide Offline User (Channel Settings)"
+msgstr ""
+
+#: includes/admin/class.settings.php:66
+msgid "Caching"
+msgstr ""
+
+#: includes/admin/class.settings.php:94
+msgid "1 minute"
+msgstr ""
+
+#: includes/admin/class.settings.php:95
+msgid "5 minutes"
+msgstr ""
+
+#: includes/admin/class.settings.php:96
+msgid "10 minutes"
+msgstr ""
+
+#: includes/admin/class.settings.php:97
+msgid "15 minutes"
+msgstr ""
+
+#: includes/admin/class.settings.php:98
+msgid "30 minutes"
+msgstr ""
+
+#: includes/admin/class.settings.php:99
+msgid "45 minutes"
+msgstr ""
+
+#: includes/admin/class.settings.php:100
+msgid "60 minutes"
+msgstr ""
+
+#: includes/admin/class.settings.php:130
+msgid "Twitch Widget Settings"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Your TomParisDE Twitch Widget for Blogs, Clan-, Fan- and Community Sites"
+msgstr ""
+
+#. URI of the plugin
+msgid "http://coder.tomparis.de/wordpress-twitch-plugin/"
+msgstr ""
+
+#. Author of the plugin
+msgid "Florian 'TomParisDE' Kirchner"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://coder.tomparis.de/"
+msgstr ""
