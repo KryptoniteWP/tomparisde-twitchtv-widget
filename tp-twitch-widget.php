@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: TomParisDE Twitch Widget - Lite
-Description: Your TomParisDE Twitch Widget for Blogs, Clan-, Fan- and Community Sites
-Version: 1.2.15
-Plugin URI: https://tp-twitch-widget.com/
-Author: Florian 'TomParisDE' Kirchner
-Author URI: https://tp-twitch-widget.com/
+Plugin Name: TP Twitch Widget - Lite
+Description: Your Twitch Widget for Blogs, Clan-, Fan- and Community Sites
+Version: 1.3.0
+Plugin URI: https://kryptonitewp.com/downloads/tp-twitch-widget/
+Author: KryptoniteWP
+Author URI: https://kryptonitewp.com/
 Text Domain: tp-ttvw
 Domain Path: /languages
 */
@@ -60,7 +60,7 @@ if( !class_exists( 'TP_TTVW' ) ) {
                 private function setup_constants() {
 
                         // Plugin version
-                        define( 'TP_TTVW_VER', '1.2.15' );
+                        define( 'TP_TTVW_VER', '1.3.0' );
 
                         // Plugin path
                         define( 'TP_TTVW_DIR', plugin_dir_path( __FILE__ ) );

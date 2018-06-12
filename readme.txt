@@ -1,31 +1,24 @@
-=== TomParisDE Twitch Widget ===
-Contributors: TomParisDE
-Donate link: https://www.paypal.me/tomparis/
-Monthly subscription: https://www.twitch.tv/subs/tomparisde
-Tags: twitch, api, widget, tomparis, tomparisde, twitchtv
+=== TP Twitch Widget ===
+Contributors: flowdee, kryptonitewp
+Donate link: https://donate.flowdee.de/
+Tags: twitch, api, widget, tomparis, tomparisde, twitchtv, flowdee, kryptonitewp
 Requires at least: 3.5.1
 Tested up to: 4.9.6
-Stable tag: 1.2.15
+Stable tag: 1.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Your TomParisDE Twitch Widget for Blogs, Clan-, Fan- and Community Sites
+Your Twitch Widget for Blogs, Clan-, Fan- and Community Sites
 
 == Description ==
 
-TomParisDE Twitch Widget - Lite Version
+The Twitch Widget for Wordpress allows you to show all your visitors your online or offline status from your twitch stream. You can also enter a lot more stream channel if want to. It´s also possible to add one game with or without a specific language, it´s very handy for a theme based Clan-, Fan- or Community Site.
 
-Check out and buy the Full Version: **[TP Twitch Widget](https://tp-twitch-widget.com/)**
-
-The TomParisDE Twitch Widget for Wordpress allows you to show all your visitors your online or offline status from your twitch stream. You can also enter a lot more stream channel if want to. It´s also possible to add one game with or without a specific language, it´s very handy for a theme based Clan-, Fan- or Community Site.
+Check out and buy the **[Full Version](https://kryptonitewp.com/downloads/tp-twitch-widget/)**
 
 = LIVE DEMO =
 
-* [TP Twitch Widget](https://tp-twitch-widget.com/)
-
-= Support =
-
-* Contact: [TP Twitch Widget Support](https://tp-twitch-widget.com/contact/)
+* [TP Twitch Widget](https://kryptonitewp.com/demo/tp-twitch-widget/)
 
 = Features =
 
@@ -66,7 +59,7 @@ The installation and configuration of the plugin is as simple as it can be.
 = Using The WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
-2. Search for 'TomParisDE Twitch Widget'
+2. Search for 'TP Twitch Widget'
 3. Click 'Install Now'
 4. Activate the plugin on the Plugin dashboard
 
@@ -87,13 +80,9 @@ The installation and configuration of the plugin is as simple as it can be.
 
 == Frequently Asked Questions ==
 
-= Multisite supported? =
-
-As an owner of the Pro- or Ultimate-License you will be able to use the plugin within a Multisite.
-
 = Is the Twitch Client Key the same Key as the Stream Key? =
 
-No! Check our Documentation
+No! Check our documentation
 
 == Screenshots ==
 
@@ -101,6 +90,9 @@ No! Check our Documentation
 2. Frontend Output
 
 == Changelog ==
+
+= 1.3.0 =
+* Improvement: Optimized settings page
 
 = 1.2.15 =
 * Updated Files for Wordpress 4.9.6
@@ -160,6 +152,9 @@ No! Check our Documentation
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+* Improvement: Optimized settings page
 
 = 1.2.15 =
 * Updated Files for Wordpress 4.9.6

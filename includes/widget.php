@@ -233,11 +233,7 @@ class TP_TTVW_Widget extends WP_Widget {
         ?>
 
         <!-- GLOBAL SETTINGS -->
-        <p><a href="https://tp-twitch-widget.com/" target="_blank"> <img style="margin-left: 30%" src="<?php tp_ttvw_the_assets(); ?>img/tp_logo.png" width="150" height="auto" alt="TomParisDE Logo"/></a></p>
-
-        <p style="font-size: 20px; margin-top: -10px; margin-bottom: 30px; text-align: center;"><a href="https://tp-twitch-widget.com/" target="_blank">Get the TP Twitch Widget - Full Version</a></p>
-
-        <p style="text-decoration: underline; font-size: 24px; font-weight: 600;"><?php _e( 'Global Settings', 'tp-ttvw' ); ?></p>
+        <p style="text-decoration: underline; font-size: 24px; font-weight: 600;"><?php _e( 'Global Settings', 'tp-tw' ); ?></p>
 
         <p>
             <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'tp-ttvw' ); ?></label>
@@ -278,7 +274,7 @@ class TP_TTVW_Widget extends WP_Widget {
         </p>
 
         <p style="margin-top: -16px;">A drop down list is coming as soon as possible</p>
-        <p style="margin-top: -16px;">Meanwhile check the <a href="https://tp-twitch-widget.com/documentation/" target="_blank">documentation</a> </p>
+        <p style="margin-top: -16px;">Meanwhile check the <a href="https://kryptonitewp.com/support/knb/tp-twitch-widget-documentation/" target="_blank" rel="nofollow">documentation</a> </p>
 
         <p style="background: #ff2742;">
             <label style="color: #fff; padding-left: 7px; padding-bottom: 8px; font-size: 14px;" for="<?php echo $this->get_field_id( 'max_games' ); ?>"><?php _e( 'TP Twitch Widget - Lite [Max Streams (1-100)] is limited (1)', 'tp-ttvw' ); ?></label>

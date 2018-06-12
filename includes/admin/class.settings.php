@@ -150,17 +150,7 @@ if (!class_exists('TP_TTVW_Settings')) {
 
             <div class="wrap">
 
-                <div style="margin-bottom: 50px;">
-                    <a href="https://tp-twitch-widget.com/" target="_blank"> <img src="<?php tp_ttvw_the_assets(); ?>img/tp_logo_max.jpg" alt="TomParisDE Logo"/></a>
-                </div>
-
-                <div style="margin-top: 50px;">
-                    <p style="font-size: 26px; font-weight: 600">For any Support feel free to contact me or visit:</p>
-                    <p style="margin-top: -30px; font-size: 26px; font-weight: 600"><a href="https://tp-twitch-widget.com/" target="_blank">https://tp-twitch-widget.com/</a></p>
-                </div>
-
-                <?php screen_icon(); ?>
-                <h2><?php _e('Twitch Widget Settings', 'tp-ttvw'); ?></h2>
+                <h2><?php _e('Twitch Widget Settings', 'tp-tw'); ?></h2>
 
                 <form action="options.php" method="post">
 
@@ -177,17 +167,14 @@ if (!class_exists('TP_TTVW_Settings')) {
 
                 </form>
 
-                <div style="margin-top: 50px;">
-                    <p style="font-size: 26px; font-weight: 600">"TomParisDE Twitch Widget" is installed on following Website</p>
-                </div>
+                <hr />
 
-                <div style="margin-top: 0;">
-                    <ul>
-                        <li style="margin-bottom: 20px;"><strong>Your Website is not listed? Contact me via eMail: info@tp-dynamic.com</strong></li>
-                        <li>• <a href="https://www.hearthstonenews.de/" target="_blank">HearthstoneNews</a></li>
-                        <li>• More coming soon... Send me your URL</li>
-                    </ul>
-                </div>
+                <h3>Ressources</h3>
+                <ul>
+                    <li><a href="https://wordpress.org/plugins/tomparisde-twitchtv-widget/" target="_blank" rel="nofollow">Plugin Page</a></li>
+                    <li><a href="https://kryptonitewp.com/demo/tp-twitch-widget/" target="_blank" rel="nofollow">Live Demonstration</a></li>
+                    <li><a href="https://kryptonitewp.com/support/knb/tp-twitch-widget-documentation/" target="_blank" rel="nofollow">Online Documentation</a></li>
+                </ul>
 
             </div>
             <?php
