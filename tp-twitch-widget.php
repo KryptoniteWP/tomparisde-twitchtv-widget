@@ -1,158 +1,341 @@
 <?php
-/*
-Plugin Name: TP Twitch Widget - Lite
-Description: Your Twitch Widget for Blogs, Clan-, Fan- and Community Sites
-Version: 1.3.0
-Plugin URI: https://kryptonitewp.com/downloads/tp-twitch-widget/
-Author: KryptoniteWP
-Author URI: https://kryptonitewp.com/
-Text Domain: tp-ttvw
-Domain Path: /languages
-*/
+/**
+ * Plugin Name:     Twitch for WordPress
+ * Plugin URI:      https://de.wordpress.org/plugins/tomparisde-twitchtv-widget/
+ * Description:     Display Twitch.tv streams on your WordPress site.
+ * Version:         2.0.0
+ * Author:          KryptoniteWP
+ * Author URI:      https://kryptonitewp.com
+ * Text Domain:     tp-twitch-widget
+ *
+ * @author          KryptoniteWP
+ * @copyright       Copyright (c) KryptoniteWP
+ */
 
 // Exit if accessed directly
-if( !defined( 'ABSPATH' ) ) {
-        exit;
+if( !defined( 'ABSPATH' ) ) exit;
+
+if( !class_exists( 'TP_Twitch' ) ) :
+
+	/**
+	 * Main TP_Twitch class
+	 *
+	 * @since       2.0.0
+	 */
+	final class TP_Twitch {
+		/** Singleton *************************************************************/
+
+		/**
+		 * TP_Twitch instance.
+		 *
+		 * @access private
+		 * @since  2.0.0
+		 * @var    TP_Twitch The one true TP_Twitch
+		 */
+		private static $instance;
+
+		/**
+		 * The version number of TP_Twitch.
+		 *
+		 * @access private
+		 * @since  2.0.0
+		 * @var    string
+		 */
+		private $version = '2.0.0';
+
+		/**
+		 * The settings instance variable.
+		 *
+		 * @access public
+		 * @since  2.0.0
+		 * @var    TP_Twitch_Settings
+		 */
+		public $settings;
+
+		/**
+		 * The api instance variable.
+		 *
+		 * @access public
+		 * @since  2.0.0
+		 * @var    TP_Twitch_API
+		 */
+		public $api;
+
+		/**
+		 * Main TP_Twitch Instance
+		 *
+		 * Insures that only one instance of TP_Twitch exists in memory at any one
+		 * time. Also prevents needing to define globals all over the place.
+		 *
+		 * @since 1.0
+		 * @static
+		 * @staticvar array $instance
+		 * @uses TP_Twitch::setup_globals() Setup the globals needed
+		 * @uses TP_Twitch::includes() Include the required files
+		 * @uses TP_Twitch::setup_actions() Setup the hooks and actions
+		 * @return TP_Twitch
+		 */
+		public static function instance() {
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof TP_Twitch ) ) {
+				self::$instance = new TP_Twitch;
+
+				if( version_compare( PHP_VERSION, '5.3', '<' ) ) {
+
+					add_action( 'admin_notices', array( 'TP_Twitch', 'below_php_version_notice' ) );
+
+					return self::$instance;
+
+				}
+
+				self::$instance->setup_constants();
+				self::$instance->includes();
+
+				add_action( 'plugins_loaded', array( self::$instance, 'setup_objects' ), -1 );
+				add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
+			}
+			return self::$instance;
+		}
+
+		/**
+		 * Throw error on object clone
+		 *
+		 * The whole idea of the singleton design pattern is that there is a single
+		 * object therefore, we don't want the object to be cloned.
+		 *
+		 * @since 4.0.0
+		 * @access protected
+		 * @return void
+		 */
+		public function __clone() {
+			// Cloning instances of the class is forbidden
+			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'tp-twitch-widget' ), '1.0' );
+		}
+
+		/**
+		 * Disable unserializing of the class
+		 *
+		 * @since 4.0.0
+		 * @access protected
+		 * @return void
+		 */
+		public function __wakeup() {
+			// Unserializing instances of the class is forbidden
+			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'tp-twitch-widget' ), '1.0' );
+		}
+
+		/**
+		 * Show a warning to sites running PHP < 5.3
+		 *
+		 * @static
+		 * @access private
+		 * @since 4.0.0
+		 * @return void
+		 */
+		public static function below_php_version_notice() {
+			?>
+			<div class="error">
+				<p>
+					<?php sprintf( esc_html__( 'Your version of PHP is below the minimum version of PHP required by our Twitch plugin. Please contact your hosting company and request that your version will be upgraded to %1$s or later.', 'tp-twitch-widget' ), '5.3' ); ?>
+				</p>
+			</div>
+			<?php
+		}
+
+		/**
+		 * Setup plugin constants
+		 *
+		 * @access private
+		 * @since 1.0.0
+		 * @return void
+		 */
+		private function setup_constants() {
+			// Plugin version
+			if ( ! defined( 'TP_TWITCH_VERSION' ) ) {
+				define( 'TP_TWITCH_VERSION', $this->version );
+			}
+
+			// Plugin Folder Path
+			if ( ! defined( 'TP_TWITCH_PLUGIN_DIR' ) ) {
+				define( 'TP_TWITCH_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+			}
+
+			// Plugin Folder URL
+			if ( ! defined( 'TP_TWITCH_PLUGIN_URL' ) ) {
+				define( 'TP_TWITCH_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+			}
+
+			// Plugin Root File
+			if ( ! defined( 'TP_TWITCH_PLUGIN_FILE' ) ) {
+				define( 'TP_TWITCH_PLUGIN_FILE', __FILE__ );
+			}
+
+			// Docs URL
+			if ( ! defined( 'TP_TWITCH_DOCS_URL' ) ) {
+				define( 'TP_TWITCH_DOCS_URL', 'https://kryptonitewp.com/support/knb/tp-twitch-widget-documentation/' );
+			}
+		}
+
+		/**
+		 * Include required files
+		 *
+		 * @access private
+		 * @since 1.0
+		 * @return void
+		 */
+		private function includes() {
+
+			// Helper & core functions
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/helper.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/functions.php';
+
+			// Core
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-twitch-api.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/api-functions.php';
+
+			// Other
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/scripts.php';
+
+
+
+			/*
+			// Core classes
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-core.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-functions.php';
+
+			// Database classes
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/abstracts/class-db.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-lists-db.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-products-db.php';
+
+			// Functions
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/api-functions.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/cache-functions.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/list-functions.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/product-functions.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/product-helper-functions.php';
+
+			// Classes
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-product.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-api-handler.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-cache-handler.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-amazon-api.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-template-functions.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-template-handler.php';
+
+			// Other
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/shortcodes.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/hooks.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/install.php';
+
+			*/
+
+			if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+				// Bootstrap.
+				require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/plugins.php';
+
+				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/functions.php';
+				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/actions.php';
+				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/ajax.php';
+				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/hooks.php';
+				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/notices.php';
+
+				// Settings
+				require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/class-settings.php';
+
+				// Upgrades
+				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/upgrades.php';
+			}
+		}
+
+		/**
+		 * Setup all objects
+		 *
+		 * @access public
+		 * @since 1.6.2
+		 * @return void
+		 */
+		public function setup_objects() {
+
+			self::$instance->api = new TP_Twitch_API();
+			//self::$instance->lists = new TP_TWITCH_DB_Lists;
+			//self::$instance->products = new TP_TWITCH_DB_Products;
+
+			if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+				//self::$instance->settings = new TP_TWITCH_Settings;
+				//self::$instance->pages = new TP_TWITCH_Admin_Pages;
+			}
+		}
+
+		/**
+		 * Loads the plugin language files
+		 *
+		 * @access public
+		 * @since 1.0
+		 * @return void
+		 */
+		public function load_textdomain() {
+
+			// Set filter for plugin's languages directory
+			$lang_dir = dirname( plugin_basename( TP_TWITCH_PLUGIN_FILE ) ) . '/languages/';
+
+			/**
+			 * Filters the languages directory path to use for TP_Twitch.
+			 *
+			 * @param string $lang_dir The languages directory path.
+			 */
+			$lang_dir = apply_filters( 'tp_twitch_languages_directory', $lang_dir );
+
+			// Traditional WordPress plugin locale filter
+
+			global $wp_version;
+
+			$get_locale = get_locale();
+
+			if ( $wp_version >= 4.7 ) {
+				$get_locale = get_user_locale();
+			}
+
+			/**
+			 * Defines the plugin language locale used in TP_Twitch.
+			 *
+			 * @var $get_locale The locale to use. Uses get_user_locale()` in WordPress 4.7 or greater,
+			 *                  otherwise uses `get_locale()`.
+			 */
+			$locale = apply_filters( 'plugin_locale', $get_locale, 'tp-twitch-widget' );
+			$mofile = sprintf( '%1$s-%2$s.mo', 'tp-twitch-widget', $locale );
+
+			// Setup paths to current locale file
+			$mofile_local  = $lang_dir . $mofile;
+			$mofile_global = WP_LANG_DIR . '/tp-twitch-widget/' . $mofile;
+
+			if ( file_exists( $mofile_global ) ) {
+				// Look in global /wp-content/languages/aawp/ folder
+				load_textdomain( 'tp-twitch-widget', $mofile_global );
+			} elseif ( file_exists( $mofile_local ) ) {
+				// Look in local /wp-content/plugins/aawp/languages/ folder
+				load_textdomain( 'tp-twitch-widget', $mofile_local );
+			} else {
+				// Load the default language files
+				load_plugin_textdomain( 'tp-twitch-widget', false, $lang_dir );
+			}
+		}
+	}
+endif; // End if class_exists check
+
+/**
+ * The main function responsible for returning the one true TP_Twitch
+ * Instance to functions everywhere.
+ *
+ * Use this function like you would a global variable, except without needing
+ * to declare the global.
+ *
+ * Example: <?php $tp_twitch = tp_twitch(); ?>
+ *
+ * @since 1.0
+ * @return TP_Twitch The one true TP_Twitch Instance
+ */
+function tp_twitch() {
+	return TP_Twitch::instance();
 }
+tp_twitch();
 
-if( !class_exists( 'TP_TTVW' ) ) {
-
-        /**
-         * Main TP_TTVW class
-         *
-         * @since       1.0.0
-         */
-        class TP_TTVW {
-
-                /**
-                 * @var         TP_TTWV $instance The one true TP_TTVW
-                 * @since       1.0.0
-                 */
-                private static $instance;
-
-
-                /**
-                 * Get active instance
-                 *
-                 * @access      public
-                 * @since       1.0.0
-                 * @return      object self::$instance The one true TP_TTVW
-                 */
-                public static function instance() {
-                        if( !self::$instance ) {
-                                self::$instance = new TP_TTVW();
-                                self::$instance->setup_constants();
-                                self::$instance->includes();
-                                self::$instance->load_textdomain();
-                        }
-
-                        return self::$instance;
-                }
-
-
-                /**
-                 * Setup plugin constants
-                 *
-                 * @access      private
-                 * @since       1.0.0
-                 * @return      void
-                 */
-                private function setup_constants() {
-
-                        // Plugin version
-                        define( 'TP_TTVW_VER', '1.3.0' );
-
-                        // Plugin path
-                        define( 'TP_TTVW_DIR', plugin_dir_path( __FILE__ ) );
-
-                        // Plugin URL
-                        define( 'TP_TTVW_URL', plugin_dir_url( __FILE__ ) );
-
-                        // Chache
-                        define('TP_TTVW_CACHE', 'tp_ttvw_cache_');
-                }
-
-
-                /**
-                 * Include necessary files
-                 *
-                 * @access      private
-                 * @since       1.0.0
-                 * @return      void
-                 */
-                private function includes() {
-
-                        // Include files and scripts
-                        if (is_admin()) {
-                                require_once TP_TTVW_DIR . 'includes/admin/class.settings.php';
-                        }
-                        require_once TP_TTVW_DIR . 'includes/functions.php';
-                        require_once TP_TTVW_DIR . 'includes/widget.php';
-                        require_once TP_TTVW_DIR . 'includes/twitch.php';
-                }
-
-                /**
-                 * Internationalization
-                 *
-                 * @access      public
-                 * @since       1.0.0
-                 * @return      void
-                 */
-                public function load_textdomain() {
-
-                        // Load the default language files
-                        load_plugin_textdomain( 'tp-ttvw', false, 'tp-twitch-widget/languages' );
-                }
-
-                /*
-                 * Activation function fires when the plugin is activated.
-                 *
-                 * @since  1.0.0
-                 * @access public
-                 * @return void
-                 */
-                public static function activation() {
-                        // nothing
-                }
-
-                /*
-                 * Uninstall function fires when the plugin is being uninstalled.
-                 *
-                 * @since  1.0.0
-                 * @access public
-                 * @return void
-                 */
-                public static function uninstall() {
-                        // nothing
-                }
-        }
-
-        /**
-         * The main function responsible for returning the one true TP_TTVW
-         * instance to functions everywhere
-         *
-         * @since       1.0.0
-         * @return      \TP_TTVW The one true TP_TTVW
-         */
-        function TP_TTVW_load() {
-                return TP_TTVW::instance();
-        }
-
-        /**
-         * The activation & uninstall hooks are called outside of the singleton because WordPress doesn't
-         * register the call from within the class hence, needs to be called outside and the
-         * function also needs to be static.
-         */
-        register_activation_hook( __FILE__, array( 'TP_TTVW', 'activation' ) );
-        register_uninstall_hook( __FILE__, array( 'TP_TTVW', 'uninstall') );
-
-        add_action( 'plugins_loaded', 'TP_TTVW_load' );
-
-} // End if class_exists check
-
-
-function tp_ttvw_enqueue_scripts() {
-        wp_enqueue_style( 'tp_ttvw_style', TP_TTVW_URL . '/public/css/style.css' );
-}
-
-add_action( 'wp_enqueue_scripts', 'tp_ttvw_enqueue_scripts' );

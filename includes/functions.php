@@ -1,32 +1,172 @@
 <?php
+/**
+ * Functions
+ *
+ * @since       2.0.0
+ */
 
-function tp_ttvw_get_data($url){
-
-    $response = wp_remote_get( esc_url_raw( $url ) );
-
-    /* Will result in $api_response being an array of data,
-    parsed from the JSON response of the API listed above */
-
-    $api_response = json_decode( wp_remote_retrieve_body( $response ), true );
-
-    return $api_response;
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
 }
 
-function tp_ttvw_the_assets() {
-    echo TP_TTVW_URL . 'public/';
+/**
+ * Get options
+ *
+ * return array options or empty when not available
+ */
+function tp_twitch_get_options() {
+    return get_option( 'tp_twitch', array() );
 }
 
-function tp_ttvw_delete_cache() {
-// Get our list of transient keys from the DB.
-    $transient_keys = get_option( 'tp_ttvw_cache_transient_keys' );
+/**
+ * Get option default value
+ *
+ * @param $key
+ *
+ * @return null|string
+ */
+function tp_twitch_get_option_default_value( $key ) {
 
-    if ( ! empty ( $transient_keys ) && is_array( $transient_keys ) ) {
-        // For each key, delete that transient.
-        foreach( $transient_keys as $t ) {
-            delete_transient( $t );
-        }
-    }
+	switch ( $key ) {
+		case 'cache_duration':
+			$value = '720';
+			break;
+		default:
+			$value = null;
+			break;
+	}
 
-    // Reset our DB value.
-    update_option( 'tp_ttvw_cache_transient_keys', array() );
+	return $value;
+}
+
+/**
+ * Delete cache
+ */
+function tp_twitch_delete_cache() {
+
+	// Cached data
+	delete_option( 'tp_twitch_games' );
+}
+
+/**
+ * Get games data (either from cache or API)
+ *
+ * @return array
+ */
+function tp_twitch_get_games() {
+
+	// Looking for cached data
+	$games = get_option( 'tp_twitch_games' );
+
+	if ( $games )
+		return $games;
+
+	// Query API
+	$args = array(
+		'first' => 100
+	);
+
+	$games = tp_twitch_get_top_games_from_api( $args );
+
+	// Cache data
+	update_option( 'tp_twitch_games', $games );
+
+	// Return
+	return $games;
+}
+
+/**
+ * Get game options
+ *
+ * @return array
+ */
+function tp_twitch_get_game_options() {
+
+	$games = tp_twitch_get_games();
+
+	$options = array();
+
+	if ( is_array( $games ) && sizeof ( $games ) > 0 ) {
+
+		$games = tp_twitch_array_sort( $games, 'name' );
+
+		foreach ( $games as $game ) {
+
+			if ( ! isset( $game['id'] ) || ! isset( $game['name'] ) )
+				continue;
+
+			$options[$game['id']] = $game['name'];
+		}
+	}
+
+	return $options;
+}
+
+/**
+ * Get streams
+ *
+ * @param array $args
+ *
+ * @return null
+ */
+function tp_twitch_get_streams( $args = array() ) {
+
+	$streams = tp_twitch_get_streams_from_api( $args );
+
+	$streams = tp_twitch_setup_streams_data( $streams );
+
+	return $streams;
+}
+
+/**
+ * Setup streams and maybe fetch additional data from API
+ *
+ * @param $streams
+ *
+ * @return array
+ */
+function tp_twitch_setup_streams_data( $streams ) {
+
+	if ( ! is_array( $streams ) )
+		return null;
+
+	// Collect users
+	$users = array();
+	$user_ids = array();
+
+	foreach ( $streams as $stream ) {
+
+		if ( ! empty( $stream['id'] ) ) {
+			$user_ids[] = $stream['id'];
+		}
+	}
+
+	if ( sizeof( $user_ids ) > 0 ) {
+		$users = tp_twitch_get_users_from_api();
+	}
+	// TODO
+
+
+	$streams_data = array();
+
+	foreach ( $streams as $stream ) {
+
+		$data = array(
+			'id' => ( isset( $stream['id'] ) ) ? $stream['id'] : 0,
+			'user_id' => ( isset( $stream['user_id'] ) ) ? $stream['user_id'] : 0,
+			'game_id' => ( isset( $stream['game_id'] ) ) ? $stream['game_id'] : 0,
+			'community_ids' => ( isset( $stream['community_ids'] ) ) ? $stream['community_ids'] : '',
+			'type' => ( isset( $stream['type'] ) ) ? $stream['type'] : '',
+			'title' => ( isset( $stream['title'] ) ) ? $stream['title'] : '',
+			'viewer_count' => ( isset( $stream['viewer_count'] ) ) ? $stream['viewer_count'] : 0,
+			'started_at' => ( isset( $stream['started_at'] ) ) ? $stream['started_at'] : '',
+			'language' => ( isset( $stream['language'] ) ) ? $stream['language'] : '',
+			'thumbnail_url' => ( isset( $stream['thumbnail_url'] ) ) ? $stream['thumbnail_url'] : ''
+		);
+
+		$streams_data[] = $data;
+	}
+
+	return $streams_data;
 }
