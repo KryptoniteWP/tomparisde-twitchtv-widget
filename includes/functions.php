@@ -30,7 +30,7 @@ function tp_twitch_get_option_default_value( $key ) {
 
 	switch ( $key ) {
 		case 'cache_duration':
-			$value = '720';
+			$value = 24;
 			break;
 		default:
 			$value = null;
@@ -45,8 +45,11 @@ function tp_twitch_get_option_default_value( $key ) {
  */
 function tp_twitch_delete_cache() {
 
-	// Cached data
-	delete_option( 'tp_twitch_games' );
+	global $wpdb;
+
+	$sql = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "%_transient_tp_twitch_%"';
+
+	$wpdb->query( $sql );
 }
 
 /**
@@ -57,7 +60,7 @@ function tp_twitch_delete_cache() {
 function tp_twitch_get_games() {
 
 	// Looking for cached data
-	$games = get_option( 'tp_twitch_games' );
+	$games = get_transient( 'tp_twitch_games' );
 
 	if ( $games )
 		return $games;
@@ -69,8 +72,11 @@ function tp_twitch_get_games() {
 
 	$games = tp_twitch_get_top_games_from_api( $args );
 
+	if ( empty( $games ) )
+		return null;
+
 	// Cache data
-	update_option( 'tp_twitch_games', $games );
+	set_transient( 'tp_twitch_games', $games, 7 * DAY_IN_SECONDS );
 
 	// Return
 	return $games;
@@ -100,9 +106,57 @@ function tp_twitch_get_game_options() {
 
 			$options[$game['id']] = $game['name'];
 		}
+	} else {
+		$options[0] = __( 'Please connect to API first...', 'tp-twitch-widget' );
 	}
 
 	return $options;
+}
+
+/**
+ * Get streams key based on arguments
+ *
+ * @param array $args
+ *
+ * @return string
+ */
+function tp_twitch_get_streams_key( $args = array() ) {
+	return 'tp_twitch_streams_' . md5( json_encode( $args ) );
+}
+
+/**
+ * Get streams cache
+ *
+ * @param $args
+ *
+ * @return mixed
+ */
+function tp_twitch_get_streams_cache( $args ) {
+
+	$streams_key = tp_twitch_get_streams_key( $args );
+
+	$streams = get_transient( $streams_key );
+
+	return $streams;
+}
+
+/**
+ * Set streams cache
+ *
+ * @param $streams
+ * @param $args
+ */
+function tp_twitch_set_streams_cache( $streams, $args ) {
+
+	$options = tp_twitch_get_options();
+
+	$cache_duration = ( ! empty( $options['cache_duration'] ) && is_numeric( $options['cache_duration'] ) ) ? intval( $options['cache_duration'] ) : tp_twitch_get_option_default_value( 'cache_duration' );
+
+	// Generate streams key
+	$streams_key = tp_twitch_get_streams_key( $args );
+
+	// Cache data
+	set_transient( $streams_key, $streams, $cache_duration * HOUR_IN_SECONDS );
 }
 
 /**
@@ -114,9 +168,21 @@ function tp_twitch_get_game_options() {
  */
 function tp_twitch_get_streams( $args = array() ) {
 
+	$streams = tp_twitch_get_streams_cache( $args );
+
+	if ( ! empty( $streams ) )
+		return $streams;
+
+	//tp_twitch_debug( 'tp_twitch_get_streams >> no cache!' );
+
+	// First: Fetch streams from API
 	$streams = tp_twitch_get_streams_from_api( $args );
 
+	// Second: Validate data, fetch additional info from API and setup the final data structure
 	$streams = tp_twitch_setup_streams_data( $streams );
+
+	if ( ! empty( $streams ) )
+		tp_twitch_set_streams_cache( $streams, $args );
 
 	return $streams;
 }
@@ -134,29 +200,76 @@ function tp_twitch_setup_streams_data( $streams ) {
 		return null;
 
 	// Collect users
-	$users = array();
 	$user_ids = array();
 
 	foreach ( $streams as $stream ) {
 
-		if ( ! empty( $stream['id'] ) ) {
-			$user_ids[] = $stream['id'];
+		if ( ! empty( $stream['user_id'] ) ) {
+			$user_ids[] = $stream['user_id'];
 		}
 	}
 
-	if ( sizeof( $user_ids ) > 0 ) {
-		$users = tp_twitch_get_users_from_api();
+	$users = ( sizeof( $user_ids ) > 0 ) ? tp_twitch_get_users_from_api( array( 'user_id' => $user_ids ) ) : array();
+
+	// Prepare users data
+	$users_data = array();
+
+	if ( is_array( $users ) && sizeof( $users ) > 0 ) {
+
+		foreach ( $users as $user ) {
+
+			/* Exemplary data.
+			[id] => 19571641
+            [login] => ninja
+			[display_name] => Ninja
+			[type] =>
+            [broadcaster_type] => partner
+			[description] => Professional Battle Royale player. Follow my twitter @Ninja and for more content subscribe to my Youtube.com/Ninja
+			[profile_image_url] => https://static-cdn.jtvnw.net/jtv_user_pictures/6d942669-203f-464d-8623-db376ff971e0-profile_image-300x300.png
+            [offline_image_url] => https://static-cdn.jtvnw.net/jtv_user_pictures/ninja-channel_offline_image-bb607ec9e64184fa-1920x1080.png
+            [view_count] => 235274410
+			*/
+
+			$user_data = array(
+				'id' => ( isset( $user['id'] ) ) ? $user['id'] : 0,
+				'login' => ( isset( $user['login'] ) ) ? $user['login'] : '',
+				'display_name' => ( isset( $user['display_name'] ) ) ? $user['display_name'] : '',
+				'type' => ( isset( $user['type'] ) ) ? $user['type'] : '',
+				'broadcaster_type' => ( isset( $user['broadcaster_type'] ) ) ? $user['broadcaster_type'] : '',
+				'description' => ( isset( $user['description'] ) ) ? $user['description'] : '',
+				'profile_image_url' => ( isset( $user['profile_image_url'] ) ) ? $user['profile_image_url'] : '',
+				'offline_image_url' => ( isset( $user['offline_image_url'] ) ) ? $user['offline_image_url'] : '',
+				'view_count' => ( isset( $user['view_count'] ) ) ? $user['view_count'] : 0,
+			);
+
+			$users_data[$user_data['id']] = $user_data;
+		}
 	}
-	// TODO
 
-
+	// Prepare streams data
 	$streams_data = array();
 
 	foreach ( $streams as $stream ) {
 
-		$data = array(
+		/* Exemplary data.
+		[id] => 29293315680
+		[user_id] => 36769016
+		[game_id] => 33214
+		[community_ids] => Array
+		(
+			[0] => 2caef3bd-b3db-4eed-a748-f3ee124b33aa
+		)
+
+		[type] => live
+		[title] => rocket launches today?! POGGERS
+		[viewer_count] => 26415
+		[started_at] => 2018-06-30T12:05:39Z
+		[language] => en
+		[thumbnail_url] => https://static-cdn.jtvnw.net/previews-ttv/live_user_timthetatman-{width}x{height}.jpg
+		*/
+
+		$stream_data = array(
 			'id' => ( isset( $stream['id'] ) ) ? $stream['id'] : 0,
-			'user_id' => ( isset( $stream['user_id'] ) ) ? $stream['user_id'] : 0,
 			'game_id' => ( isset( $stream['game_id'] ) ) ? $stream['game_id'] : 0,
 			'community_ids' => ( isset( $stream['community_ids'] ) ) ? $stream['community_ids'] : '',
 			'type' => ( isset( $stream['type'] ) ) ? $stream['type'] : '',
@@ -164,11 +277,14 @@ function tp_twitch_setup_streams_data( $streams ) {
 			'viewer_count' => ( isset( $stream['viewer_count'] ) ) ? $stream['viewer_count'] : 0,
 			'started_at' => ( isset( $stream['started_at'] ) ) ? $stream['started_at'] : '',
 			'language' => ( isset( $stream['language'] ) ) ? $stream['language'] : '',
-			'thumbnail_url' => ( isset( $stream['thumbnail_url'] ) ) ? $stream['thumbnail_url'] : ''
+			'thumbnail_url' => ( isset( $stream['thumbnail_url'] ) ) ? $stream['thumbnail_url'] : '',
+			'user' => ( isset( $stream['user_id'] ) && isset( $users_data[$stream['user_id']] ) ) ? $users_data[$stream['user_id']] : null,
 		);
 
-		$streams_data[] = $data;
+		$streams_data[$stream_data['id']] = $stream_data;
 	}
+
+	tp_twitch_debug( $streams_data, 'tp_twitch_setup_streams_data() >> $streams_data' );
 
 	return $streams_data;
 }

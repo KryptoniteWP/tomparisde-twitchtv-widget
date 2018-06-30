@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Twitch for WordPress
  * Plugin URI:      https://de.wordpress.org/plugins/tomparisde-twitchtv-widget/
- * Description:     Display Twitch.tv streams on your WordPress site.
+ * Description:     Display Twitch streams on your WordPress site.
  * Version:         2.0.0
  * Author:          KryptoniteWP
  * Author URI:      https://kryptonitewp.com
@@ -13,9 +13,9 @@
  */
 
 // Exit if accessed directly
-if( !defined( 'ABSPATH' ) ) exit;
+if( ! defined( 'ABSPATH' ) ) exit;
 
-if( !class_exists( 'TP_Twitch' ) ) :
+if( ! class_exists( 'TP_Twitch' ) ) :
 
 	/**
 	 * Main TP_Twitch class
@@ -184,18 +184,17 @@ if( !class_exists( 'TP_Twitch' ) ) :
 		 */
 		private function includes() {
 
-			// Helper & core functions
+			// Helper & essential functions
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/helper.php';
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/functions.php';
 
 			// Core
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-twitch-api.php';
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/api-functions.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/widgets.php';
 
 			// Other
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/scripts.php';
-
-
 
 			/*
 			// Core classes

@@ -36,6 +36,11 @@ function tp_twitch_get_top_games_from_api( $args = array() ) {
  */
 function tp_twitch_get_streams_from_api( $args = array() ) {
 
+	// Convert non-standard arguments
+	if ( isset( $args['max'] ) )
+		$args['first'] = $args['max'];
+
+	// Call API
 	$results = tp_twitch()->api->get_streams( $args );
 
 	if ( ! isset( $results['data'] ) )

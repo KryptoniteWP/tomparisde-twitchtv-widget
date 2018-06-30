@@ -31,7 +31,7 @@ module.exports = function (grunt) {
                     cleancss: false
                 },
                 src: [
-                    'assets/less/style.less'
+                    'assets/less/styles.less'
                 ],
                 dest: 'public/css/styles.css'
             },
@@ -41,28 +41,9 @@ module.exports = function (grunt) {
                     compress: true
                 },
                 src: [
-                    'assets/less/style.less'
+                    'assets/less/styles.less'
                 ],
                 dest: 'public/css/styles.min.css'
-            },
-            styles_amp: {
-                options: {
-                    cleancss: false
-                },
-                src: [
-                    'assets/less/style-amp.less'
-                ],
-                dest: 'public/css/amp.css'
-            },
-            styles_amp_min: {
-                options: {
-                    cleancss: true,
-                    compress: true
-                },
-                src: [
-                    'assets/less/style-amp.less'
-                ],
-                dest: 'public/css/amp.min.css'
             }
         },
         uglify: {

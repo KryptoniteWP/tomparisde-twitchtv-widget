@@ -223,16 +223,16 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function cache_duration_render() {
 
 			$cache_duration_options = array(
-                '60' => sprintf( esc_html( _n( '%d hour', '%d hours', 1, 'tp-twitch-widget'  ) ), 1 ),
-                '120' => sprintf( esc_html( _n( '%d hour', '%d hours', 2, 'tp-twitch-widget'  ) ), 2 ),
-                '180' => sprintf( esc_html( _n( '%d hour', '%d hours', 3, 'tp-twitch-widget'  ) ), 3 ),
-                '240' => sprintf( esc_html( _n( '%d hour', '%d hours', 4, 'tp-twitch-widget'  ) ), 4 ),
-				'360' => sprintf( esc_html( _n( '%d hour', '%d hours', 6, 'tp-twitch-widget'  ) ), 6 ),
-				'720' => sprintf( esc_html( _n( '%d hour', '%d hours', 12, 'tp-twitch-widget'  ) ), 12 ),
-				'1440' => sprintf( esc_html( _n( '%d hour', '%d hours', 24, 'tp-twitch-widget'  ) ), 24 )
+                1 => sprintf( esc_html( _n( '%d hour', '%d hours', 1, 'tp-twitch-widget'  ) ), 1 ),
+                2 => sprintf( esc_html( _n( '%d hour', '%d hours', 2, 'tp-twitch-widget'  ) ), 2 ),
+                3 => sprintf( esc_html( _n( '%d hour', '%d hours', 3, 'tp-twitch-widget'  ) ), 3 ),
+                4 => sprintf( esc_html( _n( '%d hour', '%d hours', 4, 'tp-twitch-widget'  ) ), 4 ),
+				6 => sprintf( esc_html( _n( '%d hour', '%d hours', 6, 'tp-twitch-widget'  ) ), 6 ),
+				12 => sprintf( esc_html( _n( '%d hour', '%d hours', 12, 'tp-twitch-widget'  ) ), 12 ),
+				24 => sprintf( esc_html( _n( '%d hour', '%d hours', 24, 'tp-twitch-widget'  ) ), 24 )
             );
 
-			$cache_duration = ( isset ( $this->options['cache_duration'] ) && is_numeric( $this->options['cache_duration'] ) ) ? $this->options['cache_duration'] : tp_twitch_get_option_default_value( 'cache_duration' );
+			$cache_duration = ( isset ( $this->options['cache_duration'] ) && is_numeric( $this->options['cache_duration'] ) ) ? intval( $this->options['cache_duration'] ) : tp_twitch_get_option_default_value( 'cache_duration' );
 
 			?>
             <select id="tp_twitch_cache_duration" name="tp_twitch[cache_duration]">
