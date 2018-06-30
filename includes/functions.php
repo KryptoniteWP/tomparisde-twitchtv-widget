@@ -89,6 +89,8 @@ function tp_twitch_get_game_options() {
 
 	if ( is_array( $games ) && sizeof ( $games ) > 0 ) {
 
+		$options[0] = __( 'Please select...', 'tp-twitch-widget' );
+
 		$games = tp_twitch_array_sort( $games, 'name' );
 
 		foreach ( $games as $game ) {
