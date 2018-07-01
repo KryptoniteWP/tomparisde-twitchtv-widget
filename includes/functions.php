@@ -114,6 +114,76 @@ function tp_twitch_get_game_options() {
 }
 
 /**
+ * Get languages
+ *
+ * Source #1: Twitch Language Selector
+ * Source #2: https://gist.githubusercontent.com/DimazzzZ/4e2a5a6c8c6f67900091/raw/3dc51cb81ba4bb93c9e7ce7e9c4bb8abbd9ca782/iso-639-1-codes.php
+ *
+ * @return array
+ */
+function tp_twitch_get_languages() {
+
+	return array(
+		'da' => __('Danish', 'tp-twitch-game' ),
+		'de' => __( 'German', 'tp-twitch-game' ),
+		'en' => __( 'English', 'tp-twitch-game' ),
+		'en-gb' => __('English (UK)', 'tp-twitch-game' ),
+		'es' => __( 'Spanish', 'tp-twitch-game' ),
+		'es-mx' => __( 'Spanish (Latin American)', 'tp-twitch-game' ),
+		'fr' => __( 'French', 'tp-twitch-game' ),
+		'it' => __( 'Italian', 'tp-twitch-game' ),
+		'hu' => __( 'Hungarian', 'tp-twitch-game' ),
+		'nl' => __( 'Dutch', 'tp-twitch-game' ),
+		'no' => __( 'Norwegian', 'tp-twitch-game' ),
+		'pl' => __( 'Polish', 'tp-twitch-game' ),
+		'pt' => __( 'Portuguese', 'tp-twitch-game' ),
+		'pt-br' => __( 'Portuguese (Brazil)', 'tp-twitch-game' ),
+		'sk' => __( 'Slovenian', 'tp-twitch-game' ),
+		'fi' => __( 'Finnish', 'tp-twitch-game' ),
+		'sv' => __( 'Swedish', 'tp-twitch-game' ),
+		'vi' => __( 'Vietnamese', 'tp-twitch-game' ),
+		'tr' => __( 'Turkish', 'tp-twitch-game' ),
+		'cs' => __( 'Czech', 'tp-twitch-game' ),
+		'el' => __( 'Greek', 'tp-twitch-game' ),
+		'bg' => __( 'Bulgarian', 'tp-twitch-game' ),
+		'ru' => __( 'Russian', 'tp-twitch-game' ),
+		'ar' => __( 'Arabic', 'tp-twitch-game' ),
+		'th' => __( 'Thai', 'tp-twitch-game' ),
+		'zh-cn' => __( 'Chinese', 'tp-twitch-game' ),
+		'zh-tw' => __( 'Chinese (Traditional)', 'tp-twitch-game' ),
+		'ja' => __( 'Japanese', 'tp-twitch-game' ),
+		'ko' => __( 'Korean', 'tp-twitch-game' ),
+		'hi' => __( 'Hindi', 'tp-twitch-game' ),
+		'ro' => __( 'Romanian', 'tp-twitch-game' ),
+	);
+}
+
+/**
+ * Get language options
+ *
+ * @return array
+ */
+function tp_twitch_get_language_options() {
+
+	$languages = tp_twitch_get_languages();
+
+	$options = array();
+
+	if ( is_array( $languages ) && sizeof ( $languages ) > 0 ) {
+
+		asort($languages);
+
+		$options = array(
+			'' => __( 'Please select...', 'tp-twitch-widget' )
+		);
+
+		$options = array_merge( $options, $languages );
+	}
+
+	return $options;
+}
+
+/**
  * Get streams key based on arguments
  *
  * @param array $args

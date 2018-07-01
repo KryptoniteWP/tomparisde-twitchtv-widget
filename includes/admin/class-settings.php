@@ -112,6 +112,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array('label_for' => 'tp_twitch_game')
 			);
 
+			add_settings_field(
+				'tp_twitch_language',
+				__( 'Language', 'tp-twitch-widget' ),
+				array( &$this, 'language_render' ),
+				'tp_twitch',
+				'tp_twitch_defaults',
+				array('label_for' => 'tp_twitch_language')
+			);
+
 		}
 
 		/**
@@ -269,6 +278,23 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             <select id="tp_twitch_game" name="tp_twitch[game]">
 				<?php foreach ( $game_options as $key => $label ) { ?>
                     <option value="<?php echo $key; ?>" <?php selected( $game, $key ); ?>><?php echo $label; ?></option>
+				<?php } ?>
+            </select>
+			<?php
+		}
+
+		/**
+		 * Default language
+		 */
+		function language_render() {
+
+			$language_options = tp_twitch_get_language_options();
+
+			$language = ( ! empty ( $this->options['language'] ) ) ? $this->options['language'] : 'en';
+			?>
+            <select id="tp_twitch_language" name="tp_twitch[language]">
+				<?php foreach ( $language_options as $key => $label ) { ?>
+                    <option value="<?php echo $key; ?>" <?php selected( $language, $key ); ?>><?php echo $label; ?></option>
 				<?php } ?>
             </select>
 			<?php
