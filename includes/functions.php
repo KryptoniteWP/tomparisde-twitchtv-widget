@@ -32,10 +32,18 @@ function tp_twitch_get_option_default_value( $key ) {
 		case 'cache_duration':
 			$value = 24;
 			break;
+		case 'language':
+			$value = 'en';
+			break;
+		case 'template_widget':
+			$value = 'widget';
+			break;
 		default:
 			$value = null;
 			break;
 	}
+
+	$value = apply_filters( 'tp_twitch_option_default_value', $value, $key );
 
 	return $value;
 }
@@ -75,11 +83,40 @@ function tp_twitch_get_games() {
 	if ( empty( $games ) )
 		return null;
 
+	$games_indexed = array(); // We need the game id to make them accessible
+
+	foreach ( $games as $game ) {
+
+		if ( ! isset( $game['id'] ) || ! isset( $game['name'] ) )
+			continue;
+
+		$games_indexed[$game['id']] = $game;
+	}
+
+	$games = $games_indexed;
+
 	// Cache data
 	set_transient( 'tp_twitch_games', $games, 7 * DAY_IN_SECONDS );
 
 	// Return
 	return $games;
+}
+
+/**
+ * Get game by id
+ *
+ * @param $game_id
+ *
+ * @return mixed|null
+ */
+function tp_twitch_get_game_by_id( $game_id ) {
+
+	if ( empty ( $game_id ) )
+		return null;
+
+	$games = tp_twitch_get_games();
+
+	return ( isset ( $games[$game_id] ) ) ? $games[$game_id] : null;
 }
 
 /**
@@ -184,6 +221,20 @@ function tp_twitch_get_language_options() {
 }
 
 /**
+ * Get template widget options
+ *
+ * @return array
+ */
+function tp_twitch_get_template_widget_options() {
+
+	return array(
+		'' => __( 'Please select...', 'tp-twitch-widget' ),
+		'widget' => __( 'Large', 'tp-twitch-widget' ),
+		'widget-small' => __( 'Small', 'tp-twitch-widget' )
+	);
+}
+
+/**
  * Get streams key based on arguments
  *
  * @param array $args
@@ -241,7 +292,7 @@ function tp_twitch_get_streams( $args = array() ) {
 	$streams = tp_twitch_get_streams_cache( $args );
 
 	if ( ! empty( $streams ) )
-		return $streams;
+		return tp_twitch_setup_streams( $streams );
 
 	//tp_twitch_debug( 'tp_twitch_get_streams >> no cache!' );
 
@@ -254,7 +305,32 @@ function tp_twitch_get_streams( $args = array() ) {
 	if ( ! empty( $streams ) )
 		tp_twitch_set_streams_cache( $streams, $args );
 
-	return $streams;
+	return tp_twitch_setup_streams( $streams );
+}
+
+/**
+ * Setup streams
+ *
+ * @param $streams
+ *
+ * @return array
+ */
+function tp_twitch_setup_streams( $streams ) {
+
+	if ( ! is_array( $streams ) )
+		return $streams;
+
+	// Build objects
+	$streams_objects = array();
+
+	if ( sizeof( $streams ) > 0 ) {
+
+		foreach ( $streams as $stream ) {
+			$streams_objects[] = ( is_array( $stream ) ) ? new TP_Twitch_Stream( $stream ) : $stream;
+		}
+	}
+
+	return $streams_objects;
 }
 
 /**
@@ -354,7 +430,7 @@ function tp_twitch_setup_streams_data( $streams ) {
 		$streams_data[$stream_data['id']] = $stream_data;
 	}
 
-	tp_twitch_debug( $streams_data, 'tp_twitch_setup_streams_data() >> $streams_data' );
+	//tp_twitch_debug( $streams_data, 'tp_twitch_setup_streams_data() >> $streams_data' );
 
 	return $streams_data;
 }

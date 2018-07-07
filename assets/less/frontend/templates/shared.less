@@ -1,0 +1,70 @@
+@import (reference) "../../common";
+
+//== Images
+img.tp-twitch-stream__thumbnail {
+    .img-reset-styles();
+    .img-responsive();
+}
+
+img.tp-twitch-stream__avatar {
+    .img-reset-styles();
+    .img-responsive();
+}
+
+// General
+.tp-twitch-stream {
+    margin-bottom: 1em;
+}
+
+.tp-twitch-stream__body {
+    font-size: @font-size-small;
+    line-height: @font-line-height;
+}
+
+.tp-twitch-stream__title {
+    font-size: @font-size;
+}
+
+.tp-twitch-stream__user {
+    
+    a {
+        .link-hover-only();
+    }
+}
+
+.tp-twitch-stream__game {
+    
+    a {
+        .link-hover-only();
+    }
+}
+
+.tp-twitch-stream__footer {
+    color: @color-font-light;
+    font-size: @font-size-small;
+    line-height: @font-line-height;
+}
+
+.tp-twitch-stream__viewer {
+
+}
+
+//== Live Streams
+.tp-twitch-stream--live {
+    
+    .tp-twitch-stream__viewer {
+        color: @color-twitch-red;
+    }
+    
+    .tp-twitch-icon-viewer {
+    
+    }
+    
+}
+
+//== Styles
+.style-standard() {
+    padding: 10px;
+    
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+}

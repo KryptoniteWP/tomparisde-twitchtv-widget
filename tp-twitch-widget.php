@@ -190,53 +190,17 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 
 			// Core
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-twitch-api.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-stream.php';
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/api-functions.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/template-functions.php';
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/widgets.php';
 
 			// Other
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/scripts.php';
 
-			/*
-			// Core classes
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-core.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-functions.php';
-
-			// Database classes
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/abstracts/class-db.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-lists-db.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-products-db.php';
-
-			// Functions
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/api-functions.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/cache-functions.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/list-functions.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/product-functions.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/product-helper-functions.php';
-
-			// Classes
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-product.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-api-handler.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-cache-handler.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-amazon-api.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-template-functions.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-template-handler.php';
-
-			// Other
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/shortcodes.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/hooks.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/install.php';
-
-			*/
-
 			if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 				// Bootstrap.
 				require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/plugins.php';
-
-				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/functions.php';
-				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/actions.php';
-				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/ajax.php';
-				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/hooks.php';
-				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/notices.php';
 
 				// Settings
 				require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/class-settings.php';
@@ -256,12 +220,9 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		public function setup_objects() {
 
 			self::$instance->api = new TP_Twitch_API();
-			//self::$instance->lists = new TP_TWITCH_DB_Lists;
-			//self::$instance->products = new TP_TWITCH_DB_Products;
 
 			if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
-				//self::$instance->settings = new TP_TWITCH_Settings;
-				//self::$instance->pages = new TP_TWITCH_Admin_Pages;
+				self::$instance->settings = new TP_Twitch_Settings();
 			}
 		}
 

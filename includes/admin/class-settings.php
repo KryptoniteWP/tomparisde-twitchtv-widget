@@ -121,6 +121,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array('label_for' => 'tp_twitch_language')
 			);
 
+			add_settings_field(
+				'tp_twitch_template_widget',
+				__( 'Widget Template', 'tp-twitch-widget' ),
+				array( &$this, 'template_widget_render' ),
+				'tp_twitch',
+				'tp_twitch_defaults',
+				array('label_for' => 'tp_twitch_template_widget')
+			);
+
 		}
 
 		/**
@@ -290,11 +299,28 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 			$language_options = tp_twitch_get_language_options();
 
-			$language = ( ! empty ( $this->options['language'] ) ) ? $this->options['language'] : 'en';
+			$language = ( ! empty ( $this->options['language'] ) ) ? $this->options['language'] : tp_twitch_get_option_default_value( 'cache_duration' );
 			?>
             <select id="tp_twitch_language" name="tp_twitch[language]">
 				<?php foreach ( $language_options as $key => $label ) { ?>
                     <option value="<?php echo $key; ?>" <?php selected( $language, $key ); ?>><?php echo $label; ?></option>
+				<?php } ?>
+            </select>
+			<?php
+		}
+
+		/**
+		 * Default widget template
+		 */
+		function template_widget_render() {
+
+			$template_widget_options = tp_twitch_get_template_widget_options();
+
+			$template_widget = ( ! empty ( $this->options['template_widget'] ) ) ? $this->options['template_widget'] : tp_twitch_get_option_default_value( 'template_widget' );
+			?>
+            <select id="tp_twitch_template_widget" name="tp_twitch[template_widget]">
+				<?php foreach ( $template_widget_options as $key => $label ) { ?>
+                    <option value="<?php echo $key; ?>" <?php selected( $template_widget, $key ); ?>><?php echo $label; ?></option>
 				<?php } ?>
             </select>
 			<?php
@@ -327,5 +353,3 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		}
 	}
 }
-
-new TP_Twitch_Settings();

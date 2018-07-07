@@ -51,6 +51,20 @@ function tp_twitch_array_sort( $array, $key ) {
 }
 
 /**
+ * Get site language
+ *
+ * @return string
+ */
+function tp_twitch_get_site_lang() {
+
+	$lang = get_bloginfo( 'language' );
+
+	$lang = substr( $lang, 0, 2 );
+
+	return $lang;
+}
+
+/**
  * Better Debugging
  *
  * @param $args
