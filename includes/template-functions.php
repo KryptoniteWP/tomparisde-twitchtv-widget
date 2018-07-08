@@ -55,7 +55,7 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 
 	$streams = tp_twitch_get_streams( $streams_args );
 
-	//tp_twitch_debug( $streams, '$template' );
+	//tp_twitch_debug( $streams, '$streams' );
 
 	// Streams found.
 	if ( $streams ) {
@@ -73,11 +73,19 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 
 		 // Template not found.
 		} else {
-			__( 'Template not found.', 'tp-twitch-widget' );
+			_e( 'Template not found.', 'tp-twitch-widget' );
 		}
 
 	// No streams found.
 	} else {
-		__( 'No streams found.', 'tp-twitch-widget' );
+
+		$no_streams_found = tp_twitch_get_option( 'no_streams_found' );
+		$no_streams_found_text = apply_filters( 'tp_twitch_no_streams_found_text', __( 'No streams found.', 'tp-twitch-widget' ) );
+
+		if ( 'show' === $no_streams_found ) {
+			echo $no_streams_found_text;
+		} elseif ( 'admin' === $no_streams_found && tp_twitch_is_user_admin() ) {
+			echo $no_streams_found_text;
+		}
 	}
 }

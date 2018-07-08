@@ -65,6 +65,19 @@ function tp_twitch_get_site_lang() {
 }
 
 /**
+ * Check whether user is admin or not
+ *
+ * @return bool
+ */
+function tp_twitch_is_user_admin() {
+
+	if ( ! function_exists( 'wp_get_current_user' ) )
+		include_once( ABSPATH . 'wp-includes/pluggable.php' );
+
+	return ( current_user_can('manage_options' ) ) ? true : false;
+}
+
+/**
  * Better Debugging
  *
  * @param $args

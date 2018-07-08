@@ -98,6 +98,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array('label_for' => 'tp_twitch_cache_duration')
 			);
 
+			add_settings_field(
+				'tp_twitch_no_streams_found',
+				__( 'No Streams Found', 'tp-twitch-widget' ),
+				array( &$this, 'no_streams_found_render' ),
+				'tp_twitch',
+				'tp_twitch_general',
+				array('label_for' => 'tp_twitch_no_streams_found')
+			);
+
 			do_action( 'tp_twitch_register_general_settings' );
 
 			add_settings_section(
@@ -279,6 +288,31 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		}
 
 		/**
+		 * No streams found
+		 */
+		function no_streams_found_render() {
+
+			$no_streams_found_options = array(
+				'' => __( 'Hide Message', 'tp-twitch-widget' ),
+				'show' => __( 'Show Message', 'tp-twitch-widget' ),
+				'admin' => __( 'Show Message for Admins only', 'tp-twitch-widget' )
+			);
+
+			$no_streams_found = ( isset ( $this->options['no_streams_found'] ) ) ? $this->options['no_streams_found'] : '';
+
+			?>
+            <select id="tp_twitch_no_streams_found" name="tp_twitch[no_streams_found]">
+				<?php foreach ( $no_streams_found_options as $key => $label ) { ?>
+                    <option value="<?php echo $key; ?>" <?php selected( $no_streams_found, $key ); ?>><?php echo $label; ?></option>
+				<?php } ?>
+            </select>
+            <p class="description">
+				<?php _e('Specify what happens when no streams were found.', 'tp-twitch-widget' ); ?>
+            </p>
+			<?php
+		}
+
+		/**
 		 * Section defaults description
 		 */
 		function section_defaults_render() {
@@ -343,7 +377,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                     </p>
                 </form>
 
-                <?php tp_twitch_debug( $this->options ); ?>
+                <?php //tp_twitch_debug( $this->options ); ?>
             </div>
 			<?php
 		}
