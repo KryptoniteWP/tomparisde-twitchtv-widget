@@ -11,6 +11,25 @@ img.tp-twitch-stream__avatar {
     .img-responsive();
 }
 
+//== iFrames
+.tp-twitch-iframe-container {
+    position: relative;
+    
+    overflow: hidden;
+    padding-top: 56.25%;
+    
+    & > iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        width: 100%;
+        height: 100%;
+        
+        border: 0;
+    }
+}
+
 // General
 .tp-twitch-stream {
     margin-bottom: 1em;

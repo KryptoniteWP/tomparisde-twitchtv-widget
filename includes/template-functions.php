@@ -31,19 +31,15 @@ function tp_twitch_get_template_file( $template ) {
 }
 
 /**
- * Get template
+ * Get default template
  *
  * @param bool $is_widget
  *
  * @return string
  */
-function tp_twitch_get_template( $is_widget = true ) {
+function tp_twitch_get_default_template( $is_widget = true ) {
 
-	$options = tp_twitch_get_options();
-
-	$template = ( ! empty( $options['template_widget'] ) ) ? $options['template_widget'] : 'widget';
-
-	$template = apply_filters( 'tp_twitch_get_template', $template, $is_widget );
+	$template = apply_filters( 'tp_twitch_get_template', 'widget', $is_widget );
 
 	return $template;
 }
@@ -64,7 +60,7 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 	// Streams found.
 	if ( $streams ) {
 
-		$template = ( isset ( $template_args['template'] ) ) ? $template_args['template'] : tp_twitch_get_template( $is_widget );
+		$template = ( isset ( $template_args['template'] ) ) ? $template_args['template'] : tp_twitch_get_default_template( $is_widget );
 		$template_file = tp_twitch_get_template_file( $template );
 
 		//tp_twitch_debug( $template, '$template' );

@@ -80,6 +80,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array('label_for' => 'tp_twitch_api_client_id')
 			);
 
+			do_action( 'tp_twitch_register_api_settings' );
+
 			add_settings_section(
 				'tp_twitch_general',
 				__( 'General Settings', 'tp-twitch-widget' ),
@@ -96,6 +98,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array('label_for' => 'tp_twitch_cache_duration')
 			);
 
+			do_action( 'tp_twitch_register_general_settings' );
+
 			add_settings_section(
 				'tp_twitch_defaults',
 				__( 'Default Settings', 'tp-twitch-widget' ),
@@ -104,32 +108,24 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'tp_twitch_game',
-				__( 'Game', 'tp-twitch-widget' ),
-				array( &$this, 'game_render' ),
+				'tp_twitch_widget_size',
+				__( 'Widget Size', 'tp-twitch-widget' ),
+				array( &$this, 'widget_size_render' ),
 				'tp_twitch',
 				'tp_twitch_defaults',
-				array('label_for' => 'tp_twitch_game')
+				array('label_for' => 'tp_twitch_widget_size')
 			);
 
 			add_settings_field(
-				'tp_twitch_language',
-				__( 'Language', 'tp-twitch-widget' ),
-				array( &$this, 'language_render' ),
+				'tp_twitch_widget_preview',
+				__( 'Widget Preview', 'tp-twitch-widget' ),
+				array( &$this, 'widget_preview_render' ),
 				'tp_twitch',
 				'tp_twitch_defaults',
-				array('label_for' => 'tp_twitch_language')
+				array('label_for' => 'tp_twitch_widget_preview')
 			);
 
-			add_settings_field(
-				'tp_twitch_template_widget',
-				__( 'Widget Template', 'tp-twitch-widget' ),
-				array( &$this, 'template_widget_render' ),
-				'tp_twitch',
-				'tp_twitch_defaults',
-				array('label_for' => 'tp_twitch_template_widget')
-			);
-
+			do_action( 'tp_twitch_register_defaults_settings' );
 		}
 
 		/**
@@ -141,8 +137,13 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		 */
 		function validate_input_callback( $input ) {
 
+		    // Defaults
+		    $delete_cache = false;
+			$delete_streams_cache = false;
+
 		    //tp_twitch_debug_log( $input );
 
+            // API
 			$api_status = ( isset ( $this->options['api_status'] ) ) ? $this->options['api_status'] : false;
 			$api_error = ( isset ( $this->options['api_error'] ) ) ? $this->options['api_error'] : '';
 
@@ -167,11 +168,23 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 			$input['api_status'] = $api_status;
 			$input['api_error'] = $api_error;
 
+			// Cache duration changed
+            if ( isset( $input['cache_duration'] ) && isset( $this->options['cache_duration'] ) && $input['cache_duration'] != $this->options['cache_duration'] ) {
+	            $delete_streams_cache = true;
+            }
+
             // Handle Delete Cache Action
 			if ( isset ( $input['delete_cache'] ) && '1' === $input['delete_cache'] ) {
-				tp_twitch_delete_cache();
+				$delete_cache = true;
 				$input['delete_cache'] = '0';
 			}
+
+			// Maybe delete cache(s)
+			if ( $delete_cache ) {
+				tp_twitch_delete_cache();
+            } elseif ( $delete_streams_cache ) {
+			    tp_twitch_delete_streams_cache();
+            }
 
 			return $input;
 		}
@@ -271,56 +284,39 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function section_defaults_render() {
 
 		    ?>
-            <p><?php _e('Here you set up the default settings which will be for your widgets. This settings can be overwritten on the widget edit screen.', 'tp-twitch-widget' ); ?></p>
+            <p><?php _e('Here you set up the default settings which will be used for displaying streams and may be overwritten individually.', 'tp-twitch-widget' ); ?></p>
             <?php
         }
 
 		/**
-		 * Default game
+		 * Default widget size
 		 */
-		function game_render() {
+		function widget_size_render() {
 
-			$game_options = tp_twitch_get_game_options();
+			$widget_size_options = tp_twitch_get_widget_size_options();
 
-			$game = ( ! empty ( $this->options['game'] ) ) ? $this->options['game'] : '';
+			$widget_size = ( ! empty ( $this->options['widget_size'] ) ) ? $this->options['widget_size'] : tp_twitch_get_option_default_value( 'widget_size' );
 			?>
-            <select id="tp_twitch_game" name="tp_twitch[game]">
-				<?php foreach ( $game_options as $key => $label ) { ?>
-                    <option value="<?php echo $key; ?>" <?php selected( $game, $key ); ?>><?php echo $label; ?></option>
+            <select id="tp_twitch_widget_size" name="tp_twitch[widget_size]">
+				<?php foreach ( $widget_size_options as $key => $label ) { ?>
+                    <option value="<?php echo $key; ?>" <?php selected( $widget_size, $key ); ?>><?php echo $label; ?></option>
 				<?php } ?>
             </select>
 			<?php
 		}
 
 		/**
-		 * Default language
+		 * Default widget preview
 		 */
-		function language_render() {
+		function widget_preview_render() {
 
-			$language_options = tp_twitch_get_language_options();
+			$widget_preview_options = tp_twitch_get_widget_preview_options();
 
-			$language = ( ! empty ( $this->options['language'] ) ) ? $this->options['language'] : tp_twitch_get_option_default_value( 'cache_duration' );
+			$widget_preview = ( ! empty ( $this->options['widget_preview'] ) ) ? $this->options['widget_preview'] : tp_twitch_get_option_default_value( 'widget_preview' );
 			?>
-            <select id="tp_twitch_language" name="tp_twitch[language]">
-				<?php foreach ( $language_options as $key => $label ) { ?>
-                    <option value="<?php echo $key; ?>" <?php selected( $language, $key ); ?>><?php echo $label; ?></option>
-				<?php } ?>
-            </select>
-			<?php
-		}
-
-		/**
-		 * Default widget template
-		 */
-		function template_widget_render() {
-
-			$template_widget_options = tp_twitch_get_template_widget_options();
-
-			$template_widget = ( ! empty ( $this->options['template_widget'] ) ) ? $this->options['template_widget'] : tp_twitch_get_option_default_value( 'template_widget' );
-			?>
-            <select id="tp_twitch_template_widget" name="tp_twitch[template_widget]">
-				<?php foreach ( $template_widget_options as $key => $label ) { ?>
-                    <option value="<?php echo $key; ?>" <?php selected( $template_widget, $key ); ?>><?php echo $label; ?></option>
+            <select id="tp_twitch_widget_size" name="tp_twitch[widget_size]">
+				<?php foreach ( $widget_preview_options as $key => $label ) { ?>
+                    <option value="<?php echo $key; ?>" <?php selected( $widget_preview, $key ); ?>><?php echo $label; ?></option>
 				<?php } ?>
             </select>
 			<?php

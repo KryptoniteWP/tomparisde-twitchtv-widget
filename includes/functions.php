@@ -20,6 +20,24 @@ function tp_twitch_get_options() {
 }
 
 /**
+ * Get single option (incl. default value)
+ *
+ * @param $key
+ * @param string $default
+ *
+ * @return null|string
+ */
+function tp_twitch_get_option( $key, $default = '' ) {
+
+	$options = tp_twitch_get_options();
+
+	if ( isset( $options[$key] ) )
+		return $options[$key];
+
+	return ( $default ) ? $default : tp_twitch_get_option_default_value( $key );
+}
+
+/**
  * Get option default value
  *
  * @param $key
@@ -30,13 +48,13 @@ function tp_twitch_get_option_default_value( $key ) {
 
 	switch ( $key ) {
 		case 'cache_duration':
-			$value = 24;
+			$value = 6;
 			break;
-		case 'language':
-			$value = 'en';
+		case 'widget_size':
+			$value = 'large';
 			break;
-		case 'template_widget':
-			$value = 'widget';
+		case 'widget_preview':
+			$value = 'image';
 			break;
 		default:
 			$value = null;
@@ -56,6 +74,18 @@ function tp_twitch_delete_cache() {
 	global $wpdb;
 
 	$sql = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "%_transient_tp_twitch_%"';
+
+	$wpdb->query( $sql );
+}
+
+/**
+ * Delete streams cache
+ */
+function tp_twitch_delete_streams_cache() {
+
+	global $wpdb;
+
+	$sql = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "%_transient_tp_twitch_streams_%"';
 
 	$wpdb->query( $sql );
 }
@@ -221,16 +251,32 @@ function tp_twitch_get_language_options() {
 }
 
 /**
- * Get template widget options
+ * Get widget size options
  *
  * @return array
  */
-function tp_twitch_get_template_widget_options() {
+function tp_twitch_get_widget_size_options() {
 
 	return array(
 		'' => __( 'Please select...', 'tp-twitch-widget' ),
-		'widget' => __( 'Large', 'tp-twitch-widget' ),
-		'widget-small' => __( 'Small', 'tp-twitch-widget' )
+		'large' => __( 'Large', 'tp-twitch-widget' ),
+		'small' => __( 'Small', 'tp-twitch-widget' ),
+		'large-first' => __( 'First Large, Others Small', 'tp-twitch-widget' ),
+	);
+}
+
+/**
+ * Get widget preview options
+ *
+ * @return array
+ */
+function tp_twitch_get_widget_preview_options() {
+
+	return array(
+		'' => __( 'Please select...', 'tp-twitch-widget' ),
+		'image' => __( 'Image', 'tp-twitch-widget' ),
+		'video' => __( 'Video', 'tp-twitch-widget' ),
+		'video-first' => __( 'First Video, Others Images', 'tp-twitch-widget' ),
 	);
 }
 
@@ -271,7 +317,9 @@ function tp_twitch_set_streams_cache( $streams, $args ) {
 
 	$options = tp_twitch_get_options();
 
-	$cache_duration = ( ! empty( $options['cache_duration'] ) && is_numeric( $options['cache_duration'] ) ) ? intval( $options['cache_duration'] ) : tp_twitch_get_option_default_value( 'cache_duration' );
+	$cache_duration = ( ! empty( $options['cache_duration'] ) && is_numeric( $options['cache_duration'] ) ) ? $options['cache_duration'] : tp_twitch_get_option_default_value( 'cache_duration' );
+
+	//tp_twitch_debug_log( 'tp_twitch_set_streams_cache >> $cache_duration: ' . $cache_duration );
 
 	// Generate streams key
 	$streams_key = tp_twitch_get_streams_key( $args );

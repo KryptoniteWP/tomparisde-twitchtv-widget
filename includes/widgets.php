@@ -66,10 +66,14 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 				$streams_args['max'] = intval( $instance['max'] );
 			}
 
-			// Template
-			if ( ! empty ( $instance['template'] ) ) {
-				$template_args['template'] = $instance['template'];
-			}
+			// Template, which is hardcoded for widgets
+			$template_args['template'] = 'widget';
+
+			// Size
+			$template_args['widget_size'] = ( ! empty ( $instance['size'] ) ) ? $instance['size'] : tp_twitch_get_option( 'widget_size' );
+
+			// Preview
+			$template_args['widget_preview'] = ( ! empty ( $instance['preview'] ) ) ? $instance['preview'] : tp_twitch_get_option( 'widget_preview' );
 
 			//tp_twitch_debug( $streams_args, '$streams_args' );
 			//tp_twitch_debug( $template_args, '$template_args' );
@@ -93,11 +97,6 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 		public function form( $instance ) {
 		    
 			$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : esc_html__( 'New title', 'tp-twitch-widget' );
-			$game = ( ! empty( $instance['game'] ) && is_numeric( $instance['game'] ) ) ? intval( $instance['game'] ) : 0;
-			$language = ( ! empty( $instance['language'] ) ) ? $instance['language'] : '';
-			$max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : 5;
-			$template = ( ! empty( $instance['template'] ) ) ? $instance['template'] : '';
-			
 			?>
             <!-- Title -->
 			<p>
@@ -107,6 +106,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             <!-- Game -->
 			<?php
 			$game_options = tp_twitch_get_game_options();
+			$game = ( ! empty( $instance['game'] ) && is_numeric( $instance['game'] ) ) ? intval( $instance['game'] ) : 0;
 			?>
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'game' ) ); ?>"><?php esc_attr_e( 'Game', 'tp-twitch-widget' ); ?></label>
@@ -119,6 +119,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             <!-- Language -->
 			<?php
 			$language_options = tp_twitch_get_language_options();
+			$language = ( ! empty( $instance['language'] ) ) ? $instance['language'] : '';
 			?>
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'language' ) ); ?>"><?php esc_attr_e( 'Language', 'tp-twitch-widget' ); ?></label>
@@ -129,19 +130,36 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 </select>
             </p>
             <!-- Maximum Amount of Streams -->
+            <?php
+			$max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : 5;
+            ?>
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>"><?php esc_attr_e( 'Maximum Amount of Streams:', 'tp-twitch-widget' ); ?></label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max' ) ); ?>" type="number" value="<?php echo esc_attr( $max ); ?>">
             </p>
-            <!-- Template -->
+            <!-- Size -->
 			<?php
-			$template_options = tp_twitch_get_template_widget_options();
+			$size_options = tp_twitch_get_widget_size_options();
+			$size = ( ! empty( $instance['size'] ) ) ? $instance['size'] : '';
 			?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'template' ) ); ?>"><?php esc_attr_e( 'Template', 'tp-twitch-widget' ); ?></label>
-                <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'template' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'template' ) ); ?>">
-					<?php foreach ( $template_options as $key => $label ) { ?>
-                        <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $template, $key ); ?>><?php echo esc_attr( $label ); ?></option>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'size' ) ); ?>"><?php esc_attr_e( 'Size', 'tp-twitch-widget' ); ?></label>
+                <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'size' ) ); ?>">
+					<?php foreach ( $size_options as $key => $label ) { ?>
+                        <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $size, $key ); ?>><?php echo esc_attr( $label ); ?></option>
+					<?php } ?>
+                </select>
+            </p>
+            <!-- Preview -->
+			<?php
+			$preview_options = tp_twitch_get_widget_preview_options();
+			$preview = ( ! empty( $instance['preview'] ) ) ? $instance['preview'] : '';
+			?>
+            <p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'preview' ) ); ?>"><?php esc_attr_e( 'Preview', 'tp-twitch-widget' ); ?></label>
+                <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'preview' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'preview' ) ); ?>">
+					<?php foreach ( $preview_options as $key => $label ) { ?>
+                        <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $preview, $key ); ?>><?php echo esc_attr( $label ); ?></option>
 					<?php } ?>
                 </select>
             </p>
@@ -165,7 +183,8 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$instance['game'] = ( ! empty( $new_instance['game'] ) ) ? sanitize_text_field( $new_instance['game'] ) : '';
 			$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? sanitize_text_field( $new_instance['language'] ) : '';
 			$instance['max'] = ( ! empty( $new_instance['max'] ) ) ? sanitize_text_field( $new_instance['max'] ) : '';
-			$instance['template'] = ( ! empty( $new_instance['template'] ) ) ? sanitize_text_field( $new_instance['template'] ) : '';
+			$instance['size'] = ( ! empty( $new_instance['size'] ) ) ? sanitize_text_field( $new_instance['size'] ) : '';
+			$instance['preview'] = ( ! empty( $new_instance['preview'] ) ) ? sanitize_text_field( $new_instance['preview'] ) : '';
 
 			return $instance;
 		}
