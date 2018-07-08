@@ -51,6 +51,11 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 
             //tp_twitch_debug( $instance );
 
+			// Streamer
+			if ( ! empty ( $instance['streamer'] ) ) {
+				$streams_args['streamer'] = $instance['streamer'];
+			}
+
 			// Game.
             if ( ! empty ( $instance['game'] ) ) {
                 $streams_args['game_id'] = intval( $instance['game'] );
@@ -99,10 +104,18 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : esc_html__( 'New title', 'tp-twitch-widget' );
 			?>
             <!-- Title -->
-			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'tp-twitch-widget' ); ?></label>
-				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-			</p>
+            <p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'tp-twitch-widget' ); ?></label>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+            </p>
+            <?php
+			$streamer = ( ! empty( $instance['streamer'] ) ) ? $instance['streamer'] : '';
+            ?>
+            <!-- Streamer -->
+            <p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer:', 'tp-twitch-widget' ); ?></label>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'streamer' ) ); ?>" type="text" value="<?php echo esc_attr( $streamer ); ?>">
+            </p>
             <!-- Game -->
 			<?php
 			$game_options = tp_twitch_get_game_options();
@@ -180,6 +193,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$instance = array();
 
 			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';
+			$instance['streamer'] = ( ! empty( $new_instance['streamer'] ) ) ? str_replace( array( ';', ' ' ), array( ',', ',' ), trim( sanitize_text_field( $new_instance['streamer'] ) ) ) : '';
 			$instance['game'] = ( ! empty( $new_instance['game'] ) ) ? sanitize_text_field( $new_instance['game'] ) : '';
 			$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? sanitize_text_field( $new_instance['language'] ) : '';
 			$instance['max'] = ( ! empty( $new_instance['max'] ) ) ? sanitize_text_field( $new_instance['max'] ) : '';

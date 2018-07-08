@@ -193,7 +193,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/class-stream.php';
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/api-functions.php';
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/template-functions.php';
-			require_once TP_TWITCH_PLUGIN_DIR . 'includes/widgets.php';
+			require_once TP_TWITCH_PLUGIN_DIR . 'includes/widget.php';
 
 			// Other
 			require_once TP_TWITCH_PLUGIN_DIR . 'includes/scripts.php';

@@ -157,12 +157,21 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 				foreach ( $args as $arg_key => $arg_value ) {
 
 					if ( ! empty ( $arg_value ) ) {
+
+						// Comma separated values must be converted to arrays
+						if ( is_string( $arg_value ) && strpos( $arg_value, ',') !== false )
+							$arg_value = explode(',', $arg_value);
+
+						// Add query args
 						$query_args[$arg_key] = $arg_value;
 					}
 				}
 
 				if ( sizeof( $query_args ) > 0 ) {
-					$url .= '?' . http_build_query( $query_args );
+					// Extended "http_build_query" in order to add multiple args with the same key
+					$query = http_build_query( $query_args,null, '&' );;
+					$query_string = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $query);
+					$url .= '?' . $query_string;
 				}
 			}
 
