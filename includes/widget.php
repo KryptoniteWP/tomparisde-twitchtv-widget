@@ -54,22 +54,25 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			// Streamer
 			if ( ! empty ( $instance['streamer'] ) ) {
 				$streams_args['streamer'] = $instance['streamer'];
-			}
 
-			// Game.
-            if ( ! empty ( $instance['game'] ) ) {
-                $streams_args['game_id'] = intval( $instance['game'] );
+            // Search
+			} else {
+
+				// Game.
+				if ( ! empty ( $instance['game'] ) ) {
+					$streams_args['game_id'] = intval( $instance['game'] );
+				}
+
+				// Language
+				if ( ! empty ( $instance['language'] ) ) {
+					$streams_args['language'] = $instance['language'];
+				}
+
+				// Max
+				if ( ! empty ( $instance['max'] ) ) {
+					$streams_args['max'] = intval( $instance['max'] );
+				}
             }
-
-            // Language
-			if ( ! empty ( $instance['language'] ) ) {
-				$streams_args['language'] = $instance['language'];
-			}
-
-			// Max
-			if ( ! empty ( $instance['max'] ) ) {
-				$streams_args['max'] = intval( $instance['max'] );
-			}
 
 			// Template, which is hardcoded for widgets
 			$template_args['template'] = 'widget';
@@ -114,42 +117,44 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             <!-- Streamer -->
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer:', 'tp-twitch-widget' ); ?></label>
-                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'streamer' ) ); ?>" type="text" value="<?php echo esc_attr( $streamer ); ?>">
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'streamer' ) ); ?>" type="text" value="<?php echo esc_attr( $streamer ); ?>" data-tp-twitch-widget-config-streamer-input="true">
             </p>
-            <!-- Game -->
-			<?php
-			$game_options = tp_twitch_get_game_options();
-			$game = ( ! empty( $instance['game'] ) && is_numeric( $instance['game'] ) ) ? intval( $instance['game'] ) : 0;
-			?>
-            <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'game' ) ); ?>"><?php esc_attr_e( 'Game', 'tp-twitch-widget' ); ?></label>
-                <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'game' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'game' ) ); ?>">
-					<?php foreach ( $game_options as $key => $label ) { ?>
-                        <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $game, $key ); ?>><?php echo esc_attr( $label ); ?></option>
-					<?php } ?>
-                </select>
-            </p>
-            <!-- Language -->
-			<?php
-			$language_options = tp_twitch_get_language_options();
-			$language = ( ! empty( $instance['language'] ) ) ? $instance['language'] : '';
-			?>
-            <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'language' ) ); ?>"><?php esc_attr_e( 'Language', 'tp-twitch-widget' ); ?></label>
-                <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'language' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'language' ) ); ?>">
-					<?php foreach ( $language_options as $key => $label ) { ?>
-                        <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $language, $key ); ?>><?php echo esc_attr( $label ); ?></option>
-					<?php } ?>
-                </select>
-            </p>
-            <!-- Maximum Amount of Streams -->
-            <?php
-			$max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : 5;
-            ?>
-            <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>"><?php esc_attr_e( 'Maximum Amount of Streams:', 'tp-twitch-widget' ); ?></label>
-                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max' ) ); ?>" type="number" value="<?php echo esc_attr( $max ); ?>">
-            </p>
+            <div class="tp-twitch-widget-config-search-block"<?php if ( ! empty( $streamer ) ) echo ' style="display: none;"'; ?>><!-- Don't show this block when streamers were entered -->
+                <!-- Game -->
+                <?php
+                $game_options = tp_twitch_get_game_options();
+                $game = ( ! empty( $instance['game'] ) && is_numeric( $instance['game'] ) ) ? intval( $instance['game'] ) : 0;
+                ?>
+                <p>
+                    <label for="<?php echo esc_attr( $this->get_field_id( 'game' ) ); ?>"><?php esc_attr_e( 'Game', 'tp-twitch-widget' ); ?></label>
+                    <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'game' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'game' ) ); ?>">
+                        <?php foreach ( $game_options as $key => $label ) { ?>
+                            <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $game, $key ); ?>><?php echo esc_attr( $label ); ?></option>
+                        <?php } ?>
+                    </select>
+                </p>
+                <!-- Language -->
+                <?php
+                $language_options = tp_twitch_get_language_options();
+                $language = ( ! empty( $instance['language'] ) ) ? $instance['language'] : '';
+                ?>
+                <p>
+                    <label for="<?php echo esc_attr( $this->get_field_id( 'language' ) ); ?>"><?php esc_attr_e( 'Language', 'tp-twitch-widget' ); ?></label>
+                    <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'language' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'language' ) ); ?>">
+                        <?php foreach ( $language_options as $key => $label ) { ?>
+                            <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $language, $key ); ?>><?php echo esc_attr( $label ); ?></option>
+                        <?php } ?>
+                    </select>
+                </p>
+                <!-- Maximum Amount of Streams -->
+                <?php
+                $max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : 5;
+                ?>
+                <p>
+                    <label for="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>"><?php esc_attr_e( 'Maximum Amount of Streams:', 'tp-twitch-widget' ); ?></label>
+                    <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max' ) ); ?>" type="number" value="<?php echo esc_attr( $max ); ?>">
+                </p>
+            </div>
             <!-- Size -->
 			<?php
 			$size_options = tp_twitch_get_widget_size_options();
