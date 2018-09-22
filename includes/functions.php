@@ -50,6 +50,9 @@ function tp_twitch_get_option_default_value( $key ) {
 		case 'cache_duration':
 			$value = 6;
 			break;
+        case 'language':
+            $value = 'en';
+            break;
 		case 'widget_size':
 			$value = 'large';
 			break;
@@ -258,7 +261,7 @@ function tp_twitch_get_language_options() {
 function tp_twitch_get_widget_size_options() {
 
 	return array(
-		'' => __( 'Please select...', 'tp-twitch-widget' ),
+		'' => __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
 		'large' => __( 'Large', 'tp-twitch-widget' ),
 		'small' => __( 'Small', 'tp-twitch-widget' ),
 		'large-first' => __( 'First Large, Others Small', 'tp-twitch-widget' ),
@@ -273,7 +276,7 @@ function tp_twitch_get_widget_size_options() {
 function tp_twitch_get_widget_preview_options() {
 
 	return array(
-		'' => __( 'Please select...', 'tp-twitch-widget' ),
+		'' => __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
 		'image' => __( 'Image', 'tp-twitch-widget' ),
 		'video' => __( 'Video', 'tp-twitch-widget' ),
 		'video-first' => __( 'First Video, Others Images', 'tp-twitch-widget' ),

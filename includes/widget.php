@@ -64,9 +64,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 				}
 
 				// Language
-				if ( ! empty ( $instance['language'] ) ) {
-					$streams_args['language'] = $instance['language'];
-				}
+                $template_args['language'] = ( ! empty ( $instance['language'] ) ) ? $instance['language'] : tp_twitch_get_option( 'language' );
 
 				// Max
 				if ( ! empty ( $instance['max'] ) ) {

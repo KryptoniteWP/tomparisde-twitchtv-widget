@@ -116,6 +116,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				'tp_twitch'
 			);
 
+            add_settings_field(
+                'tp_twitch_language',
+                __( 'Language', 'tp-twitch-widget' ),
+                array( &$this, 'language_render' ),
+                'tp_twitch',
+                'tp_twitch_defaults',
+                array('label_for' => 'tp_twitch_language')
+            );
+
 			add_settings_field(
 				'tp_twitch_widget_size',
 				__( 'Widget Size', 'tp-twitch-widget' ),
@@ -319,6 +328,23 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 		    ?>
             <p><?php _e('Here you set up the default settings which will be used for displaying streams and may be overwritten individually.', 'tp-twitch-widget' ); ?></p>
+            <?php
+        }
+
+        /**
+         * Default language
+         */
+        function language_render() {
+
+            $language_options = tp_twitch_get_language_options();
+
+            $language = ( ! empty ( $this->options['language'] ) ) ? $this->options['language'] : tp_twitch_get_option_default_value( 'language' );
+            ?>
+            <select id="tp_twitch_language" name="tp_twitch[language]">
+                <?php foreach ( $language_options as $key => $label ) { ?>
+                    <option value="<?php echo $key; ?>" <?php selected( $language, $key ); ?>><?php echo $label; ?></option>
+                <?php } ?>
+            </select>
             <?php
         }
 
