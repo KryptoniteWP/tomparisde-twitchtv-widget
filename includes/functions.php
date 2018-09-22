@@ -254,14 +254,30 @@ function tp_twitch_get_language_options() {
 }
 
 /**
- * Get widget size options
+ * Get widget style options
  *
+ * @param bool $is_settings_page
  * @return array
  */
-function tp_twitch_get_widget_size_options() {
+function tp_twitch_get_widget_style_options( $is_settings_page = true ) {
+
+    return array(
+        '' => ( $is_settings_page ) ? __( 'Standard', 'tp-twitch-widget' ) : __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
+        'white' => __( 'White', 'tp-twitch-widget' ),
+        'dark' => __( 'Dark', 'tp-twitch-widget' )
+    );
+}
+
+/**
+ * Get widget size options
+ *
+ * @param bool $is_settings_page
+ * @return array
+ */
+function tp_twitch_get_widget_size_options( $is_settings_page = true ) {
 
 	return array(
-		'' => __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
+        '' => ( $is_settings_page ) ? __( 'Standard', 'tp-twitch-widget' ) : __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
 		'large' => __( 'Large', 'tp-twitch-widget' ),
 		'small' => __( 'Small', 'tp-twitch-widget' ),
 		'large-first' => __( 'First Large, Others Small', 'tp-twitch-widget' ),
@@ -271,12 +287,13 @@ function tp_twitch_get_widget_size_options() {
 /**
  * Get widget preview options
  *
+ * @param bool $is_settings_page
  * @return array
  */
-function tp_twitch_get_widget_preview_options() {
+function tp_twitch_get_widget_preview_options( $is_settings_page = true ) {
 
 	return array(
-		'' => __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
+        '' => ( $is_settings_page ) ? __( 'Standard', 'tp-twitch-widget' ) : __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
 		'image' => __( 'Image', 'tp-twitch-widget' ),
 		'video' => __( 'Video', 'tp-twitch-widget' ),
 		'video-first' => __( 'First Video, Others Images', 'tp-twitch-widget' ),

@@ -125,6 +125,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 array('label_for' => 'tp_twitch_language')
             );
 
+            add_settings_field(
+                'tp_twitch_widget_style',
+                __( 'Widget Style', 'tp-twitch-widget' ),
+                array( &$this, 'widget_style_render' ),
+                'tp_twitch',
+                'tp_twitch_defaults',
+                array('label_for' => 'tp_twitch_widget_style')
+            );
+
 			add_settings_field(
 				'tp_twitch_widget_size',
 				__( 'Widget Size', 'tp-twitch-widget' ),
@@ -348,7 +357,25 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             <?php
         }
 
-		/**
+        /**
+         * Default widget style
+         */
+        function widget_style_render() {
+
+            $widget_style_options = tp_twitch_get_widget_style_options();
+
+            $widget_style = ( ! empty ( $this->options['widget_style'] ) ) ? $this->options['widget_style'] : tp_twitch_get_option_default_value( 'widget_style' );
+            ?>
+            <select id="tp_twitch_widget_style" name="tp_twitch[widget_style]">
+                <?php foreach ( $widget_style_options as $key => $label ) { ?>
+                    <option value="<?php echo $key; ?>" <?php selected( $widget_style, $key ); ?>><?php echo $label; ?></option>
+                <?php } ?>
+            </select>
+            <?php
+        }
+
+
+        /**
 		 * Default widget size
 		 */
 		function widget_size_render() {

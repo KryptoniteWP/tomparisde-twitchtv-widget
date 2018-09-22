@@ -75,6 +75,10 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			// Template, which is hardcoded for widgets
 			$template_args['template'] = 'widget';
 
+            // Style
+            if ( ! empty ( $instance['style'] ) )
+                $template_args['widget_style'] = $instance['style'];
+
 			// Size
 			$template_args['widget_size'] = ( ! empty ( $instance['size'] ) ) ? $instance['size'] : tp_twitch_get_option( 'widget_size' );
 
@@ -153,9 +157,22 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                     <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max' ) ); ?>" type="number" value="<?php echo esc_attr( $max ); ?>">
                 </p>
             </div>
+            <!-- Style -->
+            <?php
+            $style_options = tp_twitch_get_widget_style_options( false );
+            $style = ( ! empty( $instance['style'] ) ) ? $instance['style'] : '';
+            ?>
+            <p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'style' ) ); ?>"><?php esc_attr_e( 'Style', 'tp-twitch-widget' ); ?></label>
+                <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'style' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'style' ) ); ?>">
+                    <?php foreach ( $style_options as $key => $label ) { ?>
+                        <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $style, $key ); ?>><?php echo esc_attr( $label ); ?></option>
+                    <?php } ?>
+                </select>
+            </p>
             <!-- Size -->
 			<?php
-			$size_options = tp_twitch_get_widget_size_options();
+			$size_options = tp_twitch_get_widget_size_options( false );
 			$size = ( ! empty( $instance['size'] ) ) ? $instance['size'] : '';
 			?>
             <p>
@@ -168,7 +185,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             </p>
             <!-- Preview -->
 			<?php
-			$preview_options = tp_twitch_get_widget_preview_options();
+			$preview_options = tp_twitch_get_widget_preview_options( false );
 			$preview = ( ! empty( $instance['preview'] ) ) ? $instance['preview'] : '';
 			?>
             <p>
@@ -200,6 +217,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$instance['game'] = ( ! empty( $new_instance['game'] ) ) ? sanitize_text_field( $new_instance['game'] ) : '';
 			$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? sanitize_text_field( $new_instance['language'] ) : '';
 			$instance['max'] = ( ! empty( $new_instance['max'] ) ) ? sanitize_text_field( $new_instance['max'] ) : '';
+            $instance['style'] = ( ! empty( $new_instance['style'] ) ) ? sanitize_text_field( $new_instance['style'] ) : '';
 			$instance['size'] = ( ! empty( $new_instance['size'] ) ) ? sanitize_text_field( $new_instance['size'] ) : '';
 			$instance['preview'] = ( ! empty( $new_instance['preview'] ) ) ? sanitize_text_field( $new_instance['preview'] ) : '';
 
