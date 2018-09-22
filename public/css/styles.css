@@ -1,3 +1,15 @@
+.tp-twitch-icon-verified {
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  margin-right: .3em;
+  background-repeat: no-repeat;
+  -webkit-background-size: 14px 14px;
+  background-size: 14px 14px;
+  background-position: center;
+  vertical-align: -10%;
+  background-image: url('../img/icon-verified.png');
+}
 .tp-twitch-icon-game {
   display: inline-block;
   height: 14px;
@@ -108,6 +120,7 @@
   border-bottom: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  text-shadow: none;
   text-decoration: none;
 }
 .tp-twitch .tp-twitch-stream__user a:hover,
@@ -116,12 +129,17 @@
   border-bottom: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  text-shadow: none;
   text-decoration: underline;
+}
+.tp-twitch .tp-twitch-stream__user .tp-twitch-icon-verified {
+  margin-left: .5em;
 }
 .tp-twitch .tp-twitch-stream__game a {
   border-bottom: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  text-shadow: none;
   text-decoration: none;
 }
 .tp-twitch .tp-twitch-stream__game a:hover,
@@ -130,6 +148,7 @@
   border-bottom: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  text-shadow: none;
   text-decoration: underline;
 }
 .tp-twitch .tp-twitch-stream__footer {
@@ -184,8 +203,6 @@
   background: #212121;
 }
 .tp-twitch .tp-twitch-streams--dark .tp-twitch-stream a {
-  -webkit-box-shadow: none;
-  box-shadow: none;
   color: #ccc;
 }
 .tp-twitch .tp-twitch-streams--dark .tp-twitch-stream a:visited {
@@ -194,8 +211,6 @@
 .tp-twitch .tp-twitch-streams--dark .tp-twitch-stream a:hover,
 .tp-twitch .tp-twitch-streams--dark .tp-twitch-stream a:focus,
 .tp-twitch .tp-twitch-streams--dark .tp-twitch-stream a:active {
-  -webkit-box-shadow: none;
-  box-shadow: none;
   color: #ccc;
 }
 .tp-twitch .tp-twitch-streams--dark .tp-twitch-stream__title a {

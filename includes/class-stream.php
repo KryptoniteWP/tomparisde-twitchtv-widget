@@ -23,6 +23,8 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 			// Variables
 			$this->options = tp_twitch_get_options();
 			$this->stream  = $stream;
+
+			//tp_twitch_debug_log( $stream );
 		}
 
 		/**
@@ -32,15 +34,6 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 		 */
 		public function get_id() {
 			return ( isset ( $this->stream['id'] ) ) ? $this->stream['id'] : 0;
-		}
-
-		/**
-		 * Get id
-		 *
-		 * @return int
-		 */
-		public function is_live() {
-			return ( isset ( $this->stream['type'] ) && 'live' === $this->stream['type'] ) ? true : false;
 		}
 
 		/**
@@ -54,6 +47,15 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 			    $classes .= ' tp-twitch-stream--live';
 
 		    echo $classes;
+        }
+
+        /**
+         * Check whether the stream is live or not
+         *
+         * @return int
+         */
+        public function is_live() {
+            return ( isset ( $this->stream['type'] ) && 'live' === $this->stream['type'] ) ? true : false;
         }
 
 		/**
@@ -191,6 +193,15 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 			return $views;
 		}
 
+        /**
+         * Check whether the streamer is live or not
+         *
+         * @return int
+         */
+        public function is_user_partner() {
+            return ( isset ( $this->stream['user']['broadcaster_type'] ) && 'partner' === $this->stream['user']['broadcaster_type'] ) ? true : false;
+        }
+
 		/**
 		 * Get url
 		 *
@@ -253,6 +264,17 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 
 			return $user_name;
 		}
+
+        /**
+         * Maybe output user verified icon
+         */
+		public function the_user_verified_icon() {
+
+		    if ( ! $this->is_user_partner() )
+		        return;
+
+		    echo '<span class="tp-twitch-icon-verified"></span>';
+        }
 
 		/**
          * Format number
