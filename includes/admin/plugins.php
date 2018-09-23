@@ -40,7 +40,7 @@ function tp_twitch_row_meta( $input, $file ) {
     if ( $file != 'tomparisde-twitchtv-widget/tp-twitch-widget.php' )
         return $input;
 
-    $custom_link = esc_url( add_query_arg( array(
+    $docs_link = esc_url( add_query_arg( array(
             'utm_source'   => 'plugins-page',
             'utm_medium'   => 'plugin-row',
             'utm_campaign' => 'Twitch WP',
@@ -48,7 +48,7 @@ function tp_twitch_row_meta( $input, $file ) {
     );
 
     $links = array(
-        '<a href="' . $custom_link . '">' . esc_html__( 'Documentation', 'tp-twitch-widget' ) . '</a>',
+        '<a href="' . $docs_link . '">' . esc_html__( 'Documentation', 'tp-twitch-widget' ) . '</a>',
     );
 
     $input = array_merge( $input, $links );
