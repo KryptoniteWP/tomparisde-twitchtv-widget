@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings
+ * Plugins
  *
  * @since       2.0.0
  */
