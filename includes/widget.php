@@ -170,6 +170,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                         <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $style, $key ); ?>><?php echo esc_attr( $label ); ?></option>
                     <?php } ?>
                 </select>
+                <?php tp_twitch_pre_pro_the_styles_note(); ?>
             </p>
             <!-- Size -->
 			<?php

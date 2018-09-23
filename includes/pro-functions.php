@@ -41,3 +41,16 @@ function tp_twitch_pre_pro_the_widget_streams_max_note() {
     printf( wp_kses( __( '<a href="%s" target="_blank">Upgrade now</a> in order to show more streams.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( tp_twitch_pre_pro_get_upgrade_url( 'widgets-page', 'streams-max-note' ) ) );
     echo '</small>';
 }
+
+/**
+ * Output the styles
+ */
+function tp_twitch_pre_pro_the_styles_note() {
+
+    if ( ! apply_filters( 'tp_twitch_widget_show_styles_note', true ) )
+        return;
+
+    echo '<small>';
+    printf( wp_kses( __( 'You would like to have more designs to choose from? <a href="%s" target="_blank">Upgrade now</a>.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( tp_twitch_pre_pro_get_upgrade_url( 'widgets-page', 'styles-note' ) ) );
+    echo '</small>';
+}

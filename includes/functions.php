@@ -266,7 +266,7 @@ function tp_twitch_get_widget_style_options( $is_settings_page = true ) {
 
     $options = ( ! $is_settings_page ) ? array( '' => __( 'Standard (Settings Page)' ) ) : array();
 
-    $options['white'] = __( 'Standard', 'tp-twitch-widget' );
+    $options['white'] = __( 'Default', 'tp-twitch-widget' );
 
     $options = apply_filters( 'tp_twitch_style_options', $options );
 
