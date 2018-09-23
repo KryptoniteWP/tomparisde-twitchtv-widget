@@ -1,0 +1,22 @@
+@import (reference) "../../common";
+
+@style-white-color-bg: #fff;
+
+//== Apply dark styles
+.tp-twitch-streams--style-white {
+
+    .style-white();
+}
+
+//== Style Function
+.style-white() {
+
+    // Template
+    .tp-twitch-stream {
+        background: @style-white-color-bg;
+    }
+
+    .tp-twitch-stream__footer {
+        color: @color-font-light;
+    }
+}

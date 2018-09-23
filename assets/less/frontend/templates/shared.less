@@ -63,7 +63,6 @@ img.tp-twitch-stream__avatar {
 }
 
 .tp-twitch-stream__footer {
-    color: @color-font-light;
     font-size: @font-size-small;
     line-height: @font-line-height;
 }
@@ -90,4 +89,72 @@ img.tp-twitch-stream__avatar {
     padding: 10px;
     
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+//== Base Layout Mixin
+.base-layout( @avatar-size, @spacing ) {
+
+    .tp-twitch-stream {
+        .style-standard();
+    }
+
+    .tp-twitch-stream__header {
+
+    }
+
+    .tp-twitch-stream__video {
+
+    }
+
+    .tp-twitch-stream__thumbnail {
+
+    }
+
+    .tp-twitch-stream__body {
+        position: relative;
+
+        margin-top: @spacing;
+        padding-left: (@avatar-size + @spacing);
+    }
+
+    .tp-twitch-stream__user-avatar {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        img {
+            max-width: @avatar-size;
+        }
+    }
+
+    .tp-twitch-stream__title {
+        display: block;
+
+        font-weight: bold;
+
+        // Visually hide long titles
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .tp-twitch-stream__user {
+        display: block;
+        margin-top: .4em;
+    }
+
+    .tp-twitch-stream__game {
+        display: block;
+        margin-top: .2em;
+    }
+
+    .tp-twitch-stream__footer {
+        margin-top: .4em;
+
+        text-align: right;
+
+        & > span {
+            margin-left: @spacing;
+        }
+    }
 }

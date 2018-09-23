@@ -89,3 +89,31 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 		}
 	}
 }
+
+/**
+ * Output the streams classes
+ *
+ * @param string $classes
+ * @param array $template_args
+ */
+function tp_twitch_the_streams_classes( $classes = '', $template_args = array() ) {
+
+    $additional_classes = array();
+
+    // Style.
+    if ( ! empty( $template_args['style'] ) )
+        $additional_classes[] = 'style-' . $template_args['style'];
+
+    // Apply filter.
+    $additional_classes = apply_filters( 'tp_twitch_the_streams_classes', $additional_classes, $template_args );
+
+    // Finally add additional classes to output
+    if ( is_array( $additional_classes ) && sizeof( $additional_classes ) > 0 ) {
+
+        foreach ( $additional_classes as $additional_class ) {
+            $classes .= ' tp-twitch-streams--' . esc_html( $additional_class );
+        }
+    }
+
+    echo $classes;
+}

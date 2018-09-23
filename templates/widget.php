@@ -8,14 +8,13 @@
 if ( ! isset( $streams ) || ! isset( $template_args ) )
 	return;
 
-$style = ( isset ( $template_args ) && ! empty( $template_args['style'] ) ) ? $template_args['style'] : '';
 $size = ( isset ( $template_args ) && ! empty( $template_args['size'] ) ) ? $template_args['size'] : 'large';
 $preview = ( isset ( $template_args ) && ! empty( $template_args['preview'] ) ) ? $template_args['preview'] : 'image';
 
 $stream_count = 0;
 ?>
 <div class="tp-twitch">
-    <div class="tp-twitch-streams tp-twitch-streams--widget<?php if ( ! empty( $style ) ) echo ' tp-twitch-streams--' . $style; ?>" >
+    <div class="<?php tp_twitch_the_streams_classes( 'tp-twitch-streams tp-twitch-streams--widget', $template_args ); ?>" >
 
 	    <?php foreach ( $streams as $stream ) { ?>
             <?php $stream_count++; ?>
