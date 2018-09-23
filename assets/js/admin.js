@@ -8,6 +8,13 @@ jQuery(document).ready(function ($) {
     });
 
     /**
+     * Settings: Toggle Data Container
+     */
+    jQuery( document ).on( 'click', '#tp-twitch-data-toggle', function(event) {
+        jQuery('#tp-twitch-data-container').toggle();
+    });
+
+    /**
      * Widgets
      */
     $('[data-tp-twitch-widget-config-streamer-input]').keyup(function() {

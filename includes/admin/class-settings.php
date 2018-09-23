@@ -17,7 +17,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		public $options;
 
 		/**
-		 * MailerLite_RSS_Feed_Image_Settings constructor.
+		 * TP_Twitch_Settings constructor.
 		 */
 		public function __construct() {
 
@@ -54,6 +54,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				'tp_twitch',
 				array( &$this, 'validate_input_callback' )
 			);
+
+            do_action( 'tp_twitch_register_settings_start' );
 
 			add_settings_section(
 				'tp_twitch_api',
@@ -153,6 +155,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 			);
 
 			do_action( 'tp_twitch_register_defaults_settings' );
+
+            add_settings_section(
+                'tp_twitch_data',
+                __( 'Data', 'tp-twitch-widget' ),
+                array( &$this, 'section_data_render' ),
+                'tp_twitch'
+            );
+
+            do_action( 'tp_twitch_register_settings_end' );
 		}
 
 		/**
@@ -410,6 +421,81 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             </select>
 			<?php
 		}
+
+        /**
+         * Section data description
+         */
+        function section_data_render() {
+
+            if ( ! $this->options['api_status'] )
+                return;
+            ?>
+            <p><?php _e('Here you can find an overview of all available API related data.', 'tp-twitch-widget' ); ?></p>
+
+            <p>
+                <span id="tp-twitch-data-toggle" class="button button-secondary"><?php _e('Toggle Information', 'tp-twitch-widget' ); ?></span>
+            </p>
+            <div id="tp-twitch-data-container" style="display: none;">
+                <?php
+                $games = tp_twitch_get_games();
+                //tp_twitch_debug( $games );
+
+                if ( $games && is_array( $games ) )
+                    $games = tp_twitch_array_sort( $games, 'name' );
+
+                if ( $games && is_array( $games ) && sizeof( $games ) > 0 ) { ?>
+                    <h4><?php _e('Games','tp-twitch-widget' ); ?></h4>
+                    <table class="widefat">
+                        <thead>
+                            <tr>
+                                <th><?php _e('ID', 'tp-twitch-widget' ); ?></th>
+                                <th><?php _e('Game', 'tp-twitch-widget' ); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ( $games as $game ) { ?>
+                                <tr>
+                                    <td>
+                                        <?php echo esc_html( $game['id'] ); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo esc_html( $game['name'] ); ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                <?php
+                }
+
+                $languages = tp_twitch_get_languages();
+                asort($languages );
+                ?>
+                <h4><?php _e('Languages','tp-twitch-widget' ); ?></h4>
+                <table class="widefat">
+                    <thead>
+                    <tr>
+                        <th><?php _e('Code', 'tp-twitch-widget' ); ?></th>
+                        <th><?php _e('Language', 'tp-twitch-widget' ); ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ( $languages as $lang_code => $lang_name ) { ?>
+                        <tr>
+                            <td>
+                                <?php echo esc_html( $lang_code ); ?>
+                            </td>
+                            <td>
+                                <?php echo esc_html( $lang_name ); ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            <?php
+        }
 
 		/**
 		 * Output options page

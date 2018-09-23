@@ -244,7 +244,7 @@ function tp_twitch_get_language_options() {
 
 	if ( is_array( $languages ) && sizeof ( $languages ) > 0 ) {
 
-		asort($languages);
+		asort($languages );
 
 		$options = array(
 			'' => __( 'Please select...', 'tp-twitch-widget' )
