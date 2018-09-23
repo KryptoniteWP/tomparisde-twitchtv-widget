@@ -66,8 +66,8 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 				// Language
                 $template_args['language'] = ( ! empty ( $instance['language'] ) ) ? $instance['language'] : tp_twitch_get_option( 'language' );
 
-				// Max
-				if ( ! empty ( $instance['max'] ) ) {
+				// Ma
+				if ( ! empty ( $instance['max'] ) && is_numeric( $instance['max'] ) ) {
 					$streams_args['max'] = intval( $instance['max'] );
 				}
             }
@@ -119,6 +119,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer:', 'tp-twitch-widget' ); ?></label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'streamer' ) ); ?>" type="text" value="<?php echo esc_attr( $streamer ); ?>" data-tp-twitch-widget-config-streamer-input="true">
+                <?php tp_twitch_pre_pro_the_widget_streams_max_note(); ?>
             </p>
             <div class="tp-twitch-widget-config-search-block"<?php if ( ! empty( $streamer ) ) echo ' style="display: none;"'; ?>><!-- Don't show this block when streamers were entered -->
                 <!-- Game -->
@@ -149,11 +150,12 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 </p>
                 <!-- Maximum Amount of Streams -->
                 <?php
-                $max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : 5;
+                $max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : tp_twitch_get_default_streams_max();
                 ?>
                 <p>
                     <label for="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>"><?php esc_attr_e( 'Maximum Amount of Streams:', 'tp-twitch-widget' ); ?></label>
                     <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max' ) ); ?>" type="number" value="<?php echo esc_attr( $max ); ?>">
+                    <?php tp_twitch_pre_pro_the_widget_streams_max_note(); ?>
                 </p>
             </div>
             <!-- Style -->
