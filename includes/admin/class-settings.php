@@ -164,7 +164,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		 */
 		function validate_input_callback( $input ) {
 
-		    tp_twitch_debug_log( $input );
+		    //tp_twitch_debug_log( $input );
 
 		    // Defaults
 		    $delete_cache = false;
