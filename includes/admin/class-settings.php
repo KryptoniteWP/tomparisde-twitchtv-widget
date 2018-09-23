@@ -164,6 +164,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		 */
 		function validate_input_callback( $input ) {
 
+		    tp_twitch_debug_log( $input );
+
 		    // Defaults
 		    $delete_cache = false;
 			$delete_streams_cache = false;
@@ -401,7 +403,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 			$widget_preview = ( ! empty ( $this->options['widget_preview'] ) ) ? $this->options['widget_preview'] : tp_twitch_get_option_default_value( 'widget_preview' );
 			?>
-            <select id="tp_twitch_widget_size" name="tp_twitch[widget_size]">
+            <select id="tp_twitch_widget_preview" name="tp_twitch[widget_preview]">
 				<?php foreach ( $widget_preview_options as $key => $label ) { ?>
                     <option value="<?php echo $key; ?>" <?php selected( $widget_preview, $key ); ?>><?php echo $label; ?></option>
 				<?php } ?>

@@ -76,14 +76,13 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$template_args['template'] = 'widget';
 
             // Style
-            if ( ! empty ( $instance['style'] ) )
-                $template_args['widget_style'] = $instance['style'];
+            $template_args['style'] = ( ! empty ( $instance['style'] ) ) ? $instance['style'] : tp_twitch_get_option( 'widget_style' );
 
 			// Size
-			$template_args['widget_size'] = ( ! empty ( $instance['size'] ) ) ? $instance['size'] : tp_twitch_get_option( 'widget_size' );
+			$template_args['size'] = ( ! empty ( $instance['size'] ) ) ? $instance['size'] : tp_twitch_get_option( 'widget_size' );
 
 			// Preview
-			$template_args['widget_preview'] = ( ! empty ( $instance['preview'] ) ) ? $instance['preview'] : tp_twitch_get_option( 'widget_preview' );
+			$template_args['preview'] = ( ! empty ( $instance['preview'] ) ) ? $instance['preview'] : tp_twitch_get_option( 'widget_preview' );
 
 			//tp_twitch_debug( $streams_args, '$streams_args' );
 			//tp_twitch_debug( $template_args, '$template_args' );

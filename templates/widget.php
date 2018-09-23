@@ -8,24 +8,24 @@
 if ( ! isset( $streams ) || ! isset( $template_args ) )
 	return;
 
-$widget_style = ( isset ( $template_args ) && ! empty( $template_args['widget_style'] ) ) ? $template_args['widget_style'] : '';
-$widget_size = ( isset ( $template_args ) && ! empty( $template_args['widget_size'] ) ) ? $template_args['widget_size'] : 'large';
-$widget_preview = ( isset ( $template_args ) && ! empty( $template_args['widget_preview'] ) ) ? $template_args['widget_preview'] : 'image';
+$style = ( isset ( $template_args ) && ! empty( $template_args['style'] ) ) ? $template_args['style'] : '';
+$size = ( isset ( $template_args ) && ! empty( $template_args['size'] ) ) ? $template_args['size'] : 'large';
+$preview = ( isset ( $template_args ) && ! empty( $template_args['preview'] ) ) ? $template_args['preview'] : 'image';
 
 $stream_count = 0;
 ?>
 <div class="tp-twitch">
-    <div class="tp-twitch-streams tp-twitch-streams--widget<?php if ( ! empty( $widget_style ) ) echo ' tp-twitch-streams--' . $widget_style; ?>" >
+    <div class="tp-twitch-streams tp-twitch-streams--widget<?php if ( ! empty( $style ) ) echo ' tp-twitch-streams--' . $style; ?>" >
 
 	    <?php foreach ( $streams as $stream ) { ?>
             <?php $stream_count++; ?>
 
-            <?php if ( 'large' === $widget_size || ( 'large-first' === $widget_size && 1 === $stream_count ) ) { ?>
+            <?php if ( 'large' === $size || ( 'large-first' === $size && 1 === $stream_count ) ) { ?>
 
                 <div class="<?php $stream->the_classes('tp-twitch-stream'); ?>">
                     <div class="tp-twitch-stream__header">
 
-                        <?php if ( 'video' === $widget_preview || ( 'video-first' === $widget_preview && 1 === $stream_count ) ) { ?>
+                        <?php if ( 'video' === $preview || ( 'video-first' === $preview && 1 === $stream_count ) ) { ?>
 
                             <div class="tp-twitch-stream__video">
                                 <div class="tp-twitch-iframe-container">

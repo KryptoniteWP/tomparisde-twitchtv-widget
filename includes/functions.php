@@ -53,6 +53,9 @@ function tp_twitch_get_option_default_value( $key ) {
         case 'language':
             $value = 'en';
             break;
+        case 'widget_style':
+            $value = 'white';
+            break;
 		case 'widget_size':
 			$value = 'large';
 			break;
@@ -261,11 +264,12 @@ function tp_twitch_get_language_options() {
  */
 function tp_twitch_get_widget_style_options( $is_settings_page = true ) {
 
-    return array(
-        '' => ( $is_settings_page ) ? __( 'Standard', 'tp-twitch-widget' ) : __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
-        'white' => __( 'White', 'tp-twitch-widget' ),
-        'dark' => __( 'Dark', 'tp-twitch-widget' )
-    );
+    $options = ( ! $is_settings_page ) ? array( '' => __( 'Standard (Settings Page)' ) ) : array();
+
+    $options['white'] = __( 'White', 'tp-twitch-widget' );
+    $options['dark'] = __( 'Dark', 'tp-twitch-widget' );
+
+    return $options;
 }
 
 /**
@@ -276,12 +280,13 @@ function tp_twitch_get_widget_style_options( $is_settings_page = true ) {
  */
 function tp_twitch_get_widget_size_options( $is_settings_page = true ) {
 
-	return array(
-        '' => ( $is_settings_page ) ? __( 'Standard', 'tp-twitch-widget' ) : __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
-		'large' => __( 'Large', 'tp-twitch-widget' ),
-		'small' => __( 'Small', 'tp-twitch-widget' ),
-		'large-first' => __( 'First Large, Others Small', 'tp-twitch-widget' ),
-	);
+    $options = ( ! $is_settings_page ) ? array( '' => __( 'Standard (Settings Page)' ) ) : array();
+
+    $options['large'] = __( 'Large', 'tp-twitch-widget' );
+    $options['small'] = __( 'Small', 'tp-twitch-widget' );
+    $options['large-first'] = __( 'First Large, Others Small', 'tp-twitch-widget' );
+
+    return $options;
 }
 
 /**
@@ -292,12 +297,13 @@ function tp_twitch_get_widget_size_options( $is_settings_page = true ) {
  */
 function tp_twitch_get_widget_preview_options( $is_settings_page = true ) {
 
-	return array(
-        '' => ( $is_settings_page ) ? __( 'Standard', 'tp-twitch-widget' ) : __( 'Standard (Settings Page)', 'tp-twitch-widget' ),
-		'image' => __( 'Image', 'tp-twitch-widget' ),
-		'video' => __( 'Video', 'tp-twitch-widget' ),
-		'video-first' => __( 'First Video, Others Images', 'tp-twitch-widget' ),
-	);
+    $options = ( ! $is_settings_page ) ? array( '' => __( 'Standard (Settings Page)' ) ) : array();
+
+    $options['image'] = __( 'Image', 'tp-twitch-widget' );
+    $options['video'] = __( 'Video', 'tp-twitch-widget' );
+    $options['video-first'] = __( 'First Video, Others Images', 'tp-twitch-widget' );
+
+    return $options;
 }
 
 /**
