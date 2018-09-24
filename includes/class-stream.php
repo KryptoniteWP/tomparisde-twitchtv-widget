@@ -115,7 +115,7 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 		 * @return string
 		 */
 		public function get_thumbnail_alt() {
-			return sprintf( esc_html__( 'Twitch stream of %s', 'tp-twitch-widget' ), $this->get_user_display_name() );
+			return sprintf( esc_html__( 'Twitch stream of %s', 'tomparisde-twitchtv-widget' ), $this->get_user_display_name() );
 		}
 
 		/**

@@ -45,9 +45,9 @@ function tp_twitch_pre_pro_the_widget_streams_max_note() {
         return;
 
     echo '<small>';
-    printf( esc_html__( 'You can display a maximum of %d streams.', 'tp-twitch-widget' ), tp_twitch_get_default_streams_max() );
+    printf( esc_html__( 'You can display a maximum of %d streams.', 'tomparisde-twitchtv-widget' ), tp_twitch_get_default_streams_max() );
     echo '<br />';
-    printf( wp_kses( __( '<a href="%s" target="_blank">Upgrade now</a> in order to show more streams.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( tp_twitch_get_pro_version_url( 'widgets-page', 'streams-max-note' ) ) );
+    printf( wp_kses( __( '<a href="%s" target="_blank">Upgrade now</a> in order to show more streams.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( tp_twitch_get_pro_version_url( 'widgets-page', 'streams-max-note' ) ) );
     echo '</small>';
 }
 
@@ -60,6 +60,6 @@ function tp_twitch_pre_pro_the_styles_note() {
         return;
 
     echo '<small>';
-    printf( wp_kses( __( 'You would like to have more designs to choose from? <a href="%s" target="_blank">Upgrade now</a>.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( tp_twitch_get_pro_version_url( 'widgets-page', 'styles-note' ) ) );
+    printf( wp_kses( __( 'You would like to have more designs to choose from? <a href="%s" target="_blank">Upgrade now</a>.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( tp_twitch_get_pro_version_url( 'widgets-page', 'styles-note' ) ) );
     echo '</small>';
 }

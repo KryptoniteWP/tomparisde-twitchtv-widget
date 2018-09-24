@@ -6,7 +6,7 @@
  * Version:         2.0.0
  * Author:          KryptoniteWP
  * Author URI:      https://kryptonitewp.com
- * Text Domain:     tp-twitch-widget
+ * Text Domain:     tomparisde-twitchtv-widget
  *
  * @author          KryptoniteWP
  * @copyright       Copyright (c) KryptoniteWP
@@ -108,7 +108,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		 */
 		public function __clone() {
 			// Cloning instances of the class is forbidden
-			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'tp-twitch-widget' ), '1.0' );
+			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'tomparisde-twitchtv-widget' ), '1.0' );
 		}
 
 		/**
@@ -120,7 +120,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		 */
 		public function __wakeup() {
 			// Unserializing instances of the class is forbidden
-			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'tp-twitch-widget' ), '1.0' );
+			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'tomparisde-twitchtv-widget' ), '1.0' );
 		}
 
 		/**
@@ -135,7 +135,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 			?>
 			<div class="error">
 				<p>
-					<?php sprintf( esc_html__( 'Your version of PHP is below the minimum version of PHP required by our Twitch plugin. Please contact your hosting company and request that your version will be upgraded to %1$s or later.', 'tp-twitch-widget' ), '5.3' ); ?>
+					<?php sprintf( esc_html__( 'Your version of PHP is below the minimum version of PHP required by our Twitch plugin. Please contact your hosting company and request that your version will be upgraded to %1$s or later.', 'tomparisde-twitchtv-widget' ), '5.3' ); ?>
 				</p>
 			</div>
 			<?php
@@ -267,22 +267,22 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 			 * @var $get_locale The locale to use. Uses get_user_locale()` in WordPress 4.7 or greater,
 			 *                  otherwise uses `get_locale()`.
 			 */
-			$locale = apply_filters( 'plugin_locale', $get_locale, 'tp-twitch-widget' );
-			$mofile = sprintf( '%1$s-%2$s.mo', 'tp-twitch-widget', $locale );
+			$locale = apply_filters( 'plugin_locale', $get_locale, 'tomparisde-twitchtv-widget' );
+			$mofile = sprintf( '%1$s-%2$s.mo', 'tomparisde-twitchtv-widget', $locale );
 
 			// Setup paths to current locale file
 			$mofile_local  = $lang_dir . $mofile;
-			$mofile_global = WP_LANG_DIR . '/tp-twitch-widget/' . $mofile;
+			$mofile_global = WP_LANG_DIR . '/tomparisde-twitchtv-widget/' . $mofile;
 
 			if ( file_exists( $mofile_global ) ) {
-				// Look in global /wp-content/languages/aawp/ folder
-				load_textdomain( 'tp-twitch-widget', $mofile_global );
+				// Look in global /wp-content/languages/tomparisde-twitchtv-widget/ folder
+				load_textdomain( 'tomparisde-twitchtv-widget', $mofile_global );
 			} elseif ( file_exists( $mofile_local ) ) {
-				// Look in local /wp-content/plugins/aawp/languages/ folder
-				load_textdomain( 'tp-twitch-widget', $mofile_local );
+				// Look in local /wp-content/plugins/tomparisde-twitchtv-widget/languages/ folder
+				load_textdomain( 'tomparisde-twitchtv-widget', $mofile_local );
 			} else {
 				// Load the default language files
-				load_plugin_textdomain( 'tp-twitch-widget', false, $lang_dir );
+				load_plugin_textdomain( 'tomparisde-twitchtv-widget', false, $lang_dir );
 			}
 		}
 	}

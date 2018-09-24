@@ -20,8 +20,8 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 		function __construct() {
 			parent::__construct(
 				'tp_twitch_widget', // Base ID
-				esc_html__( 'Twitch', 'tp-twitch-widget' ), // Name
-				array( 'description' => esc_html__( 'Display Twitch streams in your sidebars.', 'tp-twitch-widget' ), ) // Args
+				esc_html__( 'Twitch', 'tomparisde-twitchtv-widget' ), // Name
+				array( 'description' => esc_html__( 'Display Twitch streams in your sidebars.', 'tomparisde-twitchtv-widget' ), ) // Args
 			);
 		}
 
@@ -105,11 +105,11 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 		 */
 		public function form( $instance ) {
 		    
-			$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : esc_html__( 'New title', 'tp-twitch-widget' );
+			$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : esc_html__( 'New title', 'tomparisde-twitchtv-widget' );
 			?>
             <!-- Title -->
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'tp-twitch-widget' ); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'tomparisde-twitchtv-widget' ); ?></label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
             </p>
             <?php
@@ -117,7 +117,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             ?>
             <!-- Streamer -->
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer:', 'tp-twitch-widget' ); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer:', 'tomparisde-twitchtv-widget' ); ?></label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'streamer' ) ); ?>" type="text" value="<?php echo esc_attr( $streamer ); ?>" data-tp-twitch-widget-config-streamer-input="true">
                 <?php tp_twitch_pre_pro_the_widget_streams_max_note(); ?>
             </p>
@@ -128,7 +128,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 $game = ( ! empty( $instance['game'] ) && is_numeric( $instance['game'] ) ) ? intval( $instance['game'] ) : 0;
                 ?>
                 <p>
-                    <label for="<?php echo esc_attr( $this->get_field_id( 'game' ) ); ?>"><?php esc_attr_e( 'Game', 'tp-twitch-widget' ); ?></label>
+                    <label for="<?php echo esc_attr( $this->get_field_id( 'game' ) ); ?>"><?php esc_attr_e( 'Game', 'tomparisde-twitchtv-widget' ); ?></label>
                     <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'game' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'game' ) ); ?>">
                         <?php foreach ( $game_options as $key => $label ) { ?>
                             <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $game, $key ); ?>><?php echo esc_attr( $label ); ?></option>
@@ -141,7 +141,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 $language = ( ! empty( $instance['language'] ) ) ? $instance['language'] : '';
                 ?>
                 <p>
-                    <label for="<?php echo esc_attr( $this->get_field_id( 'language' ) ); ?>"><?php esc_attr_e( 'Language', 'tp-twitch-widget' ); ?></label>
+                    <label for="<?php echo esc_attr( $this->get_field_id( 'language' ) ); ?>"><?php esc_attr_e( 'Language', 'tomparisde-twitchtv-widget' ); ?></label>
                     <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'language' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'language' ) ); ?>">
                         <?php foreach ( $language_options as $key => $label ) { ?>
                             <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $language, $key ); ?>><?php echo esc_attr( $label ); ?></option>
@@ -153,7 +153,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 $max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : tp_twitch_get_default_streams_max();
                 ?>
                 <p>
-                    <label for="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>"><?php esc_attr_e( 'Maximum Amount of Streams:', 'tp-twitch-widget' ); ?></label>
+                    <label for="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>"><?php esc_attr_e( 'Maximum Amount of Streams:', 'tomparisde-twitchtv-widget' ); ?></label>
                     <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max' ) ); ?>" type="number" value="<?php echo esc_attr( $max ); ?>">
                     <?php tp_twitch_pre_pro_the_widget_streams_max_note(); ?>
                 </p>
@@ -164,7 +164,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             $style = ( ! empty( $instance['style'] ) ) ? $instance['style'] : '';
             ?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'style' ) ); ?>"><?php esc_attr_e( 'Style', 'tp-twitch-widget' ); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'style' ) ); ?>"><?php esc_attr_e( 'Style', 'tomparisde-twitchtv-widget' ); ?></label>
                 <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'style' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'style' ) ); ?>">
                     <?php foreach ( $style_options as $key => $label ) { ?>
                         <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $style, $key ); ?>><?php echo esc_attr( $label ); ?></option>
@@ -178,7 +178,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$size = ( ! empty( $instance['size'] ) ) ? $instance['size'] : '';
 			?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'size' ) ); ?>"><?php esc_attr_e( 'Size', 'tp-twitch-widget' ); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'size' ) ); ?>"><?php esc_attr_e( 'Size', 'tomparisde-twitchtv-widget' ); ?></label>
                 <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'size' ) ); ?>">
 					<?php foreach ( $size_options as $key => $label ) { ?>
                         <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $size, $key ); ?>><?php echo esc_attr( $label ); ?></option>
@@ -191,7 +191,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$preview = ( ! empty( $instance['preview'] ) ) ? $instance['preview'] : '';
 			?>
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'preview' ) ); ?>"><?php esc_attr_e( 'Preview', 'tp-twitch-widget' ); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'preview' ) ); ?>"><?php esc_attr_e( 'Preview', 'tomparisde-twitchtv-widget' ); ?></label>
                 <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'preview' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'preview' ) ); ?>">
 					<?php foreach ( $preview_options as $key => $label ) { ?>
                         <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $preview, $key ); ?>><?php echo esc_attr( $label ); ?></option>
@@ -200,8 +200,8 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             </p>
             <!-- Documentation -->
             <p>
-                <strong><?php _e('Need help?', 'tp-twitch-widget'); ?></strong><br />
-                <?php printf( wp_kses( __( 'Please take a look into the <a href="%s">documentation</a> for help and find out more options.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( add_query_arg( array(
+                <strong><?php _e('Need help?', 'tomparisde-twitchtv-widget'); ?></strong><br />
+                <?php printf( wp_kses( __( 'Please take a look into the <a href="%s">documentation</a> for help and find out more options.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( add_query_arg( array(
                     'utm_source'   => 'widgets-page',
                     'utm_medium'   => 'need-help-note',
                     'utm_campaign' => 'Twitch WP',

@@ -1,0 +1,554 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Twitch for WordPress\n"
+"POT-Creation-Date: 2018-09-24 17:42+0700\n"
+"PO-Revision-Date: 2018-09-24 17:41+0700\n"
+"Last-Translator: \n"
+"Language-Team: KryptoniteWP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: tp-twitch-widget.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: assets\n"
+"X-Poedit-SearchPathExcluded-2: node_modules\n"
+
+#: includes/admin/class-settings.php:62
+msgid "Quickstart Guide"
+msgstr ""
+
+#: includes/admin/class-settings.php:69
+msgid "API Settings"
+msgstr ""
+
+#: includes/admin/class-settings.php:76
+msgid "Status"
+msgstr ""
+
+#: includes/admin/class-settings.php:85
+msgid "Client ID"
+msgstr ""
+
+#: includes/admin/class-settings.php:96
+msgid "General Settings"
+msgstr ""
+
+#: includes/admin/class-settings.php:103
+msgid "Cache Duration"
+msgstr ""
+
+#: includes/admin/class-settings.php:112
+msgid "No Streams Found"
+msgstr ""
+
+#: includes/admin/class-settings.php:123
+msgid "Default Settings"
+msgstr ""
+
+#: includes/admin/class-settings.php:130 includes/admin/class-settings.php:520
+#: includes/widget.php:144
+msgid "Language"
+msgstr ""
+
+#: includes/admin/class-settings.php:139
+msgid "Style (Widget)"
+msgstr ""
+
+#: includes/admin/class-settings.php:148
+msgid "Size (Widget)"
+msgstr ""
+
+#: includes/admin/class-settings.php:157
+msgid "Preview (Widget)"
+msgstr ""
+
+#: includes/admin/class-settings.php:168
+msgid "API Related Data"
+msgstr ""
+
+#: includes/admin/class-settings.php:245
+msgid "Step 1: Create API Credentials"
+msgstr ""
+
+#: includes/admin/class-settings.php:246
+#, php-format
+msgid ""
+"Follow our guide which shows you <a href=\"%s\" target=\"_blank\" rel="
+"\"nofollow\">how to create Twitch API credentials</a>."
+msgstr ""
+
+#: includes/admin/class-settings.php:254
+msgid "Step 2: Enter your Client ID"
+msgstr ""
+
+#: includes/admin/class-settings.php:255
+msgid ""
+"Once you created your API credentials, enter your personal <em>Client ID</"
+"em> into the field below."
+msgstr ""
+
+#: includes/admin/class-settings.php:259
+msgid "Step 3: Place Twitch Streams on your Site"
+msgstr ""
+
+#: includes/admin/class-settings.php:260
+#, php-format
+msgid ""
+"Go to the <a href=\"%s\" target=\"_blank\" rel=\"nofollow\">Widgets page</"
+"a>, place our Twitch widget wherever you want and adjust it according to "
+"your needs."
+msgstr ""
+
+#: includes/admin/class-settings.php:265
+#, php-format
+msgid ""
+"Please take a look into the <a href=\"%s\">documentation</a> for more "
+"options."
+msgstr ""
+
+#: includes/admin/class-settings.php:279
+#, php-format
+msgid ""
+"In order to show Twitch streams, this plugin requires access to the official "
+"<a href=\"%s\" target=\"_blank\" rel=\"nofollow\">Twitch API</a>."
+msgstr ""
+
+#: includes/admin/class-settings.php:292
+msgid "Connected"
+msgstr ""
+
+#: includes/admin/class-settings.php:294
+msgid "Disconnected"
+msgstr ""
+
+#: includes/admin/class-settings.php:313
+#, php-format
+msgid ""
+"We created a detailed guide which shows you <a href=\"%s\" target=\"_blank\" "
+"rel=\"nofollow\">how to get your client id</a>."
+msgstr ""
+
+#: includes/admin/class-settings.php:328
+msgid "Here you set up general settings which will be used plugin wide."
+msgstr ""
+
+#: includes/admin/class-settings.php:338 includes/admin/class-settings.php:339
+#: includes/admin/class-settings.php:340 includes/admin/class-settings.php:341
+#: includes/admin/class-settings.php:342 includes/admin/class-settings.php:343
+#: includes/admin/class-settings.php:344
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-settings.php:356
+msgid ""
+"In case you're using a caching plugin, it makes no sense to select a lower "
+"value, than the caching interval of your caching plugin."
+msgstr ""
+
+#: includes/admin/class-settings.php:368
+msgid "Hide Message"
+msgstr ""
+
+#: includes/admin/class-settings.php:369
+msgid "Show Message"
+msgstr ""
+
+#: includes/admin/class-settings.php:370
+msgid "Show Message for Admins only"
+msgstr ""
+
+#: includes/admin/class-settings.php:382
+msgid "Specify what happens when no streams were found."
+msgstr ""
+
+#: includes/admin/class-settings.php:393
+msgid ""
+"Here you set up the default settings which will be used for displaying "
+"streams and may be overwritten individually."
+msgstr ""
+
+#: includes/admin/class-settings.php:474
+msgid "Here you can find an overview of all available API related data."
+msgstr ""
+
+#: includes/admin/class-settings.php:477
+msgid "Toggle Information"
+msgstr ""
+
+#: includes/admin/class-settings.php:488
+msgid "Games"
+msgstr ""
+
+#: includes/admin/class-settings.php:492
+msgid "ID"
+msgstr ""
+
+#: includes/admin/class-settings.php:493 includes/widget.php:131
+msgid "Game"
+msgstr ""
+
+#: includes/admin/class-settings.php:515
+msgid "Languages"
+msgstr ""
+
+#: includes/admin/class-settings.php:519
+msgid "Code"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: includes/admin/class-settings.php:548
+msgid "Twitch for WordPress"
+msgstr ""
+
+#: includes/admin/class-settings.php:563
+msgid "Delete Cache"
+msgstr ""
+
+#: includes/admin/class-settings.php:574
+msgid "Resources &amp; Support"
+msgstr ""
+
+#: includes/admin/class-settings.php:576
+msgid ""
+"In order to make it as simple as possible for you, we created a detailed "
+"online documentation."
+msgstr ""
+
+#: includes/admin/class-settings.php:587 includes/admin/plugins.php:51
+msgid "Documentation"
+msgstr ""
+
+#: includes/admin/class-settings.php:590
+msgid "Plugin Page"
+msgstr ""
+
+#: includes/admin/class-settings.php:593
+msgid "Changelog"
+msgstr ""
+
+#: includes/admin/class-settings.php:596
+msgid "Follow us on Twitter"
+msgstr ""
+
+#: includes/admin/class-settings.php:614
+msgid "Upgrade to PRO Version"
+msgstr ""
+
+#: includes/admin/class-settings.php:617
+msgid ""
+"The PRO version extends the plugin exclusively with a variety of different "
+"styles and some exclusively features."
+msgstr ""
+
+#: includes/admin/class-settings.php:620
+msgid "Display more than 3 streams"
+msgstr ""
+
+#: includes/admin/class-settings.php:621
+msgid "More Styles"
+msgstr ""
+
+#: includes/admin/class-settings.php:622
+msgid "Place streams via shortcode"
+msgstr ""
+
+#: includes/admin/class-settings.php:623
+msgid "And more!"
+msgstr ""
+
+#: includes/admin/class-settings.php:627
+msgid "We would be happy if you give it a chance!"
+msgstr ""
+
+#: includes/admin/class-settings.php:634
+msgid "More details"
+msgstr ""
+
+#: includes/admin/plugins.php:23
+msgid "Settings"
+msgstr ""
+
+#: includes/class-stream.php:118
+#, php-format
+msgid "Twitch stream of %s"
+msgstr ""
+
+#: includes/functions.php:171 includes/functions.php:250
+msgid "Please select..."
+msgstr ""
+
+#: includes/functions.php:183
+msgid "Please connect to API first..."
+msgstr ""
+
+#: includes/functions.php:200
+msgid "Danish"
+msgstr ""
+
+#: includes/functions.php:201
+msgid "German"
+msgstr ""
+
+#: includes/functions.php:202
+msgid "English"
+msgstr ""
+
+#: includes/functions.php:203
+msgid "English (UK)"
+msgstr ""
+
+#: includes/functions.php:204
+msgid "Spanish"
+msgstr ""
+
+#: includes/functions.php:205
+msgid "Spanish (Latin American)"
+msgstr ""
+
+#: includes/functions.php:206
+msgid "French"
+msgstr ""
+
+#: includes/functions.php:207
+msgid "Italian"
+msgstr ""
+
+#: includes/functions.php:208
+msgid "Hungarian"
+msgstr ""
+
+#: includes/functions.php:209
+msgid "Dutch"
+msgstr ""
+
+#: includes/functions.php:210
+msgid "Norwegian"
+msgstr ""
+
+#: includes/functions.php:211
+msgid "Polish"
+msgstr ""
+
+#: includes/functions.php:212
+msgid "Portuguese"
+msgstr ""
+
+#: includes/functions.php:213
+msgid "Portuguese (Brazil)"
+msgstr ""
+
+#: includes/functions.php:214
+msgid "Slovenian"
+msgstr ""
+
+#: includes/functions.php:215
+msgid "Finnish"
+msgstr ""
+
+#: includes/functions.php:216
+msgid "Swedish"
+msgstr ""
+
+#: includes/functions.php:217
+msgid "Vietnamese"
+msgstr ""
+
+#: includes/functions.php:218
+msgid "Turkish"
+msgstr ""
+
+#: includes/functions.php:219
+msgid "Czech"
+msgstr ""
+
+#: includes/functions.php:220
+msgid "Greek"
+msgstr ""
+
+#: includes/functions.php:221
+msgid "Bulgarian"
+msgstr ""
+
+#: includes/functions.php:222
+msgid "Russian"
+msgstr ""
+
+#: includes/functions.php:223
+msgid "Arabic"
+msgstr ""
+
+#: includes/functions.php:224
+msgid "Thai"
+msgstr ""
+
+#: includes/functions.php:225
+msgid "Chinese"
+msgstr ""
+
+#: includes/functions.php:226
+msgid "Chinese (Traditional)"
+msgstr ""
+
+#: includes/functions.php:227
+msgid "Japanese"
+msgstr ""
+
+#: includes/functions.php:228
+msgid "Korean"
+msgstr ""
+
+#: includes/functions.php:229
+msgid "Hindi"
+msgstr ""
+
+#: includes/functions.php:230
+msgid "Romanian"
+msgstr ""
+
+#: includes/functions.php:267 includes/functions.php:284
+#: includes/functions.php:301
+msgid "Standard (Settings Page)"
+msgstr ""
+
+#: includes/functions.php:269
+msgid "Default"
+msgstr ""
+
+#: includes/functions.php:286
+msgid "Large"
+msgstr ""
+
+#: includes/functions.php:287
+msgid "Small"
+msgstr ""
+
+#: includes/functions.php:288
+msgid "First Large, Others Small"
+msgstr ""
+
+#: includes/functions.php:303
+msgid "Image"
+msgstr ""
+
+#: includes/functions.php:304
+msgid "Video"
+msgstr ""
+
+#: includes/functions.php:305
+msgid "First Video, Others Images"
+msgstr ""
+
+#: includes/pro-functions.php:48
+#, php-format
+msgid "You can display a maximum of %d streams."
+msgstr ""
+
+#: includes/pro-functions.php:50
+#, php-format
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Upgrade now</a> in order to show more "
+"streams."
+msgstr ""
+
+#: includes/pro-functions.php:63
+#, php-format
+msgid ""
+"You would like to have more designs to choose from? <a href=\"%s\" target="
+"\"_blank\">Upgrade now</a>."
+msgstr ""
+
+#: includes/template-functions.php:76
+msgid "Template not found."
+msgstr ""
+
+#: includes/template-functions.php:83
+msgid "No streams found."
+msgstr ""
+
+#: includes/widget.php:23
+msgid "Twitch"
+msgstr ""
+
+#: includes/widget.php:24
+msgid "Display Twitch streams in your sidebars."
+msgstr ""
+
+#: includes/widget.php:108
+msgid "New title"
+msgstr ""
+
+#: includes/widget.php:112
+msgid "Title:"
+msgstr ""
+
+#: includes/widget.php:120
+msgid "Streamer:"
+msgstr ""
+
+#: includes/widget.php:156
+msgid "Maximum Amount of Streams:"
+msgstr ""
+
+#: includes/widget.php:167
+msgid "Style"
+msgstr ""
+
+#: includes/widget.php:181
+msgid "Size"
+msgstr ""
+
+#: includes/widget.php:194
+msgid "Preview"
+msgstr ""
+
+#: includes/widget.php:203
+msgid "Need help?"
+msgstr ""
+
+#: includes/widget.php:204
+#, php-format
+msgid ""
+"Please take a look into the <a href=\"%s\">documentation</a> for help and "
+"find out more options."
+msgstr ""
+
+#: tp-twitch-widget.php:111 tp-twitch-widget.php:123
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: tp-twitch-widget.php:138
+#, php-format
+msgid ""
+"Your version of PHP is below the minimum version of PHP required by our "
+"Twitch plugin. Please contact your hosting company and request that your "
+"version will be upgraded to %1$s or later."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://de.wordpress.org/plugins/tomparisde-twitchtv-widget/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Display Twitch streams on your WordPress site."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "KryptoniteWP"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://kryptonitewp.com"
+msgstr ""

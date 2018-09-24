@@ -73,14 +73,14 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 
 		 // Template not found.
 		} else {
-			_e( 'Template not found.', 'tp-twitch-widget' );
+			_e( 'Template not found.', 'tomparisde-twitchtv-widget' );
 		}
 
 	// No streams found.
 	} else {
 
 		$no_streams_found = tp_twitch_get_option( 'no_streams_found' );
-		$no_streams_found_text = apply_filters( 'tp_twitch_no_streams_found_text', __( 'No streams found.', 'tp-twitch-widget' ) );
+		$no_streams_found_text = apply_filters( 'tp_twitch_no_streams_found_text', __( 'No streams found.', 'tomparisde-twitchtv-widget' ) );
 
 		if ( 'show' === $no_streams_found ) {
 			echo $no_streams_found_text;

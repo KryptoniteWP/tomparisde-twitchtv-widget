@@ -20,7 +20,7 @@ function tp_twitch_action_links( $links, $file ) {
 	if ( $file != 'tomparisde-twitchtv-widget/tp-twitch-widget.php' )
 		return $links;
 
-    $settings_link = '<a href="' . admin_url( 'options-general.php?page=tp_twitch' ) . '">' . esc_html__( 'Settings', 'tp-twitch-widget' ) . '</a>';
+    $settings_link = '<a href="' . admin_url( 'options-general.php?page=tp_twitch' ) . '">' . esc_html__( 'Settings', 'tomparisde-twitchtv-widget' ) . '</a>';
 
 	array_unshift( $links, $settings_link );
 
@@ -48,7 +48,7 @@ function tp_twitch_row_meta( $input, $file ) {
     );
 
     $links = array(
-        '<a href="' . $docs_link . '">' . esc_html__( 'Documentation', 'tp-twitch-widget' ) . '</a>',
+        '<a href="' . $docs_link . '">' . esc_html__( 'Documentation', 'tomparisde-twitchtv-widget' ) . '</a>',
     );
 
     $input = array_merge( $input, $links );

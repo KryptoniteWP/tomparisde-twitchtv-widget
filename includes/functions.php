@@ -168,7 +168,7 @@ function tp_twitch_get_game_options() {
 
 	if ( is_array( $games ) && sizeof ( $games ) > 0 ) {
 
-		$options[0] = __( 'Please select...', 'tp-twitch-widget' );
+		$options[0] = __( 'Please select...', 'tomparisde-twitchtv-widget' );
 
 		$games = tp_twitch_array_sort( $games, 'name' );
 
@@ -180,7 +180,7 @@ function tp_twitch_get_game_options() {
 			$options[$game['id']] = $game['name'];
 		}
 	} else {
-		$options[0] = __( 'Please connect to API first...', 'tp-twitch-widget' );
+		$options[0] = __( 'Please connect to API first...', 'tomparisde-twitchtv-widget' );
 	}
 
 	return $options;
@@ -247,7 +247,7 @@ function tp_twitch_get_language_options() {
 		asort($languages );
 
 		$options = array(
-			'' => __( 'Please select...', 'tp-twitch-widget' )
+			'' => __( 'Please select...', 'tomparisde-twitchtv-widget' )
 		);
 
 		$options = array_merge( $options, $languages );
@@ -266,7 +266,7 @@ function tp_twitch_get_widget_style_options( $is_settings_page = true ) {
 
     $options = ( ! $is_settings_page ) ? array( '' => __( 'Standard (Settings Page)' ) ) : array();
 
-    $options['white'] = __( 'Default', 'tp-twitch-widget' );
+    $options['white'] = __( 'Default', 'tomparisde-twitchtv-widget' );
 
     $options = apply_filters( 'tp_twitch_style_options', $options );
 
@@ -283,9 +283,9 @@ function tp_twitch_get_widget_size_options( $is_settings_page = true ) {
 
     $options = ( ! $is_settings_page ) ? array( '' => __( 'Standard (Settings Page)' ) ) : array();
 
-    $options['large'] = __( 'Large', 'tp-twitch-widget' );
-    $options['small'] = __( 'Small', 'tp-twitch-widget' );
-    $options['large-first'] = __( 'First Large, Others Small', 'tp-twitch-widget' );
+    $options['large'] = __( 'Large', 'tomparisde-twitchtv-widget' );
+    $options['small'] = __( 'Small', 'tomparisde-twitchtv-widget' );
+    $options['large-first'] = __( 'First Large, Others Small', 'tomparisde-twitchtv-widget' );
 
     return $options;
 }
@@ -300,9 +300,9 @@ function tp_twitch_get_widget_preview_options( $is_settings_page = true ) {
 
     $options = ( ! $is_settings_page ) ? array( '' => __( 'Standard (Settings Page)' ) ) : array();
 
-    $options['image'] = __( 'Image', 'tp-twitch-widget' );
-    $options['video'] = __( 'Video', 'tp-twitch-widget' );
-    $options['video-first'] = __( 'First Video, Others Images', 'tp-twitch-widget' );
+    $options['image'] = __( 'Image', 'tomparisde-twitchtv-widget' );
+    $options['video'] = __( 'Video', 'tomparisde-twitchtv-widget' );
+    $options['video-first'] = __( 'First Video, Others Images', 'tomparisde-twitchtv-widget' );
 
     return $options;
 }
