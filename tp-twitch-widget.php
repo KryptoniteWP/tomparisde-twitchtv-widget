@@ -169,6 +169,11 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 				define( 'TP_TWITCH_PLUGIN_FILE', __FILE__ );
 			}
 
+			// WordPress.org URL
+            if ( ! defined( 'TP_TWITCH_WP_ORG_URL' ) ) {
+                define( 'TP_TWITCH_WP_ORG_URL', 'https://wordpress.org/plugins/tomparisde-twitchtv-widget/');
+            }
+
 			// Docs URL
 			if ( ! defined( 'TP_TWITCH_DOCS_URL' ) ) {
 				define( 'TP_TWITCH_DOCS_URL', 'https://kryptonitewp.com/support/knb/tp-twitch-widget-documentation/' );

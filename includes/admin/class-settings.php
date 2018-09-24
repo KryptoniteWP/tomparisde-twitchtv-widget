@@ -57,6 +57,13 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             do_action( 'tp_twitch_register_settings_start' );
 
+            add_settings_section(
+                'tp_twitch_quickstart',
+                __('Quickstart Guide', 'tp-twitch-widget'),
+                array( &$this, 'section_quickstart_render' ),
+                'tp_twitch'
+            );
+
 			add_settings_section(
 				'tp_twitch_api',
 				__( 'API Settings', 'tp-twitch-widget' ),
@@ -129,7 +136,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             add_settings_field(
                 'tp_twitch_widget_style',
-                __( 'Widget Style', 'tp-twitch-widget' ),
+                __( 'Style (Widget)', 'tp-twitch-widget' ),
                 array( &$this, 'widget_style_render' ),
                 'tp_twitch',
                 'tp_twitch_defaults',
@@ -138,7 +145,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 			add_settings_field(
 				'tp_twitch_widget_size',
-				__( 'Widget Size', 'tp-twitch-widget' ),
+				__( 'Size (Widget)', 'tp-twitch-widget' ),
 				array( &$this, 'widget_size_render' ),
 				'tp_twitch',
 				'tp_twitch_defaults',
@@ -147,7 +154,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 			add_settings_field(
 				'tp_twitch_widget_preview',
-				__( 'Widget Preview', 'tp-twitch-widget' ),
+				__( 'Preview (Widget)', 'tp-twitch-widget' ),
 				array( &$this, 'widget_preview_render' ),
 				'tp_twitch',
 				'tp_twitch_defaults',
@@ -158,7 +165,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             add_settings_section(
                 'tp_twitch_data',
-                __( 'Data', 'tp-twitch-widget' ),
+                __( 'API Related Data', 'tp-twitch-widget' ),
                 array( &$this, 'section_data_render' ),
                 'tp_twitch'
             );
@@ -228,6 +235,40 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 			return $input;
 		}
+
+        /**
+         * Section quickstart guide
+         */
+        function section_quickstart_render() {
+            ?>
+            <p>
+                <strong><?php _e( 'Step 1: Create API Credentials', 'tp-twitch-widget' ); ?></strong><br />
+                <?php printf( wp_kses( __( 'Follow our guide which shows you <a href="%s" target="_blank" rel="nofollow">how to create Twitch API credentials</a>.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array(), 'target' => '_blank', 'rel' => 'nofollow' ) ) ), esc_url( add_query_arg( array(
+	                'utm_source'   => 'settings-page',
+	                'utm_medium'   => 'quickstart',
+	                'utm_campaign' => 'Twitch WP',
+                ), TP_TWITCH_DOCS_URL ) ) ); ?>
+            </p>
+
+            <p>
+                <strong><?php _e( 'Step 2: Enter your Client ID', 'tp-twitch-widget' ); ?></strong><br />
+                <?php _e('Once you created your API credentials, enter your personal <em>Client ID</em> into the field below.', 'tp-twitch-widget'); ?>
+            </p>
+
+            <p>
+                <strong><?php _e( 'Step 3: Place Twitch Streams on your Site', 'tp-twitch-widget' ); ?></strong><br />
+                <?php printf( wp_kses( __( 'Go to the <a href="%s" target="_blank" rel="nofollow">Widgets page</a>, place our Twitch widget wherever you want and adjust it according to your needs.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array(), 'target' => '_blank', 'rel' => 'nofollow' ) ) ), esc_url( admin_url( 'widgets.php' ) ) ); ?>
+            </p>
+
+            <?php do_action( 'tp_twitch_settings_section_quickstart_render' ); ?>
+
+            <p><?php printf( wp_kses( __( 'Please take a look into the <a href="%s">documentation</a> for more options.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( add_query_arg( array(
+                    'utm_source'   => 'settings-page',
+                    'utm_medium'   => 'quickstart',
+                    'utm_campaign' => 'Twitch WP',
+                ), TP_TWITCH_DOCS_URL ) ) ); ?></p>
+            <?php
+        }
 
 		/**
 		 * Section API description
@@ -493,7 +534,6 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                     </tbody>
                 </table>
             </div>
-            <hr />
             <?php
         }
 
@@ -503,24 +543,148 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function options_page() {
 			?>
 
-            <div class="wrap">
-                <h1><?php _e( 'Twitch for WordPress', 'tp-twitch-widget' ); ?></h1>
+            <div class="tp-twitch-settings">
+                <div class="wrap">
+                    <h2><?php echo apply_filters( 'tp_twitch_settings_page_title', __( 'Twitch for WordPress', 'tp-twitch-widget' ) ); ?></h2>
 
-                <form action="options.php" method="post">
-					<?php
-					settings_fields( 'tp_twitch' );
-					do_settings_sections( 'tp_twitch' );
-					?>
+                    <div id="poststuff">
+                        <div id="post-body" class="metabox-holder columns-2">
+                            <div id="post-body-content">
+                                <div class="meta-box-sortables ui-sortable">
+                                    <form action="options.php" method="post">
 
-                    <p>
-                        <?php submit_button( 'Save Changes', 'button-primary', 'submit', false ); ?>
-                        <?php submit_button( __( 'Delete Cache', 'tp-twitch-widget' ), 'button-secondary', 'tp_twitch_delete_cache_submit', false ); ?>
-                    </p>
-                </form>
+                                        <?php
+                                        settings_fields('tp_twitch');
+                                        tp_twitch_do_settings_sections('tp_twitch');
+                                        ?>
 
-                <?php //tp_twitch_debug( $this->options ); ?>
+                                        <p>
+                                            <?php submit_button( 'Save Changes', 'button-primary', 'submit', false ); ?>
+                                            <?php submit_button( __( 'Delete Cache', 'tp-twitch-widget' ), 'button-secondary', 'tp_twitch_delete_cache_submit', false ); ?>
+                                        </p>
+
+                                    </form>
+                                </div>
+
+                            </div>
+                            <!-- /#post-body-content -->
+                            <div id="postbox-container-1" class="postbox-container">
+                                <div class="meta-box-sortables">
+                                    <div class="postbox">
+                                        <h3><span><?php _e('Resources &amp; Support', 'tp-twitch-widget' ); ?></span></h3>
+                                        <div class="inside">
+                                            <p><?php _e('In order to make it as simple as possible for you, we created a detailed online documentation.', 'tp-twitch-widget' ); ?></p>
+                                            <ul>
+                                                <li>
+                                                    <?php
+                                                    $docs_link = esc_url( add_query_arg( array(
+                                                            'utm_source'   => 'settings-page',
+                                                            'utm_medium'   => 'infobox-resources',
+                                                            'utm_campaign' => 'TP Twitch',
+                                                        ), TP_TWITCH_DOCS_URL )
+                                                    );
+                                                    ?>
+                                                    <a href="<?php echo $docs_link; ?>" target="_blank"><?php _e('Documentation', 'tp-twitch-widget' ); ?></a>
+                                                </li>
+                                                <li>
+                                                    <a href="<?php echo TP_TWITCH_WP_ORG_URL; ?>" target="_blank"><?php _e('Plugin Page', 'tp-twitch-widget' ); ?></a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://wordpress.org/plugins/tomparisde-twitchtv-widget/#developers" target="_blank"><?php _e('Changelog', 'tp-twitch-widget' ); ?></a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://twitter.com/kryptonitewp" target="_blank"><?php _e('Follow us on Twitter', 'tp-twitch-widget' ); ?></a>
+                                                </li>
+                                            </ul>
+                                            <?php
+                                            $website_link = esc_url( add_query_arg( array(
+                                                    'utm_source'   => 'settings-page',
+                                                    'utm_medium'   => 'infobox-resources',
+                                                    'utm_campaign' => 'Twitch WP',
+                                                ), 'https://kryptonitewp.com/' )
+                                            );
+                                            ?>
+                                            <p>&copy; Copyright <?php echo date('Y' ); ?> <a href="<?php echo $website_link; ?>" target="_blank">KryptoniteWP</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php if ( ! tp_twitch_is_pro_version() ) { ?>
+                                    <div class="postbox">
+                                        <h3><span><?php _e('Upgrade to PRO Version', 'tp-twitch-widget'); ?></span></h3>
+                                        <div class="inside">
+
+                                            <p><?php _e('The PRO version extends the plugin exclusively with a variety of different styles and some exclusively features.', 'tp-twitch-widget'); ?></p>
+
+                                            <ul>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Display more than 3 streams', 'tp-twitch-widget'); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('More Styles', 'tp-twitch-widget'); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Place streams via shortcode', 'tp-twitch-widget'); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('And more!', 'tp-twitch-widget'); ?></strong></li>
+                                            </ul>
+
+                                            <p>
+                                                <?php _e('We would be happy if you give it a chance!', 'tp-twitch-widget'); ?>
+                                            </p>
+
+                                            <p>
+                                                <?php
+                                                $upgrade_link = tp_twitch_get_pro_version_url( 'settings-page', 'infobox-upgrade' );
+                                                ?>
+                                                <a class="tp-twitch-settings-button tp-twitch-settings-button--block" target="_blank" href="<?php echo $upgrade_link; ?>" rel="nofollow"><?php _e('More details', 'tp-twitch-widget'); ?></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
+                                <!-- /.meta-box-sortables -->
+                            </div>
+                            <!-- /.postbox-container -->
+                        </div>
+                    </div>
+                </div>
             </div>
 			<?php
 		}
 	}
+}
+
+/**
+ * Custom settings section output
+ * 
+ * Replacing: do_settings_sections( 'tp_twitch' );
+ * 
+ * @param $page
+ */
+function tp_twitch_do_settings_sections($page)
+{
+
+    global $wp_settings_sections, $wp_settings_fields;
+
+    if (!isset($wp_settings_sections[$page]))
+        return;
+
+    foreach ((array)$wp_settings_sections[$page] as $section) {
+
+        $title = '';
+
+        if ($section['title'])
+            $title = "<h3 class='hndle'>{$section['title']}</h3>\n";
+
+        if (!isset($wp_settings_fields) || !isset($wp_settings_fields[$page]) || ( !isset($wp_settings_fields[$page][$section['id']] ) && ! in_array( $section['id'], array( 'tp_twitch_data', 'tp_twitch_quickstart' ) ) ) )
+            continue;
+
+        echo '<div class="postbox">';
+        echo $title;
+        echo '<div class="inside">';
+
+        if ($section['callback'])
+            call_user_func($section['callback'], $section);
+
+        echo '<table class="form-table">';
+        do_settings_fields($page, $section['id']);
+        echo '</table>';
+        echo '</div>';
+        echo '</div>';
+    }
 }
