@@ -467,8 +467,12 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
         }
 
         // Maybe fetch missing users
-        if ( sizeof( $user_logins_missing ) > 0 )
+        if ( sizeof( $user_logins_missing ) > 0 ) {
             $users_offline = tp_twitch_get_users_from_api( array( 'user_login' => $user_logins_missing ) );
+
+            if ( is_array( $users_offline ) && sizeof( $users_offline ) > 0 )
+                $users = array_merge( $users, $users_offline );
+        }
     }
 
 	// Prepare users data
@@ -506,45 +510,47 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 		}
 	}
 
-	// Prepare streams data
+	// Prepare streams
+    $user_streams = array();
+
+    if ( is_array( $streams ) && sizeof( $streams ) > 0 ) {
+
+        foreach ( $streams as $stream ) {
+
+            if ( ! isset( $stream['user_id'] ) )
+                continue;
+
+            $user_streams[$stream['user_id']] = $stream;
+        }
+    }
+
+	// Build streams data
 	$streams_data = array();
 
-	foreach ( $streams as $stream ) {
+    foreach ( $users_data as $user_data ) {
 
-		/* Exemplary data.
-		[id] => 29293315680
-		[user_id] => 36769016
-		[game_id] => 33214
-		[community_ids] => Array
-		(
-			[0] => 2caef3bd-b3db-4eed-a748-f3ee124b33aa
-		)
+        if (!isset($user_data['id']))
+            continue;
 
-		[type] => live
-		[title] => rocket launches today?! POGGERS
-		[viewer_count] => 26415
-		[started_at] => 2018-06-30T12:05:39Z
-		[language] => en
-		[thumbnail_url] => https://static-cdn.jtvnw.net/previews-ttv/live_user_timthetatman-{width}x{height}.jpg
-		*/
+        $stream = (isset($user_streams[$user_data['id']])) ? $user_streams[$user_data['id']] : array();
 
-		$stream_data = array(
-			'id' => ( isset( $stream['id'] ) ) ? $stream['id'] : 0,
-			'game_id' => ( isset( $stream['game_id'] ) ) ? $stream['game_id'] : 0,
-			'community_ids' => ( isset( $stream['community_ids'] ) ) ? $stream['community_ids'] : '',
-			'type' => ( isset( $stream['type'] ) ) ? $stream['type'] : '',
-			'title' => ( isset( $stream['title'] ) ) ? $stream['title'] : '',
-			'viewer_count' => ( isset( $stream['viewer_count'] ) ) ? $stream['viewer_count'] : 0,
-			'started_at' => ( isset( $stream['started_at'] ) ) ? $stream['started_at'] : '',
-			'language' => ( isset( $stream['language'] ) ) ? $stream['language'] : '',
-			'thumbnail_url' => ( isset( $stream['thumbnail_url'] ) ) ? $stream['thumbnail_url'] : '',
-			'user' => ( isset( $stream['user_id'] ) && isset( $users_data[$stream['user_id']] ) ) ? $users_data[$stream['user_id']] : null,
-		);
+        $stream_data = array(
+            'id' => (isset($stream['id'])) ? $stream['id'] : 0,
+            'game_id' => (isset($stream['game_id'])) ? $stream['game_id'] : 0,
+            'community_ids' => (isset($stream['community_ids'])) ? $stream['community_ids'] : '',
+            'type' => (isset($stream['type'])) ? $stream['type'] : '',
+            'title' => (isset($stream['title'])) ? $stream['title'] : '',
+            'viewer_count' => (isset($stream['viewer_count'])) ? $stream['viewer_count'] : 0,
+            'started_at' => (isset($stream['started_at'])) ? $stream['started_at'] : '',
+            'language' => (isset($stream['language'])) ? $stream['language'] : '',
+            'thumbnail_url' => (isset($stream['thumbnail_url'])) ? $stream['thumbnail_url'] : '',
+            'user' => $user_data,
+        );
 
-		$streams_data[$stream_data['id']] = $stream_data;
-	}
+        $streams_data[$stream_data['id']] = $stream_data;
+    }
 
-	//tp_twitch_debug( $streams_data, 'tp_twitch_setup_streams_data() >> $streams_data' );
+    //tp_twitch_debug( $streams_data, 'tp_twitch_setup_streams_data() >> $streams_data' );
 
 	return $streams_data;
 }
