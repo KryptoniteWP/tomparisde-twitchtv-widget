@@ -104,7 +104,11 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 			 */
 			$args = wp_parse_args( $args, $defaults );
 
+            //tp_twitch_debug( $args, 'API > get_streams > $args' );
+
 			$result = $this->request( 'streams', $args );
+
+			//tp_twitch_debug( $result, 'API > get_streams > $result' );
 
 			return $result;
 		}

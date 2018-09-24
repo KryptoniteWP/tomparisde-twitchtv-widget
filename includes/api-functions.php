@@ -21,10 +21,7 @@ function tp_twitch_get_top_games_from_api( $args = array() ) {
 
 	$results = tp_twitch()->api->get_top_games( $args );
 
-	if ( ! isset( $results['data'] ) )
-		return null;
-
-	return $results['data'];
+    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results['data'] : null;
 }
 
 /**
@@ -46,10 +43,9 @@ function tp_twitch_get_streams_from_api( $args = array() ) {
 	// Call API
 	$results = tp_twitch()->api->get_streams( $args );
 
-	if ( ! isset( $results['data'] ) )
-		return null;
+    //tp_twitch_debug( $results, 'tp_twitch_get_streams_from_api > $results' );
 
-	return $results['data'];
+	return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results['data'] : null;
 }
 
 /**
@@ -71,8 +67,5 @@ function tp_twitch_get_users_from_api( $args = array() ) {
 	// Call API
 	$results = tp_twitch()->api->get_users( $args );
 
-	if ( ! isset( $results['data'] ) )
-		return null;
-
-	return $results['data'];
+    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results['data'] : null;
 }

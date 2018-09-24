@@ -375,10 +375,10 @@ function tp_twitch_get_streams( $args = array() ) {
 	//tp_twitch_debug( 'tp_twitch_get_streams >> no cache!' );
 
 	// First: Fetch streams from API
-	$streams = tp_twitch_get_streams_from_api( $args );
+    $streams = tp_twitch_get_streams_from_api( $args );
 
 	// Second: Validate data, fetch additional info from API and setup the final data structure
-	$streams = tp_twitch_setup_streams_data( $streams );
+	$streams = tp_twitch_setup_streams_data( $streams, $args );
 
 	if ( ! empty( $streams ) )
 		tp_twitch_set_streams_cache( $streams, $args );
@@ -415,25 +415,61 @@ function tp_twitch_setup_streams( $streams ) {
  * Setup streams and maybe fetch additional data from API
  *
  * @param $streams
- *
- * @return array
+ * @param $streams_args
+ * @return array|null
  */
-function tp_twitch_setup_streams_data( $streams ) {
+function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 
 	if ( ! is_array( $streams ) )
-		return null;
+        $streams = array();
 
 	// Collect users
 	$user_ids = array();
 
-	foreach ( $streams as $stream ) {
+	if ( sizeof( $streams ) > 0 ) {
 
-		if ( ! empty( $stream['user_id'] ) ) {
-			$user_ids[] = $stream['user_id'];
-		}
-	}
+        foreach ( $streams as $stream ) {
+
+            if ( ! empty( $stream['user_id'] ) ) {
+                $user_ids[] = $stream['user_id'];
+            }
+        }
+    }
 
 	$users = ( sizeof( $user_ids ) > 0 ) ? tp_twitch_get_users_from_api( array( 'user_id' => $user_ids ) ) : array();
+
+	// Handling offline users/streams
+    if ( ! empty ( $streams_args['streamer'] ) ) {
+
+        $user_logins_fetched = array();
+
+        // Collecting already fetched user logins
+        if ( is_array( $users ) && sizeof( $users ) > 0 ) {
+
+            foreach ( $users as $user ) {
+
+                if ( ! isset ( $user['login'] ) || in_array( $user['login'], $user_logins_fetched ) )
+                    continue;
+
+                $user_logins_fetched[] = $user['login'];
+            }
+        }
+
+        // Collect not yet fetched user logins
+        $user_logins_missing = array();
+
+        $user_logins = explode(',', $streams_args['streamer'] );
+
+        foreach ( $user_logins as $user_login ) {
+
+            if ( ! in_array( $user_login, $user_logins_fetched ) )
+                $user_logins_missing[] = $user_login;
+        }
+
+        // Maybe fetch missing users
+        if ( sizeof( $user_logins_missing ) > 0 )
+            $users_offline = tp_twitch_get_users_from_api( array( 'user_login' => $user_logins_missing ) );
+    }
 
 	// Prepare users data
 	$users_data = array();
