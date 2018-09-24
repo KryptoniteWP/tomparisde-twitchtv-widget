@@ -198,6 +198,15 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 					<?php } ?>
                 </select>
             </p>
+            <!-- Documentation -->
+            <p>
+                <strong><?php _e('Need help?', 'tp-twitch-widget'); ?></strong><br />
+                <?php printf( wp_kses( __( 'Please take a look into the <a href="%s">documentation</a> for help and find out more options.', 'tp-twitch-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( add_query_arg( array(
+                    'utm_source'   => 'widgets-page',
+                    'utm_medium'   => 'need-help-note',
+                    'utm_campaign' => 'Twitch WP',
+                ), TP_TWITCH_DOCS_URL ) ) ); ?>
+            </p>
 			<?php
 		}
 
