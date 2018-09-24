@@ -538,7 +538,7 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
             'id' => (isset($stream['id'])) ? $stream['id'] : 0,
             'game_id' => (isset($stream['game_id'])) ? $stream['game_id'] : 0,
             'community_ids' => (isset($stream['community_ids'])) ? $stream['community_ids'] : '',
-            'type' => (isset($stream['type'])) ? $stream['type'] : '',
+            'type' => (isset($stream['type'])) ? $stream['type'] : 'offline',
             'title' => (isset($stream['title'])) ? $stream['title'] : '',
             'viewer_count' => (isset($stream['viewer_count'])) ? $stream['viewer_count'] : 0,
             'started_at' => (isset($stream['started_at'])) ? $stream['started_at'] : '',

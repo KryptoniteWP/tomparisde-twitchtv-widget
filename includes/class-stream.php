@@ -101,6 +101,9 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 			if ( ! isset ( $this->stream['thumbnail_url'] ) )
 				return null;
 
+			if ( empty( $thumbnail_url ) && ! empty( $this->stream['user']['offline_image_url'] ) )
+                return $this->stream['user']['offline_image_url'];
+
 			$width = ( ! empty( $width ) && is_numeric( $width ) ) ? intval( $width ) : 480;
 			$height = ( ! empty( $height ) && is_numeric( $height ) ) ? intval( $height ) : 270;
 
