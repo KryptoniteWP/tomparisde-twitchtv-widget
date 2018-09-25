@@ -43,8 +43,11 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 		 */
 		public function the_classes( $classes = 'tp-twitch-stream' ) {
 
-		    if ( $this->is_live() )
-			    $classes .= ' tp-twitch-stream--live';
+		    if ( $this->is_live() ) {
+                $classes .= ' tp-twitch-stream--live';
+            } else {
+                $classes .= ' tp-twitch-stream--offline';
+            }
 
 		    echo $classes;
         }
