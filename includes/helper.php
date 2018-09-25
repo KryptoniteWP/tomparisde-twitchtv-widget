@@ -78,6 +78,16 @@ function tp_twitch_is_user_admin() {
 }
 
 /**
+ * Sanitize comma separated input
+ *
+ * @param $input
+ * @return mixed
+ */
+function tp_twitch_sanitize_comma_separated_input( $input ) {
+    return str_replace( array( ';', ' ' ), array( ',', ',' ), trim( sanitize_text_field( $input ) ) );
+}
+
+/**
  * Better Debugging
  *
  * @param $args

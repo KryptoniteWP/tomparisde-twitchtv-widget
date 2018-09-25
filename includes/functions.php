@@ -364,13 +364,17 @@ function tp_twitch_set_streams_cache( $streams, $args ) {
  */
 function tp_twitch_get_streams( $args = array() ) {
 
-    if ( empty( $args['max'] ) || $args['max'] > apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() ) )
-        $args['max'] = apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() );
+    $args = tp_twitch_prepare_streams_args( $args );
 
-	$streams = tp_twitch_get_streams_cache( $args );
+    //tp_twitch_debug( $args, 'tp_twitch_get_streams > $args' );
 
-	if ( ! empty( $streams ) )
-		return tp_twitch_setup_streams( $streams );
+    if ( ! isset ( $args['no_cache'] ) || true !== $args['no_cache'] ) {
+
+        $streams = tp_twitch_get_streams_cache( $args );
+
+        if ( ! empty( $streams ) )
+            return tp_twitch_setup_streams( $streams );
+    }
 
 	//tp_twitch_debug( 'tp_twitch_get_streams >> no cache!' );
 
@@ -384,6 +388,25 @@ function tp_twitch_get_streams( $args = array() ) {
 		tp_twitch_set_streams_cache( $streams, $args );
 
 	return tp_twitch_setup_streams( $streams );
+}
+
+/**
+ * Prepare streams args
+ *
+ * @param $args
+ * @return mixed
+ */
+function tp_twitch_prepare_streams_args( $args ) {
+
+    // Max
+    if ( empty( $args['max'] ) || $args['max'] > apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() ) )
+        $args['max'] = apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() );
+
+    // Streamer
+    if ( ! empty( $args['streamer'] ) )
+        $args['streamer'] = strtolower( $args['streamer'] );
+
+    return $args;
 }
 
 /**
@@ -455,6 +478,8 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
             }
         }
 
+        //tp_twitch_debug( $user_logins_fetched, '$user_logins_fetched' );
+
         // Collect not yet fetched user logins
         $user_logins_missing = array();
 
@@ -466,14 +491,20 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
                 $user_logins_missing[] = $user_login;
         }
 
+        //tp_twitch_debug( $user_logins_missing, '$user_logins_missing' );
+
         // Maybe fetch missing users
         if ( sizeof( $user_logins_missing ) > 0 ) {
             $users_offline = tp_twitch_get_users_from_api( array( 'user_login' => $user_logins_missing ) );
+
+            //tp_twitch_debug( $users_offline, '$users_offline' );
 
             if ( is_array( $users_offline ) && sizeof( $users_offline ) > 0 )
                 $users = array_merge( $users, $users_offline );
         }
     }
+
+    //tp_twitch_debug( $users, '$users live + offline' );
 
 	// Prepare users data
 	$users_data = array();
@@ -510,6 +541,8 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 		}
 	}
 
+    //tp_twitch_debug( $users_data, '$users_data' );
+
 	// Prepare streams
     $user_streams = array();
 
@@ -524,12 +557,14 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
         }
     }
 
+    //tp_twitch_debug( $user_streams, '$user_streams' );
+
 	// Build streams data
 	$streams_data = array();
 
     foreach ( $users_data as $user_data ) {
 
-        if (!isset($user_data['id']))
+        if ( ! isset($user_data['id'] ) )
             continue;
 
         $stream = (isset($user_streams[$user_data['id']])) ? $user_streams[$user_data['id']] : array();
@@ -547,7 +582,7 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
             'user' => $user_data,
         );
 
-        $streams_data[$stream_data['id']] = $stream_data;
+        $streams_data[] = $stream_data;
     }
 
     //tp_twitch_debug( $streams_data, 'tp_twitch_setup_streams_data() >> $streams_data' );

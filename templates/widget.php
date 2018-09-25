@@ -83,10 +83,15 @@ $stream_count = 0;
                             <img class="tp-twitch-stream__avatar" src="<?php echo $stream->get_user_avatar_url( 50, 50 ); ?>" alt="<?php echo $stream->get_user_display_name(); ?>" />
                         </a>
                     </span>
-                        <span class="tp-twitch-stream__title"><a href="<?php echo $stream->get_url(); ?>" target="_blank" rel="nofollow"><?php echo $stream->get_title(); ?></a></span>
-                        <span class="tp-twitch-stream__user">
+                    <span class="tp-twitch-stream__title"><a href="<?php echo $stream->get_url(); ?>" target="_blank" rel="nofollow"><?php echo $stream->get_title(); ?></a></span>
+                    <span class="tp-twitch-stream__user">
                         <span class="tp-twitch-icon-user"></span><a href="<?php echo $stream->get_user_url(); ?>" target="_blank" rel="nofollow"><?php echo $stream->get_user_display_name(); ?></a><?php $stream->the_user_verified_icon(); ?>
                     </span>
+                    <?php if ( $stream->get_game() ) { ?>
+                        <span class="tp-twitch-stream__game">
+                            <span class="tp-twitch-icon-game"></span><a href="<?php echo $stream->get_game_url(); ?>" target="_blank" rel="nofollow"><?php echo $stream->get_game(); ?></a>
+                        </span>
+                    <?php } ?>
                     </div>
                     <div class="tp-twitch-stream__footer">
                         <span class="tp-twitch-stream__viewer">

@@ -48,6 +48,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			 */
 			$streams_args = array();
 			$template_args = array();
+			$output_args = array();
 
             //tp_twitch_debug( $instance );
 
@@ -86,9 +87,10 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 
 			//tp_twitch_debug( $streams_args, '$streams_args' );
 			//tp_twitch_debug( $template_args, '$template_args' );
+            //tp_twitch_debug( $output_args, '$output_args' );
 
 			// Final output.
-			tp_twitch_display_streams( $streams_args, $template_args, true );
+			tp_twitch_display_streams( $streams_args, $template_args, $output_args, true );
 
 			/*
 			 * Widget Footer
@@ -224,7 +226,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$instance = array();
 
 			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';
-			$instance['streamer'] = ( ! empty( $new_instance['streamer'] ) ) ? str_replace( array( ';', ' ' ), array( ',', ',' ), trim( sanitize_text_field( $new_instance['streamer'] ) ) ) : '';
+			$instance['streamer'] = ( ! empty( $new_instance['streamer'] ) ) ? tp_twitch_sanitize_comma_separated_input( $new_instance['streamer'] ) : '';
 			$instance['game'] = ( ! empty( $new_instance['game'] ) ) ? sanitize_text_field( $new_instance['game'] ) : '';
 			$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? sanitize_text_field( $new_instance['language'] ) : '';
 			$instance['max'] = ( ! empty( $new_instance['max'] ) ) ? sanitize_text_field( $new_instance['max'] ) : '';
