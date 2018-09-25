@@ -73,9 +73,13 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 				}
             }
 
+            $streams_args = apply_filters( 'tp_twitch_widget_streams_args', $streams_args, $instance );
+
             // Hide offline users
             if ( isset( $instance['hide_offline'] ) && true == $instance['hide_offline'] )
                 $output_args['hide_offline'] = true;
+
+            $output_args = apply_filters( 'tp_twitch_widget_output_args', $output_args, $instance );
 
 			// Template, which is hardcoded for widgets
 			$template_args['template'] = 'widget';
@@ -88,6 +92,8 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 
 			// Preview
 			$template_args['preview'] = ( ! empty ( $instance['preview'] ) ) ? $instance['preview'] : tp_twitch_get_option( 'widget_preview' );
+
+            $template_args = apply_filters( 'tp_twitch_widget_template_args', $template_args, $instance );
 
 			//tp_twitch_debug( $streams_args, '$streams_args' );
 			//tp_twitch_debug( $template_args, '$template_args' );
@@ -122,7 +128,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$streamer = ( ! empty( $instance['streamer'] ) ) ? $instance['streamer'] : '';
             ?>
 
-            <h4><?php _e('Stream Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
+            <h4><?php _e('Streams Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
             <!-- Streamer -->
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer', 'tomparisde-twitchtv-widget' ); ?></label>
@@ -181,6 +187,8 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 <label for="<?php echo esc_attr( $this->get_field_id( 'hide_offline' ) ); ?>"><?php esc_attr_e( 'Hide offline streams', 'tomparisde-twitchtv-widget' ); ?></label>
             </p>
 
+            <?php do_action( 'tp_twitch_widget_form_output_settings' ); ?>
+
             <h4><?php _e('Template Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
             <!-- Style -->
             <?php
@@ -222,6 +230,9 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 					<?php } ?>
                 </select>
             </p>
+
+            <?php do_action( 'tp_twitch_widget_form_template_settings' ); ?>
+
             <!-- Documentation -->
             <h4><?php _e('Need help?', 'tomparisde-twitchtv-widget'); ?></h4>
             <p>
@@ -256,6 +267,8 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             $instance['style'] = ( ! empty( $new_instance['style'] ) ) ? sanitize_text_field( $new_instance['style'] ) : '';
 			$instance['size'] = ( ! empty( $new_instance['size'] ) ) ? sanitize_text_field( $new_instance['size'] ) : '';
 			$instance['preview'] = ( ! empty( $new_instance['preview'] ) ) ? sanitize_text_field( $new_instance['preview'] ) : '';
+
+			$instance = apply_filters( 'tp_twitch_widget_update', $instance, $new_instance, $old_instance );
 
 			return $instance;
 		}
