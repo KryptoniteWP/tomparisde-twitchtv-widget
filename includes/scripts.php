@@ -26,13 +26,13 @@ function tp_twitch_admin_scripts( $hook ) {
 	 */
 	$screen = get_current_screen();
 
-	if ( tp_twitch_is_plugin_admin_area() || ( isset( $screen->base ) && 'widgets' === $screen->base ) ) {
+	//if ( tp_twitch_is_plugin_admin_area() || ( isset( $screen->base ) && 'widgets' === $screen->base ) ) {
 
 		wp_enqueue_script( 'tp-twitch-admin-script', TP_TWITCH_PLUGIN_URL . 'public/js/admin' . $suffix . '.js', array( 'jquery' ), TP_TWITCH_VERSION );
 		wp_enqueue_style( 'tp-twitch-admin-style', TP_TWITCH_PLUGIN_URL . 'public/css/admin' . $suffix . '.css', false, TP_TWITCH_VERSION );
 
 		do_action( 'tp_twitch_enqueue_admin_scripts' );
-	}
+	//}
 }
 
 add_action( 'admin_enqueue_scripts', 'tp_twitch_admin_scripts', 100 );

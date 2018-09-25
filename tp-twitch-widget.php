@@ -213,7 +213,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 				require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/class-settings.php';
 
 				// Upgrades
-				//require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/upgrades.php';
+				require_once TP_TWITCH_PLUGIN_DIR . 'includes/admin/upgrades.php';
 			}
 		}
 

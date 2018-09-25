@@ -1,0 +1,26 @@
+@import "../common";
+
+@notice-icon-size: 25px;
+
+div.tp-twitch-notice {
+    position: relative;
+
+    padding-left: (20px + @notice-icon-size);
+
+    &:before {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+
+        display: block;
+        height: @notice-icon-size;
+        width: @notice-icon-size;
+        margin-top: -(@notice-icon-size / 2);
+
+        background-image: url('../img/icon-twitch.svg');
+        background-repeat: no-repeat;
+        background-size: @notice-icon-size @notice-icon-size;
+        background-position: center;
+        content: "";
+    }
+}
