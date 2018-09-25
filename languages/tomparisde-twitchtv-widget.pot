@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Twitch for WordPress\n"
-"POT-Creation-Date: 2018-09-24 17:42+0700\n"
+"POT-Creation-Date: 2018-09-25 16:49+0700\n"
 "PO-Revision-Date: 2018-09-24 17:41+0700\n"
 "Last-Translator: \n"
 "Language-Team: KryptoniteWP\n"
@@ -22,6 +22,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SearchPathExcluded-1: assets\n"
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
+"X-Poedit-SearchPathExcluded-3: public\n"
 
 #: includes/admin/class-settings.php:62
 msgid "Quickstart Guide"
@@ -56,7 +57,7 @@ msgid "Default Settings"
 msgstr ""
 
 #: includes/admin/class-settings.php:130 includes/admin/class-settings.php:520
-#: includes/widget.php:144
+#: includes/widget.php:165
 msgid "Language"
 msgstr ""
 
@@ -196,7 +197,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: includes/admin/class-settings.php:493 includes/widget.php:131
+#: includes/admin/class-settings.php:493 includes/widget.php:152
 msgid "Game"
 msgstr ""
 
@@ -281,7 +282,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/class-stream.php:118
+#: includes/class-stream.php:124
 #, php-format
 msgid "Twitch stream of %s"
 msgstr ""
@@ -470,11 +471,11 @@ msgid ""
 "\"_blank\">Upgrade now</a>."
 msgstr ""
 
-#: includes/template-functions.php:76
+#: includes/template-functions.php:79
 msgid "Template not found."
 msgstr ""
 
-#: includes/template-functions.php:83
+#: includes/template-functions.php:86
 msgid "No streams found."
 msgstr ""
 
@@ -486,43 +487,73 @@ msgstr ""
 msgid "Display Twitch streams in your sidebars."
 msgstr ""
 
-#: includes/widget.php:108
+#: includes/widget.php:120
 msgid "New title"
 msgstr ""
 
-#: includes/widget.php:112
+#: includes/widget.php:124
 msgid "Title:"
 msgstr ""
 
-#: includes/widget.php:120
-msgid "Streamer:"
+#: includes/widget.php:131
+msgid "Streams Settings"
 msgstr ""
 
-#: includes/widget.php:156
-msgid "Maximum Amount of Streams:"
+#: includes/widget.php:134
+msgid "Streamer"
 msgstr ""
 
-#: includes/widget.php:167
+#: includes/widget.php:139
+#, php-format
+msgid "The username of a streamer. For instance: %s"
+msgstr ""
+
+#: includes/widget.php:142
+#, php-format
+msgid "Comma separate multiple streamers as follows: %s"
+msgstr ""
+
+#: includes/widget.php:174
+msgid "Output Settings"
+msgstr ""
+
+#: includes/widget.php:178
+msgid "Maximum Amount of Streams"
+msgstr ""
+
+#: includes/widget.php:187
+msgid "Hide offline streams"
+msgstr ""
+
+#: includes/widget.php:192
+msgid "Template Settings"
+msgstr ""
+
+#: includes/widget.php:199
 msgid "Style"
 msgstr ""
 
-#: includes/widget.php:181
+#: includes/widget.php:213
 msgid "Size"
 msgstr ""
 
-#: includes/widget.php:194
+#: includes/widget.php:226
 msgid "Preview"
 msgstr ""
 
-#: includes/widget.php:203
+#: includes/widget.php:237
 msgid "Need help?"
 msgstr ""
 
-#: includes/widget.php:204
+#: includes/widget.php:239
 #, php-format
 msgid ""
 "Please take a look into the <a href=\"%s\">documentation</a> for help and "
 "find out more options."
+msgstr ""
+
+#: templates/widget.php:69 templates/widget.php:98
+msgid "Offline"
 msgstr ""
 
 #: tp-twitch-widget.php:111 tp-twitch-widget.php:123
