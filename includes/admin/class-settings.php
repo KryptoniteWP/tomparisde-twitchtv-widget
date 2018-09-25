@@ -618,8 +618,9 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
                                             <ul>
                                                 <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Display more than 3 streams', 'tomparisde-twitchtv-widget'); ?></strong></li>
-                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('More Styles', 'tomparisde-twitchtv-widget'); ?></strong></li>
                                                 <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Place streams via shortcode', 'tomparisde-twitchtv-widget'); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Choose from different styles', 'tomparisde-twitchtv-widget'); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Sort streams by different criteria', 'tomparisde-twitchtv-widget'); ?></strong></li>
                                                 <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('And more!', 'tomparisde-twitchtv-widget'); ?></strong></li>
                                             </ul>
 
