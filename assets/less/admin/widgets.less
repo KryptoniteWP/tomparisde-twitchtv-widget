@@ -28,4 +28,23 @@ div[id*="tp_twitch_widget"] {
             }
         }
     }
+
+    h4 {
+        margin-bottom: 0;
+
+        color: @color-twitch;
+
+        & + p {
+            margin-top: .5em;
+        }
+    }
+
+    p.description {
+        margin-top: 7px;
+        padding-bottom: 0;
+    }
+
+    p + p.desc {
+        margin-top: -7px;
+    }
 }

@@ -73,6 +73,10 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 				}
             }
 
+            // Hide offline users
+            if ( isset( $instance['hide_offline'] ) && true == $instance['hide_offline'] )
+                $output_args['hide_offline'] = true;
+
 			// Template, which is hardcoded for widgets
 			$template_args['template'] = 'widget';
 
@@ -117,12 +121,21 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             <?php
 			$streamer = ( ! empty( $instance['streamer'] ) ) ? $instance['streamer'] : '';
             ?>
+
+            <h4><?php _e('Stream Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
             <!-- Streamer -->
             <p>
-                <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer:', 'tomparisde-twitchtv-widget' ); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer', 'tomparisde-twitchtv-widget' ); ?></label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'streamer' ) ); ?>" type="text" value="<?php echo esc_attr( $streamer ); ?>" data-tp-twitch-widget-config-streamer-input="true">
                 <?php tp_twitch_pre_pro_the_widget_streams_max_note(); ?>
             </p>
+            <p class="description">
+                <?php printf( esc_html__( 'The username of a streamer. For instance: %s', 'tomparisde-twitchtv-widget' ), '<strong>dreamhackcs</strong>' ); ?>
+            </p>
+            <p class="description">
+                <?php printf( esc_html__( 'Comma separate multiple streamers as follows: %s', 'tomparisde-twitchtv-widget' ), '<strong>dreamhackcs,RiotGames2</strong>' ); ?>
+            </p>
+
             <div class="tp-twitch-widget-config-search-block"<?php if ( ! empty( $streamer ) ) echo ' style="display: none;"'; ?>><!-- Don't show this block when streamers were entered -->
                 <!-- Game -->
                 <?php
@@ -150,16 +163,25 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                         <?php } ?>
                     </select>
                 </p>
-                <!-- Maximum Amount of Streams -->
-                <?php
-                $max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : tp_twitch_get_default_streams_max();
-                ?>
-                <p>
-                    <label for="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>"><?php esc_attr_e( 'Maximum Amount of Streams:', 'tomparisde-twitchtv-widget' ); ?></label>
-                    <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max' ) ); ?>" type="number" value="<?php echo esc_attr( $max ); ?>">
-                    <?php tp_twitch_pre_pro_the_widget_streams_max_note(); ?>
-                </p>
             </div>
+
+            <h4><?php _e('Output Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
+            <!-- Maximum Amount of Streams -->
+            <?php $max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : tp_twitch_get_default_streams_max(); ?>
+            <p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>"><?php esc_attr_e( 'Maximum Amount of Streams', 'tomparisde-twitchtv-widget' ); ?></label>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max' ) ); ?>" type="number" value="<?php echo esc_attr( $max ); ?>">
+                <?php tp_twitch_pre_pro_the_widget_streams_max_note(); ?>
+            </p>
+
+            <!-- Hide offline -->
+            <?php $hide_offline = ( isset( $instance['hide_offline'] ) && '1' == $instance['hide_offline'] ) ? 1 : 0; ?>
+            <p>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'hide_offline' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'hide_offline' ) ); ?>" type="checkbox" value="1" <?php checked( $hide_offline, true ); ?>>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'hide_offline' ) ); ?>"><?php esc_attr_e( 'Hide offline streams', 'tomparisde-twitchtv-widget' ); ?></label>
+            </p>
+
+            <h4><?php _e('Template Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
             <!-- Style -->
             <?php
             $style_options = tp_twitch_get_widget_style_options( false );
@@ -201,8 +223,8 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 </select>
             </p>
             <!-- Documentation -->
+            <h4><?php _e('Need help?', 'tomparisde-twitchtv-widget'); ?></h4>
             <p>
-                <strong><?php _e('Need help?', 'tomparisde-twitchtv-widget'); ?></strong><br />
                 <?php printf( wp_kses( __( 'Please take a look into the <a href="%s">documentation</a> for help and find out more options.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( add_query_arg( array(
                     'utm_source'   => 'widgets-page',
                     'utm_medium'   => 'need-help-note',
@@ -230,6 +252,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$instance['game'] = ( ! empty( $new_instance['game'] ) ) ? sanitize_text_field( $new_instance['game'] ) : '';
 			$instance['language'] = ( ! empty( $new_instance['language'] ) ) ? sanitize_text_field( $new_instance['language'] ) : '';
 			$instance['max'] = ( ! empty( $new_instance['max'] ) ) ? sanitize_text_field( $new_instance['max'] ) : '';
+            $instance['hide_offline'] = ( ! empty( $new_instance['hide_offline'] ) ) ? sanitize_text_field( $new_instance['hide_offline'] ) : '';
             $instance['style'] = ( ! empty( $new_instance['style'] ) ) ? sanitize_text_field( $new_instance['style'] ) : '';
 			$instance['size'] = ( ! empty( $new_instance['size'] ) ) ? sanitize_text_field( $new_instance['size'] ) : '';
 			$instance['preview'] = ( ! empty( $new_instance['preview'] ) ) ? sanitize_text_field( $new_instance['preview'] ) : '';

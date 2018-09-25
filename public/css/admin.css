@@ -77,3 +77,17 @@ div[id*="tp_twitch_widget"] .widget-title h3:before {
   background-position: center;
   content: "";
 }
+div[id*="tp_twitch_widget"] h4 {
+  margin-bottom: 0;
+  color: #4b367c;
+}
+div[id*="tp_twitch_widget"] h4 + p {
+  margin-top: .5em;
+}
+div[id*="tp_twitch_widget"] p.description {
+  margin-top: 7px;
+  padding-bottom: 0;
+}
+div[id*="tp_twitch_widget"] p + p.desc {
+  margin-top: -7px;
+}
