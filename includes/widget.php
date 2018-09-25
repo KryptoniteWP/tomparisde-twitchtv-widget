@@ -187,7 +187,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 <label for="<?php echo esc_attr( $this->get_field_id( 'hide_offline' ) ); ?>"><?php esc_attr_e( 'Hide offline streams', 'tomparisde-twitchtv-widget' ); ?></label>
             </p>
 
-            <?php do_action( 'tp_twitch_widget_form_output_settings' ); ?>
+            <?php do_action( 'tp_twitch_widget_form_output_settings', $this, $instance ); ?>
 
             <h4><?php _e('Template Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
             <!-- Style -->
@@ -231,7 +231,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 </select>
             </p>
 
-            <?php do_action( 'tp_twitch_widget_form_template_settings' ); ?>
+            <?php do_action( 'tp_twitch_widget_form_template_settings', $instance ); ?>
 
             <!-- Documentation -->
             <h4><?php _e('Need help?', 'tomparisde-twitchtv-widget'); ?></h4>
@@ -256,6 +256,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 		 * @return array Updated safe values to be saved.
 		 */
 		public function update( $new_instance, $old_instance ) {
+
 			$instance = array();
 
 			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';

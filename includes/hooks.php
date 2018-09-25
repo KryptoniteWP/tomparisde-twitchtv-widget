@@ -35,6 +35,8 @@ function tp_twitch_manipulate_display_streams( $streams, $streams_args, $output_
         }
     }
 
+    $streams = apply_filters( 'tp_twitch_manipulate_display_streams', $streams, $streams_args, $output_args );
+
     // Max
     if ( isset( $output_args['max'] ) && is_numeric( $output_args['max'] ) && sizeof( $streams ) > intval( $output_args['max'] ) ) {
         $streams = array_slice( $streams, 0, intval( $output_args['max'] ) );
