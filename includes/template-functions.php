@@ -54,7 +54,7 @@ function tp_twitch_get_default_template( $is_widget = true ) {
  */
 function tp_twitch_display_streams( $streams_args = array(), $template_args = array(), $output_args = array(), $is_widget = true ) {
 
-	$streams = tp_twitch_get_streams( $streams_args );
+	$streams = tp_twitch_get_streams( $streams_args, $output_args );
 
 	//tp_twitch_debug( $streams, '$streams' );
 

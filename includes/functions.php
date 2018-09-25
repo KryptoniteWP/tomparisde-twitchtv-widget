@@ -359,12 +359,12 @@ function tp_twitch_set_streams_cache( $streams, $args ) {
  * Get streams
  *
  * @param array $args
- *
- * @return null
+ * @param array $output_args
+ * @return array
  */
-function tp_twitch_get_streams( $args = array() ) {
+function tp_twitch_get_streams( $args = array(), $output_args = array() ) {
 
-    $args = tp_twitch_prepare_streams_args( $args );
+    $args = tp_twitch_prepare_streams_args( $args, $output_args );
 
     //tp_twitch_debug( $args, 'tp_twitch_get_streams > $args' );
 
@@ -394,9 +394,10 @@ function tp_twitch_get_streams( $args = array() ) {
  * Prepare streams args
  *
  * @param $args
+ * @param $output_args
  * @return mixed
  */
-function tp_twitch_prepare_streams_args( $args ) {
+function tp_twitch_prepare_streams_args( $args, $output_args ) {
 
     // Max
     if ( empty( $args['max'] ) || $args['max'] > apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() ) )

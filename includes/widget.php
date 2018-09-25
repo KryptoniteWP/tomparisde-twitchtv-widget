@@ -66,14 +66,14 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 
 				// Language
                 $template_args['language'] = ( ! empty ( $instance['language'] ) ) ? $instance['language'] : tp_twitch_get_option( 'language' );
-
-				// Ma
-				if ( ! empty ( $instance['max'] ) && is_numeric( $instance['max'] ) ) {
-					$streams_args['max'] = intval( $instance['max'] );
-				}
             }
 
             $streams_args = apply_filters( 'tp_twitch_widget_streams_args', $streams_args, $instance );
+
+            // Max
+            if ( ! empty ( $instance['max'] ) && is_numeric( $instance['max'] ) ) {
+                $output_args['max'] = intval( $instance['max'] );
+            }
 
             // Hide offline users
             if ( isset( $instance['hide_offline'] ) && true == $instance['hide_offline'] )
