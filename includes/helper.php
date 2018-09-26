@@ -88,6 +88,17 @@ function tp_twitch_sanitize_comma_separated_input( $input ) {
 }
 
 /**
+ * Output data to a log for debugging reasons
+ **/
+function tp_twitch_addlog( $string ) {
+
+    $log = get_option( 'tp_twitch_log', '' );
+    $string = date( 'd.m.Y H:i:s' ) . " >>> " . $string . "\n";
+    $log .= $string;
+    update_option( 'tp_twitch_log', $log );
+}
+
+/**
  * Better Debugging
  *
  * @param $args

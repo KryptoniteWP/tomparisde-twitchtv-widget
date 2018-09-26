@@ -170,6 +170,13 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 'tp_twitch'
             );
 
+            add_settings_section(
+                'tp_twitch_help',
+                __( 'Help & Support', 'tomparisde-twitchtv-widget' ),
+                array( &$this, 'section_help_render' ),
+                'tp_twitch'
+            );
+
             do_action( 'tp_twitch_register_settings_end' );
 		}
 
@@ -205,6 +212,9 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 					$api_status = ( is_array( $result ) && isset( $result['data'] ) ) ? true : false;
 					$api_error = ( ! empty ( $result['error'] ) ) ? $result['error'] : '';
+
+					if ( ! empty ( $api_error ) )
+					    tp_twitch_addlog( 'Twitch API >> Verify client id >> Error: "' . $api_error . '"' );
 				}
 
 			} else {
@@ -231,6 +241,12 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				tp_twitch_delete_cache();
             } elseif ( $delete_streams_cache ) {
 			    tp_twitch_delete_streams_cache();
+            }
+
+            // Handle Delete Log Action
+            if ( isset ( $input['delete_log'] ) && '1' === $input['delete_log'] ) {
+                delete_option( 'tp_twitch_log' );
+                $input['delete_log'] = '0';
             }
 
 			return $input;
@@ -464,7 +480,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		}
 
         /**
-         * Section data description
+         * Section data render
          */
         function section_data_render() {
 
@@ -534,6 +550,74 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                     </tbody>
                 </table>
             </div>
+            <?php
+        }
+
+        /**
+         * Section help render
+         */
+        function section_help_render() {
+
+            global $wp_version;
+            
+            $curl = $this->check_curl();
+
+            $enabled = '<span style="color: green;"><strong><span class="dashicons dashicons-yes"></span> ' . __('Enabled', 'tomparisde-twitchtv-widget') . '</strong></span>';
+            $disabled = '<span style="color: red;"><strong><span class="dashicons dashicons-no"></span> ' . __('Disabled', 'tomparisde-twitchtv-widget') . '</strong></span>';
+
+            ?>
+            <p>
+                <?php printf( wp_kses( __( 'In case you experience some issue with our plugin, please <a href="%s" target="_blank">get in touch with us</a> and provide a screenshot of the table below.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( 'https://kryptonitewp.com/support/' ) ); ?>
+            </p>
+
+            <table class="widefat tp-twitch-settings-table">
+                <thead>
+                <tr>
+                    <th width="300"><?php _e('Setting', 'tomparisde-twitchtv-widget'); ?></th>
+                    <th><?php _e('Values', 'tomparisde-twitchtv-widget'); ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Twitch API</th>
+                    <td>
+                        <?php if ( isset( $this->options['api_status'] ) && true === $this->options['api_status'] ) { ?>
+                            <span style="font-weight: bold; color: green;"><?php _e( 'Connected', 'tomparisde-twitchtv-widget' ); ?></span>
+                        <?php } else { ?>
+                            <span style="font-weight: bold; color: red;"><?php _e( 'Disconnected', 'tomparisde-twitchtv-widget' ); ?></span>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>WordPress</th>
+                    <td>Version <?php echo $wp_version; ?></td>
+                </tr>
+                <tr class="alternate">
+                    <th>PHP</th>
+                    <td>Version <strong><?php echo phpversion(); ?></strong></td>
+                </tr>
+                <tr>
+                    <th><?php printf( esc_html__( 'PHP "%1$s" extension', 'tomparisde-twitchtv-widget' ), 'cURL' ); ?></th>
+                    <td>
+                        <?php echo (isset ($curl['enabled']) && $curl['enabled']) ? $enabled : $disabled; ?>
+                        <?php if (isset ($curl['version'])) echo ' (Version ' . $curl['version'] . ')'; ?>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <?php _e('In case one of the values above is <span style="color: red;"><strong>red</strong></span>, please get in contact with your webhoster in order to enable the missing PHP extensions.', 'tomparisde-twitchtv-widget'); ?>
+            </p>
+
+            <p>
+                <strong><?php _e('Log file', 'tomparisde-twitchtv-widget'); ?></strong><br />
+                <textarea rows="5" style="width: 100%;"><?php echo get_option( 'tp_twitch_log', __( 'No entries yet. ', 'tomparisde-twitchtv-widget' ) ); ?></textarea>
+            </p>
+            <p>
+                <input type="hidden" id="tp-twitch-delete-log" name="tp_twitch[delete_log]" value="0" />
+                <?php submit_button( 'Delete log', 'delete button-secondary', 'tp-twitch-delete-log-submit', false ); ?>
+            </p>
             <?php
         }
 
@@ -647,6 +731,27 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             </div>
 			<?php
 		}
+
+        /**
+         * Check cURL
+         *
+         * @return array|bool
+         */
+        private function check_curl() {
+
+            if ( ( function_exists('curl_version') ) ) {
+
+                $curl_data = curl_version();
+                $version = ( isset ( $curl_data['version'] ) ) ? $curl_data['version'] : null;
+
+                return array(
+                    'enabled' => true,
+                    'version' => $version
+                );
+            } else {
+                return false;
+            }
+        }
 	}
 }
 
@@ -672,7 +777,7 @@ function tp_twitch_do_settings_sections($page)
         if ($section['title'])
             $title = "<h3 class='hndle'>{$section['title']}</h3>\n";
 
-        if (!isset($wp_settings_fields) || !isset($wp_settings_fields[$page]) || ( !isset($wp_settings_fields[$page][$section['id']] ) && ! in_array( $section['id'], array( 'tp_twitch_data', 'tp_twitch_quickstart' ) ) ) )
+        if (!isset($wp_settings_fields) || !isset($wp_settings_fields[$page]) || ( !isset($wp_settings_fields[$page][$section['id']] ) && ! in_array( $section['id'], array( 'tp_twitch_quickstart', 'tp_twitch_data', 'tp_twitch_help' ) ) ) )
             continue;
 
         echo '<div class="postbox">';

@@ -15,6 +15,13 @@ jQuery(document).ready(function ($) {
     });
 
     /**
+     * Settings: Delete Log
+     */
+    jQuery( document ).on( 'click', '#tp-twitch-delete-log-submit', function(event) {
+        jQuery('#tp-twitch-delete-log').val('1');
+    });
+
+    /**
      * Widgets
      */
     $('[data-tp-twitch-widget-config-streamer-input]').keyup(function() {
