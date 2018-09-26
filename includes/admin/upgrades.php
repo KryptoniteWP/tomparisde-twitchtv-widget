@@ -18,35 +18,27 @@ function tp_twitch_plugin_upgrades() {
     $version_installed = get_option( 'tp_twitch_version', '' );
 
     // Plugin already up2date
-    //if ( $version_installed === TP_TWITCH_VERSION )
-      //  return;
-
-    //if ( $version_installed === TP_TWITCH_VERSION || ( ! empty( $version_installed ) && version_compare( TP_TWITCH_VERSION, $version_installed, '<' ) ) )
-    //    return;
+    if ( $version_installed === TP_TWITCH_VERSION )
+        return;
 
     /*
      * Loop updates
      ---------------------------------------------------------- */
 
     // v2.0 (Rebuild)
-    if ( ! empty ( get_option( 'tp_ttvw' ) ) ) {
+    if ( ! empty ( get_option( 'tp_ttvw' ) ) )
         tp_twitch_plugin_upgrade_v2_rebuild();
-    }
-
-    tp_twitch_plugin_upgrade_v2_rebuild();
-
 
     if ( ! empty( $version_installed ) ) {
-
         // 2.0 rebuild
         //if ( version_compare( $version_installed, '3.0.0', '<' ) )
-           //aawp_admin_plugin_upgrade_rebuild_cleanup();
+           //tp_twitch_plugin_upgrade_v2_rebuild();
 
     }
     /* ---------------------------------------------------------- */
 
     // Update installed version
-    //update_option( 'tp_twitch_version', TP_TWITCH_VERSION );
+    update_option( 'tp_twitch_version', TP_TWITCH_VERSION );
 }
 add_action( 'admin_init', 'tp_twitch_plugin_upgrades' );
 
@@ -55,16 +47,20 @@ add_action( 'admin_init', 'tp_twitch_plugin_upgrades' );
  */
 function tp_twitch_plugin_upgrade_v2_rebuild() {
 
-    echo 'blub';
-
     // Delete options
-    //delete_option( 'tp_ttvw' );
+    delete_option( 'tp_ttvw' );
 
     // Add admin notice
     add_action( 'admin_notices', function() {
         ?>
-        <div class="updated notice tp-twitch-notice is-dismissible">
-            <p>Thank you for using this plugin! <strong>You are awesome</strong>.</p>
+        <div class="notice-warning notice tp-twitch-notice is-dismissible">
+            <p><?php _e('Welcome to our brand new Twitch for WordPress plugin!', 'tomparisde-twitchtv-widget' ); ?></p>
+            <p><?php _e('We made a complete rebuild of our plugin which allows us to implement more amazing features for you. Please complete the following steps in order to continue using the plugin:', 'tomparisde-twitchtv-widget' ); ?></p>
+            <ol>
+               <li><?php printf( wp_kses( __( 'Please go to the <a href="%s">settings page</a> and enter your credentials for the new Twitch API.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'options-general.php?page=tp_twitch' ) ) ); ?></li>
+                <li><?php printf( wp_kses( __( 'Afterward, visit the <a href="%s">widgets page</a> and place our new widgets in your sidebar.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'widgets.php' ) ) ); ?></li>
+            </ol>
+            <p><?php _e('Thank you for using our plugin! You are awesome.', 'tomparisde-twitchtv-widget' ); ?></p>
         </div>
         <?php
     });

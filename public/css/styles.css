@@ -4,6 +4,7 @@
   width: 14px;
   margin-right: .3em;
   background-repeat: no-repeat;
+  -webkit-background-size: 14px 14px;
   background-size: 14px 14px;
   background-position: center;
   vertical-align: -10%;
@@ -15,6 +16,7 @@
   width: 14px;
   margin-right: .3em;
   background-repeat: no-repeat;
+  -webkit-background-size: 14px 14px;
   background-size: 14px 14px;
   background-position: center;
   vertical-align: -10%;
@@ -26,6 +28,7 @@
   width: 14px;
   margin-right: .3em;
   background-repeat: no-repeat;
+  -webkit-background-size: 14px 14px;
   background-size: 14px 14px;
   background-position: center;
   vertical-align: -10%;
@@ -37,6 +40,7 @@
   width: 14px;
   margin-right: .3em;
   background-repeat: no-repeat;
+  -webkit-background-size: 14px 14px;
   background-size: 14px 14px;
   background-position: center;
   vertical-align: -10%;
@@ -48,6 +52,7 @@
   width: 14px;
   margin-right: .3em;
   background-repeat: no-repeat;
+  -webkit-background-size: 14px 14px;
   background-size: 14px 14px;
   background-position: center;
   vertical-align: -10%;
@@ -57,17 +62,22 @@
   background-image: url('../img/icon-viewer-live.png');
 }
 .tp-twitch {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .tp-twitch *,
 .tp-twitch *:before,
 .tp-twitch *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .tp-twitch img.tp-twitch-stream__thumbnail {
   float: none;
   margin: 0;
   border: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
   display: block;
   max-width: 100%;
@@ -77,6 +87,7 @@
   float: none;
   margin: 0;
   border: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
   display: block;
   max-width: 100%;
@@ -98,6 +109,7 @@
 .tp-twitch .tp-twitch-stream {
   margin-bottom: 1em;
   padding: 10px;
+  -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
 }
 .tp-twitch .tp-twitch-stream__header {
@@ -132,6 +144,7 @@
 }
 .tp-twitch .tp-twitch-stream__user a {
   border-bottom: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
   text-shadow: none;
   text-decoration: none;
@@ -140,6 +153,7 @@
 .tp-twitch .tp-twitch-stream__user a:focus,
 .tp-twitch .tp-twitch-stream__user a:active {
   border-bottom: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
   text-shadow: none;
   text-decoration: underline;
@@ -153,6 +167,7 @@
 }
 .tp-twitch .tp-twitch-stream__game a {
   border-bottom: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
   text-shadow: none;
   text-decoration: none;
@@ -161,6 +176,7 @@
 .tp-twitch .tp-twitch-stream__game a:focus,
 .tp-twitch .tp-twitch-stream__game a:active {
   border-bottom: none;
+  -webkit-box-shadow: none;
   box-shadow: none;
   text-shadow: none;
   text-decoration: underline;
