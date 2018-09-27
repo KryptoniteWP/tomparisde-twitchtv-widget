@@ -55,14 +55,14 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array( &$this, 'validate_input_callback' )
 			);
 
-            do_action( 'tp_twitch_register_settings_start' );
-
             add_settings_section(
                 'tp_twitch_quickstart',
                 __('Quickstart Guide', 'tomparisde-twitchtv-widget'),
                 array( &$this, 'section_quickstart_render' ),
                 'tp_twitch'
             );
+
+            do_action( 'tp_twitch_register_settings_start' );
 
 			add_settings_section(
 				'tp_twitch_api',
@@ -163,6 +163,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 			do_action( 'tp_twitch_register_defaults_settings' );
 
+            do_action( 'tp_twitch_register_settings_end' );
+
             add_settings_section(
                 'tp_twitch_data',
                 __( 'API Related Data', 'tomparisde-twitchtv-widget' ),
@@ -176,8 +178,6 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 array( &$this, 'section_help_render' ),
                 'tp_twitch'
             );
-
-            do_action( 'tp_twitch_register_settings_end' );
 		}
 
 		/**
@@ -248,6 +248,9 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 delete_option( 'tp_twitch_log' );
                 $input['delete_log'] = '0';
             }
+
+            // Hook
+            $input = apply_filters( 'tp_twitch_settings_validate_input', $input );
 
 			return $input;
 		}
