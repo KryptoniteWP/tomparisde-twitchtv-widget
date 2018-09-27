@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Twitch for WordPress
  * Plugin URI:      https://de.wordpress.org/plugins/tomparisde-twitchtv-widget/
- * Description:     Display Twitch streams on your WordPress site.
+ * Description:     Display Twitch streams on your sidebars.
  * Version:         2.0.0
  * Author:          KryptoniteWP
  * Author URI:      https://kryptonitewp.com
@@ -176,7 +176,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 
 			// Docs URL
 			if ( ! defined( 'TP_TWITCH_DOCS_URL' ) ) {
-				define( 'TP_TWITCH_DOCS_URL', 'https://kryptonitewp.com/support/knb/tp-twitch-widget-documentation/' );
+				define( 'TP_TWITCH_DOCS_URL', 'https://kryptonitewp.com/support/knb/twitch-wordpress-documentation/' );
 			}
 		}
 

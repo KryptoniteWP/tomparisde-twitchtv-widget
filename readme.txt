@@ -1,20 +1,106 @@
-=== TP Twitch Widget (PRO) ===
+=== Twitch for WordPress ===
 Contributors: flowdee, kryptonitewp
 Donate link: https://donate.flowdee.de/
-Tags: twitch, api, widget, tomparis, tomparisde, twitchtv, flowdee, kryptonitewp
+Tags: twitch, api, widget, twitch api, twitch widget, twitchtv, flowdee, kryptonitewp
 Requires at least: 3.5.1
 Tested up to: 4.9.8
-Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Extending our free Twitch plugin with even more awesome features!
+Display Twitch streams in your sidebars.
 
 == Description ==
 
-Extending our free Twitch plugin with even more awesome features!
+Display Twitch streams in your sidebars.
+
+= Features =
+
+*   This plugin allows you to display Twitch™ streams in your sidebars
+*   Display streams of certain streamers (by username)
+*   Display streams for certain games (e.g. League of Legends only)
+*   Filter streams by their language (e.g. showing German streams only)
+*   Define the maximum amount of streams to show
+*   Select between the following layouts: Large, small & a combination of both
+*   Caching functionality
+*   Configuration page for more options
+*   Try out the **[online demo](https://kryptonitewp.com/demo/twitch-wordpress/)**
+*   Regular updates and improvements: Go though the [changelog](https://wordpress.org/plugins/tomparisde-twitchtv-widget/changelog/)
+
+= Quickstart Examples =
+
+* Step 1: Create API Credentials
+* Step 2: Enter your Client ID
+* Step 3: Place Twitch streams in your sidebars
+
+= More features with the PRO version =
+
+The PRO version extends this plugin exclusively with a variety of different styles and some exclusively features:
+
+*   Display more than 3 streams
+*   Place streams via shortcode inside your posts and pages
+*   Choose from different styles
+*   Sort streams by different criteria
+
+Details and upgrade can be found **[here](https://kryptonitewp.com/downloads/twitch-wordpress-pro/)**.
+
+= Support =
+
+* Detailed online [documentation](https://kryptonitewp.com/support/knb/twitch-wordpress-documentation/)
+* Browse [issue tracker](https://github.com/flowdee/tomparisde-twitchtv-widget/issues) on GitHub
+* [Follow us on Twitter](https://twitter.com/kryptonitewp) to stay in contact and informed about updates
+
+= Credits =
+
+* This plugin is not official made or maintained by Twitch™. All data provided through the official Twitch™ API.
+
+== Installation ==
+
+The installation and configuration of the plugin is as simple as it can be.
+
+= Using The WordPress Dashboard =
+
+1. Navigate to the 'Add New' in the plugins dashboard
+2. Search for 'twitch for wordpress'
+3. Click 'Install Now'
+4. Activate the plugin on the Plugin dashboard
+
+= Uploading in WordPress Dashboard =
+
+1. Navigate to the 'Add New' in the plugins dashboard
+2. Navigate to the 'Upload' area
+3. Select zip file from your computer
+4. Click 'Install Now'
+5. Activate the plugin in the Plugin dashboard
+
+= Using FTP =
+
+1. Download the plugin
+2. Extract the directory to your computer
+3. Upload the directory to the `/wp-content/plugins/` directory
+4. Activate the plugin in the Plugin dashboard
+
+== Frequently Asked Questions ==
+
+= Multisite supported? =
+
+Yes of course.
+
+== Screenshots ==
+
+1. Widget Output
+2. Widget Configuration
+3. Settings Page
 
 == Changelog ==
 
-= Version 1.0.0 (28th September 2018) =
-* Initial release
+= Version 2.0 (28th September 2018) =
+* Complete plugin rebuild
+* Based on the new Twitch API
+* WordPress v4.9.8 compatibility
+
+== Upgrade Notice ==
+
+= Version 2.0 (28th September 2018) =
+* Complete plugin rebuild
+* Based on the new Twitch API
+* WordPress v4.9.8 compatibility

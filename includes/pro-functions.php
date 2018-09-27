@@ -32,7 +32,7 @@ function tp_twitch_get_pro_version_url( $source = '', $medium = '' ) {
             'utm_source'   => $source,
             'utm_medium'   => $medium,
             'utm_campaign' => 'Twitch WP',
-        ), 'https://kryptonitewp.com/downloads/tp-twitch-widget-pro/' )
+        ), 'https://kryptonitewp.com/downloads/twitch-wordpress-pro/' )
     );
 }
 
