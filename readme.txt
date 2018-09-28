@@ -3,7 +3,9 @@ Contributors: flowdee, kryptonitewp
 Donate link: https://donate.flowdee.de/
 Tags: twitch, api, widget, twitch api, twitch widget, twitchtv, flowdee, kryptonitewp
 Requires at least: 3.5.1
+Requires PHP: 5.3.0
 Tested up to: 4.9.8
+Stable tag: 2.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
