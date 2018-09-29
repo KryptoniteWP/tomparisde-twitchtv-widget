@@ -1,4 +1,5 @@
 # Twitch for WordPress
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2239906a52c444b08780878a83a1f282)](https://app.codacy.com/app/flowdee/tomparisde-twitchtv-widget?utm_source=github.com&utm_medium=referral&utm_content=flowdee/tomparisde-twitchtv-widget&utm_campaign=Badge_Grade_Dashboard)
 [![Plugin Version](https://img.shields.io/wordpress/plugin/v/tomparisde-twitchtv-widget.svg)](https://wordpress.org/plugins/tomparisde-twitchtv-widget/) [![WordPress Version Compatibility](https://img.shields.io/wordpress/v/tomparisde-twitchtv-widget.svg)](https://wordpress.org/plugins/tomparisde-twitchtv-widget/) [![Downloads](https://img.shields.io/wordpress/plugin/dt/tomparisde-twitchtv-widget.svg)](https://wordpress.org/plugins/tomparisde-twitchtv-widget/) [![Rating](https://img.shields.io/wordpress/plugin/r/tomparisde-twitchtv-widget.svg)](https://wordpress.org/plugins/tomparisde-twitchtv-widget/)
 
 Promote coupons and deals of products and earn money with affiliate referrals.
