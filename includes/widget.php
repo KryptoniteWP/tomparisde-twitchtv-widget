@@ -65,7 +65,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 				}
 
 				// Language
-                $template_args['language'] = ( ! empty ( $instance['language'] ) ) ? $instance['language'] : tp_twitch_get_option( 'language' );
+                $streams_args['language'] = ( ! empty ( $instance['language'] ) ) ? $instance['language'] : tp_twitch_get_option( 'language' );
             }
 
             $streams_args = apply_filters( 'tp_twitch_widget_streams_args', $streams_args, $instance );
