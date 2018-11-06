@@ -5,7 +5,7 @@ Tags: twitch, api, widget, twitch api, twitch widget, twitchtv, flowdee, krypton
 Requires at least: 3.5.1
 Requires PHP: 5.3.0
 Tested up to: 4.9.8
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -95,12 +95,18 @@ Yes of course.
 
 == Changelog ==
 
+= Version 2.0.1 (6th November 2018) =
+* Fix: Language selection via widget didn't work properly
+
 = Version 2.0 (28th September 2018) =
 * Complete plugin rebuild
 * Based on the new Twitch API
 * WordPress v4.9.8 compatibility
 
 == Upgrade Notice ==
+
+= Version 2.0.1 (6th November 2018) =
+* Fix: Language selection via widget didn't work properly
 
 = Version 2.0 (28th September 2018) =
 * Complete plugin rebuild
