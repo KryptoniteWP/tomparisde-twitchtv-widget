@@ -106,33 +106,37 @@ function tp_twitch_get_games() {
 	// Looking for cached data
 	$games = get_transient( 'tp_twitch_games' );
 
-	if ( $games )
-		return $games;
+	// Looking for data via API
+	if ( empty( $games ) ) {
 
-	// Query API
-	$args = array(
-		'first' => 100
-	);
+        // Query API
+        $args = array(
+            'first' => 100
+        );
 
-	$games = tp_twitch_get_top_games_from_api( $args );
+        $games = tp_twitch_get_top_games_from_api( $args );
 
-	if ( empty( $games ) )
-		return null;
+        if ( empty( $games ) )
+            return null;
 
-	$games_indexed = array(); // We need the game id to make them accessible
+        $games_indexed = array(); // We need the game id to make them accessible
 
-	foreach ( $games as $game ) {
+        foreach ( $games as $game ) {
 
-		if ( ! isset( $game['id'] ) || ! isset( $game['name'] ) )
-			continue;
+            if ( ! isset( $game['id'] ) || ! isset( $game['name'] ) )
+                continue;
 
-		$games_indexed[$game['id']] = $game;
-	}
+            $games_indexed[$game['id']] = $game;
+        }
 
-	$games = $games_indexed;
+        $games = $games_indexed;
 
-	// Cache data
-	set_transient( 'tp_twitch_games', $games, 7 * DAY_IN_SECONDS );
+        // Cache data
+        set_transient( 'tp_twitch_games', $games, 7 * DAY_IN_SECONDS );
+    }
+
+	// Hook
+	$games = apply_filters( 'tp_twitch_games', $games );
 
 	// Return
 	return $games;

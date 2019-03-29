@@ -45,3 +45,29 @@ function tp_twitch_manipulate_display_streams( $streams, $streams_args, $output_
     return $streams;
 }
 add_filter( 'tp_twitch_display_streams', 'tp_twitch_manipulate_display_streams', 10, 3 );
+
+/**
+ * Extend available games
+ *
+ * Info: By default we only have access to the top games, so we may have to extend this list
+ *
+ * @param $games
+ * @return mixed
+ */
+function tp_twitch_extend_available_games( $games ) {
+
+    $games[510146] = array(
+        'id' => 510146,
+        'name' => 'MLB The Show 19',
+        'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/MLB%20The%20Show%2019-{width}x{height}.jpg'
+    );
+
+    $games[511496] = array(
+        'id' => 511496,
+        'name' => 'Out Of The Park Baseball 20',
+        'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/Out%20of%20the%20Park%20Baseball%2019-{width}x{height}.jpg'
+    );
+
+    return $games;
+}
+add_filter( 'tp_twitch_games', 'tp_twitch_extend_available_games', 10 );
