@@ -4,8 +4,8 @@ Donate link: https://donate.flowdee.de/
 Tags: twitch, api, widget, twitch api, twitch widget, twitchtv, flowdee, kryptonitewp
 Requires at least: 3.5.1
 Requires PHP: 5.3.0
-Tested up to: 4.9.8
-Stable tag: 2.0.1
+Tested up to: 5.1.1
+Stable tag: 2.0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -95,6 +95,10 @@ Yes of course.
 
 == Changelog ==
 
+= Version 2.0.2 (29th March 2019) =
+* New: Added support for the following games: MLB The Show 19; Out Of The Park Baseball 20
+* WordPress v5.1.1 compatibility
+
 = Version 2.0.1 (6th November 2018) =
 * Fix: Language selection via widget didn't work properly
 
@@ -104,6 +108,10 @@ Yes of course.
 * WordPress v4.9.8 compatibility
 
 == Upgrade Notice ==
+
+= Version 2.0.2 (29th March 2019) =
+* New: Added support for the following games: MLB The Show 19; Out Of The Park Baseball 20
+* WordPress v5.1.1 compatibility
 
 = Version 2.0.1 (6th November 2018) =
 * Fix: Language selection via widget didn't work properly
