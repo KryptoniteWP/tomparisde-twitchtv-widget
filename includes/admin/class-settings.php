@@ -487,7 +487,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
          */
         function section_data_render() {
 
-            if ( ! $this->options['api_status'] )
+            if ( ! isset( $this->options['api_status'] ) || ! $this->options['api_status'] )
                 return;
             ?>
             <p><?php _e('Here you can find an overview of all available API related data.', 'tomparisde-twitchtv-widget' ); ?></p>
