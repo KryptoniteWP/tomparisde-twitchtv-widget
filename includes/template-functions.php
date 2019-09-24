@@ -72,9 +72,9 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 		// Load template.
 		if ( $template_file ) {
 
-			 include $template_file;
+			include $template_file;
 
-		 // Template not found.
+		// Template not found.
 		} else {
 			_e( 'Template not found.', 'tomparisde-twitchtv-widget' );
 		}

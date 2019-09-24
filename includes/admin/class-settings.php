@@ -57,7 +57,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             add_settings_section(
                 'tp_twitch_quickstart',
-                __('Quickstart Guide', 'tomparisde-twitchtv-widget'),
+                __( 'Quickstart Guide', 'tomparisde-twitchtv-widget' ),
                 array( &$this, 'section_quickstart_render' ),
                 'tp_twitch'
             );
@@ -77,7 +77,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array( &$this, 'api_status_render' ),
 				'tp_twitch',
 				'tp_twitch_api',
-				array('label_for' => 'tp_twitch_api_status')
+				array( 'label_for' => 'tp_twitch_api_status' )
 			);
 
 			add_settings_field(
@@ -86,7 +86,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array( &$this, 'api_client_id_render' ),
 				'tp_twitch',
 				'tp_twitch_api',
-				array('label_for' => 'tp_twitch_api_client_id')
+				array( 'label_for' => 'tp_twitch_api_client_id' )
 			);
 
 			do_action( 'tp_twitch_register_api_settings' );
@@ -104,7 +104,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array( &$this, 'cache_duration_render' ),
 				'tp_twitch',
                 'tp_twitch_general',
-				array('label_for' => 'tp_twitch_cache_duration')
+				array( 'label_for' => 'tp_twitch_cache_duration' )
 			);
 
 			add_settings_field(
@@ -113,7 +113,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array( &$this, 'no_streams_found_render' ),
 				'tp_twitch',
 				'tp_twitch_general',
-				array('label_for' => 'tp_twitch_no_streams_found')
+				array( 'label_for' => 'tp_twitch_no_streams_found' )
 			);
 
 			add_settings_field(
@@ -140,7 +140,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 array( &$this, 'language_render' ),
                 'tp_twitch',
                 'tp_twitch_defaults',
-                array('label_for' => 'tp_twitch_language')
+                array( 'label_for' => 'tp_twitch_language' )
             );
 
             add_settings_field(
@@ -149,7 +149,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 array( &$this, 'widget_style_render' ),
                 'tp_twitch',
                 'tp_twitch_defaults',
-                array('label_for' => 'tp_twitch_widget_style')
+                array( 'label_for' => 'tp_twitch_widget_style' )
             );
 
 			add_settings_field(
@@ -158,7 +158,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array( &$this, 'widget_size_render' ),
 				'tp_twitch',
 				'tp_twitch_defaults',
-				array('label_for' => 'tp_twitch_widget_size')
+				array( 'label_for' => 'tp_twitch_widget_size' )
 			);
 
 			add_settings_field(
@@ -167,7 +167,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array( &$this, 'widget_preview_render' ),
 				'tp_twitch',
 				'tp_twitch_defaults',
-				array('label_for' => 'tp_twitch_widget_preview')
+				array( 'label_for' => 'tp_twitch_widget_preview' )
 			);
 
 			do_action( 'tp_twitch_register_defaults_settings' );
@@ -208,11 +208,11 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             // API
 			$api_status = ( isset ( $this->options['api_status'] ) ) ? $this->options['api_status'] : false;
-			$api_error = ( isset ( $this->options['api_error'] ) ) ? $this->options['api_error'] : '';
+			$api_error  = ( isset ( $this->options['api_error'] ) ) ? $this->options['api_error'] : '';
 
 			if ( ! empty ( $input['api_client_id'] ) ) {
 
-				$api_client_id = ( isset ( $this->options['api_client_id'] ) ) ? $this->options['api_client_id'] : '';
+				$api_client_id     = ( isset ( $this->options['api_client_id'] ) ) ? $this->options['api_client_id'] : '';
 				$api_client_id_new = $input['api_client_id'];
 
 				if ( $api_client_id_new != $api_client_id ) {
@@ -220,7 +220,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 					$result = tp_twitch()->api->verify_client_id( $api_client_id_new );
 
 					$api_status = ( is_array( $result ) && isset( $result['data'] ) ) ? true : false;
-					$api_error = ( ! empty ( $result['error'] ) ) ? $result['error'] : '';
+					$api_error  = ( ! empty ( $result['error'] ) ) ? $result['error'] : '';
 
 					if ( ! empty ( $api_error ) )
 					    tp_twitch_addlog( 'Twitch API >> Verify client id >> Error: "' . $api_error . '"' );
@@ -232,7 +232,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             }
 
 			$input['api_status'] = $api_status;
-			$input['api_error'] = $api_error;
+			$input['api_error']  = $api_error;
 
 			// Cache duration changed
             if ( isset( $input['cache_duration'] ) && isset( $this->options['cache_duration'] ) && $input['cache_duration'] != $this->options['cache_duration'] ) {
@@ -241,7 +241,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             // Handle Delete Cache Action
 			if ( isset ( $input['delete_cache'] ) && '1' === $input['delete_cache'] ) {
-				$delete_cache = true;
+				$delete_cache          = true;
 				$input['delete_cache'] = '0';
 			}
 
@@ -280,7 +280,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             <p>
                 <strong><?php _e( 'Step 2: Enter your Client ID', 'tomparisde-twitchtv-widget' ); ?></strong><br />
-                <?php _e('Once you created your API credentials, enter your personal <em>Client ID</em> into the field below.', 'tomparisde-twitchtv-widget'); ?>
+                <?php _e( 'Once you created your API credentials, enter your personal <em>Client ID</em> into the field below.', 'tomparisde-twitchtv-widget' ); ?>
             </p>
 
             <p>
@@ -314,7 +314,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function api_status_render() {
 
 			$api_status = ( isset ( $this->options['api_status'] ) && true === $this->options['api_status'] ) ? true : false;
-			$api_error = ( isset( $this->options['api_error'] ) ) ? $this->options['api_error'] : '';
+			$api_error  = ( isset( $this->options['api_error'] ) ) ? $this->options['api_error'] : '';
 			?>
             <?php if ( $api_status ) { ?>
                 <span style="font-weight: bold; color: green;"><?php _e( 'Connected', 'tomparisde-twitchtv-widget' ); ?></span>
@@ -353,7 +353,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function section_general_render() {
 
 			?>
-            <p><?php _e('Here you set up general settings which will be used plugin wide.', 'tomparisde-twitchtv-widget' ); ?></p>
+            <p><?php _e( 'Here you set up general settings which will be used plugin wide.', 'tomparisde-twitchtv-widget' ); ?></p>
 			<?php
 		}
 
@@ -363,11 +363,11 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function cache_duration_render() {
 
 			$cache_duration_options = array(
-                1 => sprintf( esc_html( _n( '%d hour', '%d hours', 1, 'tomparisde-twitchtv-widget'  ) ), 1 ),
-                2 => sprintf( esc_html( _n( '%d hour', '%d hours', 2, 'tomparisde-twitchtv-widget'  ) ), 2 ),
-                3 => sprintf( esc_html( _n( '%d hour', '%d hours', 3, 'tomparisde-twitchtv-widget'  ) ), 3 ),
-                4 => sprintf( esc_html( _n( '%d hour', '%d hours', 4, 'tomparisde-twitchtv-widget'  ) ), 4 ),
-				6 => sprintf( esc_html( _n( '%d hour', '%d hours', 6, 'tomparisde-twitchtv-widget'  ) ), 6 ),
+                1  => sprintf( esc_html( _n( '%d hour', '%d hours', 1, 'tomparisde-twitchtv-widget'  ) ), 1 ),
+                2  => sprintf( esc_html( _n( '%d hour', '%d hours', 2, 'tomparisde-twitchtv-widget'  ) ), 2 ),
+                3  => sprintf( esc_html( _n( '%d hour', '%d hours', 3, 'tomparisde-twitchtv-widget'  ) ), 3 ),
+                4  => sprintf( esc_html( _n( '%d hour', '%d hours', 4, 'tomparisde-twitchtv-widget'  ) ), 4 ),
+				6  => sprintf( esc_html( _n( '%d hour', '%d hours', 6, 'tomparisde-twitchtv-widget'  ) ), 6 ),
 				12 => sprintf( esc_html( _n( '%d hour', '%d hours', 12, 'tomparisde-twitchtv-widget'  ) ), 12 ),
 				24 => sprintf( esc_html( _n( '%d hour', '%d hours', 24, 'tomparisde-twitchtv-widget'  ) ), 24 )
             );
@@ -381,7 +381,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				<?php } ?>
             </select>
             <p class="description">
-                <?php _e('In case you\'re using a caching plugin, it makes no sense to select a lower value, than the caching interval of your caching plugin.', 'tomparisde-twitchtv-widget' ); ?>
+                <?php _e( 'In case you\'re using a caching plugin, it makes no sense to select a lower value, than the caching interval of your caching plugin.', 'tomparisde-twitchtv-widget' ); ?>
             </p>
             <input type="hidden" id="tp_twitch_delete_cache" name="tp_twitch[delete_cache]" value="0" />
 			<?php
@@ -393,8 +393,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function no_streams_found_render() {
 
 			$no_streams_found_options = array(
-				'' => __( 'Hide Message', 'tomparisde-twitchtv-widget' ),
-				'show' => __( 'Show Message', 'tomparisde-twitchtv-widget' ),
+				''      => __( 'Hide Message', 'tomparisde-twitchtv-widget' ),
+				'show'  => __( 'Show Message', 'tomparisde-twitchtv-widget' ),
 				'admin' => __( 'Show Message for Admins only', 'tomparisde-twitchtv-widget' )
 			);
 
@@ -407,7 +407,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				<?php } ?>
             </select>
             <p class="description">
-				<?php _e('Specify what happens when no streams were found.', 'tomparisde-twitchtv-widget' ); ?>
+				<?php _e( 'Specify what happens when no streams were found.', 'tomparisde-twitchtv-widget' ); ?>
             </p>
 			<?php
 		}
@@ -433,7 +433,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function section_defaults_render() {
 
 		    ?>
-            <p><?php _e('Here you set up the default settings which will be used for displaying streams and may be overwritten individually.', 'tomparisde-twitchtv-widget' ); ?></p>
+            <p><?php _e( 'Here you set up the default settings which will be used for displaying streams and may be overwritten individually.', 'tomparisde-twitchtv-widget' ); ?></p>
             <?php
         }
 
@@ -514,10 +514,10 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             if ( ! isset( $this->options['api_status'] ) || ! $this->options['api_status'] )
                 return;
             ?>
-            <p><?php _e('Here you can find an overview of all available API related data.', 'tomparisde-twitchtv-widget' ); ?></p>
+            <p><?php _e( 'Here you can find an overview of all available API related data.', 'tomparisde-twitchtv-widget' ); ?></p>
 
             <p>
-                <span id="tp-twitch-data-toggle" class="button button-secondary"><?php _e('Toggle Information', 'tomparisde-twitchtv-widget' ); ?></span>
+                <span id="tp-twitch-data-toggle" class="button button-secondary"><?php _e( 'Toggle Information', 'tomparisde-twitchtv-widget' ); ?></span>
             </p>
             <div id="tp-twitch-data-container" style="display: none;">
                 <?php
@@ -528,12 +528,12 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                     $games = tp_twitch_array_sort( $games, 'name' );
 
                 if ( $games && is_array( $games ) && sizeof( $games ) > 0 ) { ?>
-                    <h4><?php _e('Games','tomparisde-twitchtv-widget' ); ?></h4>
+                    <h4><?php _e( 'Games','tomparisde-twitchtv-widget' ); ?></h4>
                     <table class="widefat">
                         <thead>
                             <tr>
-                                <th><?php _e('ID', 'tomparisde-twitchtv-widget' ); ?></th>
-                                <th><?php _e('Game', 'tomparisde-twitchtv-widget' ); ?></th>
+                                <th><?php _e( 'ID', 'tomparisde-twitchtv-widget' ); ?></th>
+                                <th><?php _e( 'Game', 'tomparisde-twitchtv-widget' ); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -553,14 +553,14 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 }
 
                 $languages = tp_twitch_get_languages();
-                asort($languages );
+                asort( $languages );
                 ?>
-                <h4><?php _e('Languages','tomparisde-twitchtv-widget' ); ?></h4>
+                <h4><?php _e( 'Languages','tomparisde-twitchtv-widget' ); ?></h4>
                 <table class="widefat">
                     <thead>
                     <tr>
-                        <th><?php _e('Code', 'tomparisde-twitchtv-widget' ); ?></th>
-                        <th><?php _e('Language', 'tomparisde-twitchtv-widget' ); ?></th>
+                        <th><?php _e( 'Code', 'tomparisde-twitchtv-widget' ); ?></th>
+                        <th><?php _e( 'Language', 'tomparisde-twitchtv-widget' ); ?></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -589,8 +589,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             
             $curl = $this->check_curl();
 
-            $enabled = '<span style="color: green;"><strong><span class="dashicons dashicons-yes"></span> ' . __('Enabled', 'tomparisde-twitchtv-widget') . '</strong></span>';
-            $disabled = '<span style="color: red;"><strong><span class="dashicons dashicons-no"></span> ' . __('Disabled', 'tomparisde-twitchtv-widget') . '</strong></span>';
+            $enabled  = '<span style="color: green;"><strong><span class="dashicons dashicons-yes"></span> ' . __( 'Enabled', 'tomparisde-twitchtv-widget' ) . '</strong></span>';
+            $disabled = '<span style="color: red;"><strong><span class="dashicons dashicons-no"></span> ' . __( 'Disabled', 'tomparisde-twitchtv-widget' ) . '</strong></span>';
 
             ?>
             <p>
@@ -600,8 +600,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             <table class="widefat tp-twitch-settings-table">
                 <thead>
                 <tr>
-                    <th width="300"><?php _e('Setting', 'tomparisde-twitchtv-widget'); ?></th>
-                    <th><?php _e('Values', 'tomparisde-twitchtv-widget'); ?></th>
+                    <th width="300"><?php _e( 'Setting', 'tomparisde-twitchtv-widget' ); ?></th>
+                    <th><?php _e( 'Values', 'tomparisde-twitchtv-widget' ); ?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -626,19 +626,19 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 <tr>
                     <th><?php printf( esc_html__( 'PHP "%1$s" extension', 'tomparisde-twitchtv-widget' ), 'cURL' ); ?></th>
                     <td>
-                        <?php echo (isset ($curl['enabled']) && $curl['enabled']) ? $enabled : $disabled; ?>
-                        <?php if (isset ($curl['version'])) echo ' (Version ' . $curl['version'] . ')'; ?>
+                        <?php echo ( isset ( $curl['enabled'] ) && $curl['enabled'] ) ? $enabled : $disabled; ?>
+                        <?php if ( isset ( $curl['version'] ) ) echo ' (Version ' . $curl['version'] . ' )'; ?>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
             <p>
-                <?php _e('In case one of the values above is <span style="color: red;"><strong>red</strong></span>, please get in contact with your webhoster in order to enable the missing PHP extensions.', 'tomparisde-twitchtv-widget'); ?>
+                <?php _e( 'In case one of the values above is <span style="color: red;"><strong>red</strong></span>, please get in contact with your webhoster in order to enable the missing PHP extensions.', 'tomparisde-twitchtv-widget' ); ?>
             </p>
 
             <p>
-                <strong><?php _e('Log file', 'tomparisde-twitchtv-widget'); ?></strong><br />
+                <strong><?php _e( 'Log file', 'tomparisde-twitchtv-widget' ); ?></strong><br />
                 <textarea rows="5" style="width: 100%;"><?php echo get_option( 'tp_twitch_log', __( 'No entries yet. ', 'tomparisde-twitchtv-widget' ) ); ?></textarea>
             </p>
             <p>
@@ -665,8 +665,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                                     <form action="options.php" method="post">
 
                                         <?php
-                                        settings_fields('tp_twitch');
-                                        tp_twitch_do_settings_sections('tp_twitch');
+                                        settings_fields( 'tp_twitch' );
+                                        tp_twitch_do_settings_sections( 'tp_twitch' );
                                         ?>
 
                                         <p>
@@ -682,9 +682,9 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                             <div id="postbox-container-1" class="postbox-container">
                                 <div class="meta-box-sortables">
                                     <div class="postbox">
-                                        <h3><span><?php _e('Resources &amp; Support', 'tomparisde-twitchtv-widget' ); ?></span></h3>
+                                        <h3><span><?php _e( 'Resources &amp; Support', 'tomparisde-twitchtv-widget' ); ?></span></h3>
                                         <div class="inside">
-                                            <p><?php _e('In order to make it as simple as possible for you, we created a detailed online documentation.', 'tomparisde-twitchtv-widget' ); ?></p>
+                                            <p><?php _e( 'In order to make it as simple as possible for you, we created a detailed online documentation.', 'tomparisde-twitchtv-widget' ); ?></p>
                                             <ul>
                                                 <li>
                                                     <?php
@@ -695,16 +695,16 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                                                         ), TP_TWITCH_DOCS_URL )
                                                     );
                                                     ?>
-                                                    <a href="<?php echo $docs_link; ?>" target="_blank"><?php _e('Documentation', 'tomparisde-twitchtv-widget' ); ?></a>
+                                                    <a href="<?php echo $docs_link; ?>" target="_blank"><?php _e( 'Documentation', 'tomparisde-twitchtv-widget' ); ?></a>
                                                 </li>
                                                 <li>
-                                                    <a href="<?php echo TP_TWITCH_WP_ORG_URL; ?>" target="_blank"><?php _e('Plugin Page', 'tomparisde-twitchtv-widget' ); ?></a>
+                                                    <a href="<?php echo TP_TWITCH_WP_ORG_URL; ?>" target="_blank"><?php _e( 'Plugin Page', 'tomparisde-twitchtv-widget' ); ?></a>
                                                 </li>
                                                 <li>
-                                                    <a href="https://wordpress.org/plugins/tomparisde-twitchtv-widget/#developers" target="_blank"><?php _e('Changelog', 'tomparisde-twitchtv-widget' ); ?></a>
+                                                    <a href="https://wordpress.org/plugins/tomparisde-twitchtv-widget/#developers" target="_blank"><?php _e( 'Changelog', 'tomparisde-twitchtv-widget' ); ?></a>
                                                 </li>
                                                 <li>
-                                                    <a href="https://twitter.com/kryptonitewp" target="_blank"><?php _e('Follow us on Twitter', 'tomparisde-twitchtv-widget' ); ?></a>
+                                                    <a href="https://twitter.com/kryptonitewp" target="_blank"><?php _e( 'Follow us on Twitter', 'tomparisde-twitchtv-widget' ); ?></a>
                                                 </li>
                                             </ul>
                                             <?php
@@ -715,35 +715,35 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                                                 ), 'https://kryptonitewp.com/' )
                                             );
                                             ?>
-                                            <p>&copy; Copyright <?php echo date('Y' ); ?> <a href="<?php echo $website_link; ?>" target="_blank">KryptoniteWP</a></p>
+                                            <p>&copy; Copyright <?php echo date( 'Y' ); ?> <a href="<?php echo $website_link; ?>" target="_blank">KryptoniteWP</a></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <?php if ( ! tp_twitch_is_pro_version() ) { ?>
                                     <div class="postbox">
-                                        <h3><span><?php _e('Upgrade to PRO Version', 'tomparisde-twitchtv-widget'); ?></span></h3>
+                                        <h3><span><?php _e( 'Upgrade to PRO Version', 'tomparisde-twitchtv-widget' ); ?></span></h3>
                                         <div class="inside">
 
-                                            <p><?php _e('The PRO version extends the plugin exclusively with a variety of different styles and some exclusively features.', 'tomparisde-twitchtv-widget'); ?></p>
+                                            <p><?php _e( 'The PRO version extends the plugin exclusively with a variety of different styles and some exclusively features.', 'tomparisde-twitchtv-widget' ); ?></p>
 
                                             <ul>
-                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Display more than 3 streams', 'tomparisde-twitchtv-widget'); ?></strong></li>
-                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Place streams via shortcode', 'tomparisde-twitchtv-widget'); ?></strong></li>
-                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Choose from different styles', 'tomparisde-twitchtv-widget'); ?></strong></li>
-                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('Sort streams by different criteria', 'tomparisde-twitchtv-widget'); ?></strong></li>
-                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e('And more!', 'tomparisde-twitchtv-widget'); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e( 'Display more than 3 streams', 'tomparisde-twitchtv-widget' ); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e( 'Place streams via shortcode', 'tomparisde-twitchtv-widget' ); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e( 'Choose from different styles', 'tomparisde-twitchtv-widget' ); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e( 'Sort streams by different criteria', 'tomparisde-twitchtv-widget' ); ?></strong></li>
+                                                <li><span class="dashicons dashicons-star-filled"></span> <strong><?php _e( 'And more!', 'tomparisde-twitchtv-widget' ); ?></strong></li>
                                             </ul>
 
                                             <p>
-                                                <?php _e('We would be happy if you give it a chance!', 'tomparisde-twitchtv-widget'); ?>
+                                                <?php _e( 'We would be happy if you give it a chance!', 'tomparisde-twitchtv-widget' ); ?>
                                             </p>
 
                                             <p>
                                                 <?php
                                                 $upgrade_link = tp_twitch_get_pro_version_url( 'settings-page', 'infobox-upgrade' );
                                                 ?>
-                                                <a class="tp-twitch-settings-button tp-twitch-settings-button--block" target="_blank" href="<?php echo $upgrade_link; ?>" rel="nofollow"><?php _e('More details', 'tomparisde-twitchtv-widget'); ?></a>
+                                                <a class="tp-twitch-settings-button tp-twitch-settings-button--block" target="_blank" href="<?php echo $upgrade_link; ?>" rel="nofollow"><?php _e( 'More details', 'tomparisde-twitchtv-widget' ); ?></a>
                                             </p>
                                         </div>
                                     </div>
@@ -766,10 +766,10 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
          */
         private function check_curl() {
 
-            if ( ( function_exists('curl_version') ) ) {
+            if ( ( function_exists( 'curl_version' ) ) ) {
 
                 $curl_data = curl_version();
-                $version = ( isset ( $curl_data['version'] ) ) ? $curl_data['version'] : null;
+                $version   = ( isset ( $curl_data['version'] ) ) ? $curl_data['version'] : null;
 
                 return array(
                     'enabled' => true,
@@ -789,33 +789,33 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
  * 
  * @param $page
  */
-function tp_twitch_do_settings_sections($page)
+function tp_twitch_do_settings_sections( $page)
 {
 
     global $wp_settings_sections, $wp_settings_fields;
 
-    if (!isset($wp_settings_sections[$page]))
+    if ( ! isset( $wp_settings_sections[$page] ) )
         return;
 
-    foreach ((array)$wp_settings_sections[$page] as $section) {
+    foreach ( (array)$wp_settings_sections[$page] as $section ) {
 
         $title = '';
 
-        if ($section['title'])
+        if ( $section['title'] )
             $title = "<h3 class='hndle'>{$section['title']}</h3>\n";
 
-        if (!isset($wp_settings_fields) || !isset($wp_settings_fields[$page]) || ( !isset($wp_settings_fields[$page][$section['id']] ) && ! in_array( $section['id'], array( 'tp_twitch_quickstart', 'tp_twitch_data', 'tp_twitch_help' ) ) ) )
+        if ( ! isset( $wp_settings_fields) || ! isset( $wp_settings_fields[$page] ) || ( ! isset( $wp_settings_fields[$page][$section['id']] ) && ! in_array( $section['id'], array( 'tp_twitch_quickstart', 'tp_twitch_data', 'tp_twitch_help' ) ) ) )
             continue;
 
         echo '<div class="postbox">';
         echo $title;
         echo '<div class="inside">';
 
-        if ($section['callback'])
-            call_user_func($section['callback'], $section);
+        if ( $section['callback'] )
+            call_user_func( $section['callback'], $section);
 
         echo '<table class="form-table">';
-        do_settings_fields($page, $section['id']);
+        do_settings_fields( $page, $section['id'] );
         echo '</table>';
         echo '</div>';
         echo '</div>';
