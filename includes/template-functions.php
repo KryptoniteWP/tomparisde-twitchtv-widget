@@ -82,8 +82,10 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 	// No streams found.
 	} else {
 
-		$no_streams_found = tp_twitch_get_option( 'no_streams_found' );
-		$no_streams_found_text = apply_filters( 'tp_twitch_no_streams_found_text', __( 'No streams found.', 'tomparisde-twitchtv-widget' ) );
+		$no_streams_found      = tp_twitch_get_option( 'no_streams_found' );
+		$no_streams_found_text = tp_twitch_get_option( 'no_streams_found_text' );
+		$no_streams_found_text = ( isset ( $no_streams_found_text ) ) ? $no_streams_found_text : __( 'No streams found', 'tomparisde-twitchtv-widget' );
+		$no_streams_found_text = apply_filters( 'tp_twitch_no_streams_found_text', $no_streams_found_text );
 
 		if ( 'show' === $no_streams_found ) {
 			echo $no_streams_found_text;

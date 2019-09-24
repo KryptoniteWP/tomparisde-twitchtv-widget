@@ -116,6 +116,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array('label_for' => 'tp_twitch_no_streams_found')
 			);
 
+			add_settings_field(
+				'tp_twitch_no_streams_found_text',
+				__( 'No Streams Found Message', 'tomparisde-twitchtv-widget' ),
+				array( &$this, 'no_streams_found_text_render' ),
+				'tp_twitch',
+				'tp_twitch_general',
+				array( 'label_for' => 'tp_twitch_no_streams_found_text' )
+			);
+
 			do_action( 'tp_twitch_register_general_settings' );
 
 			add_settings_section(
@@ -399,6 +408,21 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             </select>
             <p class="description">
 				<?php _e('Specify what happens when no streams were found.', 'tomparisde-twitchtv-widget' ); ?>
+            </p>
+			<?php
+		}
+
+		/**
+		 * No streams found text
+		 */
+		function no_streams_found_text_render() {
+
+            $no_streams_found_message = ( isset ( $this->options['no_streams_found_text'] ) ) ? $this->options['no_streams_found_text'] : __( 'No streams found', 'tomparisde-twitchtv-widget' );
+
+			?>
+            <input id="tp_twitch_no_streams_found_text" class="regular-text" name="tp_twitch[no_streams_found_text]" type="text" value="<?php echo esc_html( $no_streams_found_message ); ?>" />
+            <p class="description">
+                <?php _e( 'Customize the message displayed when they are no available streams.', 'tomparisde-twitchtv-widget' ); ?>
             </p>
 			<?php
 		}
