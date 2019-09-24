@@ -606,7 +606,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 </thead>
                 <tbody>
                 <tr>
-                    <th>Twitch API</th>
+                    <th><?php _e( 'Twitch API', 'tomparisde-twitchtv-widget' ); ?></th>
                     <td>
                         <?php if ( isset( $this->options['api_status'] ) && true === $this->options['api_status'] ) { ?>
                             <span style="font-weight: bold; color: green;"><?php _e( 'Connected', 'tomparisde-twitchtv-widget' ); ?></span>
@@ -670,7 +670,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                                         ?>
 
                                         <p>
-                                            <?php submit_button( 'Save Changes', 'button-primary', 'submit', false ); ?>
+                                            <?php submit_button( __( 'Save Changes', 'tomparisde-twitchtv-widget' ), 'button-primary', 'submit', false ); ?>
                                             <?php submit_button( __( 'Delete Cache', 'tomparisde-twitchtv-widget' ), 'button-secondary', 'tp_twitch_delete_cache_submit', false ); ?>
                                         </p>
 
