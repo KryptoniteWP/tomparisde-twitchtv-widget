@@ -417,10 +417,10 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		 */
 		function no_streams_found_text_render() {
 
-            $no_streams_found_message = ( isset ( $this->options['no_streams_found_text'] ) ) ? $this->options['no_streams_found_text'] : __( 'No streams found', 'tomparisde-twitchtv-widget' );
+            $$no_streams_found_msg = ( isset ( $this->options['no_streams_found_text'] ) ) ? $this->options['no_streams_found_text'] : __( 'No streams found', 'tomparisde-twitchtv-widget' );
 
 			?>
-            <input id="tp_twitch_no_streams_found_text" class="regular-text" name="tp_twitch[no_streams_found_text]" type="text" value="<?php echo esc_html( $no_streams_found_message ); ?>" />
+            <input id="tp_twitch_no_streams_found_text" class="regular-text" name="tp_twitch[no_streams_found_text]" type="text" value="<?php echo esc_html( $$no_streams_found_msg ); ?>" />
             <p class="description">
                 <?php _e( 'Customize the message displayed when they are no available streams.', 'tomparisde-twitchtv-widget' ); ?>
             </p>
