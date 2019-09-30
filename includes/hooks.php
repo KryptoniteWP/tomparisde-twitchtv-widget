@@ -57,21 +57,27 @@ add_filter( 'tp_twitch_display_streams', 'tp_twitch_manipulate_display_streams',
 function tp_twitch_extend_available_games( $games ) {
 
     $games[490379] = array(
-        'id' => 490379,
-        'name' => "Tom Clancy's Ghost Recon: Wildlands",
+        'id'          => 490379,
+        'name'        => "Tom Clancy's Ghost Recon: Wildlands",
         'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/Tom%20Clancy%27s%20Ghost%20Recon:%20Wildlands-{width}x{height}.jpg'
     );
 
     $games[510146] = array(
-        'id' => 510146,
-        'name' => "MLB The Show 19",
+        'id'          => 510146,
+        'name'        => "MLB The Show 19",
         'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/MLB%20The%20Show%2019-{width}x{height}.jpg'
     );
 
     $games[511496] = array(
-        'id' => 511496,
-        'name' => "Out Of The Park Baseball 20",
+        'id'          => 511496,
+        'name'        => "Out Of The Park Baseball 20",
         'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/Out%20of%20the%20Park%20Baseball%2019-{width}x{height}.jpg'
+    );
+
+    $games[500626] = array(
+        'id'          => 500626,
+        'name'        => "Soulcalibur VI",
+        'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/Soulcalibur%VI-{width}x{height}.jpg'
     );
 
     return $games;
