@@ -4,8 +4,8 @@ Donate link: https://donate.flowdee.de/
 Tags: twitch, api, widget, twitch api, twitch widget, twitchtv, flowdee, kryptonitewp
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
-Tested up to: 5.2.2
-Stable tag: 2.0.3
+Tested up to: 5.2.4
+Stable tag: 2.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -95,6 +95,11 @@ Yes of course.
 
 == Changelog ==
 
+= Version 2.0.4 (20th October 2019) =
+* New: Added setting which allows customizing the "No streams found" message on the frontend
+* New: Added support for the following game(s): Soulcalibur VI
+* WordPress v5.2.4 compatibility
+
 = Version 2.0.3 (8th July 2019) =
 * New: Added support for the following game(s): Tom Clancy's Ghost Recon: Wildlands
 * Fix: PHP notice related to the setting "api_status"
@@ -113,6 +118,11 @@ Yes of course.
 * WordPress v4.9.8 compatibility
 
 == Upgrade Notice ==
+
+= Version 2.0.4 (20th October 2019) =
+* New: Added setting which allows customizing the "No streams found" message on the frontend
+* New: Added support for the following game(s): Soulcalibur VI
+* WordPress v5.2.4 compatibility
 
 = Version 2.0.3 (8th July 2019) =
 * New: Added support for the following game(s): Tom Clancy's Ghost Recon: Wildlands
