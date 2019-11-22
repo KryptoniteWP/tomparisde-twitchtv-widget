@@ -117,7 +117,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 		 */
 		public function form( $instance ) {
 		    
-			$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : esc_html__( 'New title', 'tomparisde-twitchtv-widget' );
+			$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
 			?>
             <!-- Title -->
             <p>
