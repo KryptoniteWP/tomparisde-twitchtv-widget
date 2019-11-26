@@ -37,7 +37,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			echo $args['before_widget'];
 
 			/*
-			 * WidgetHeader
+			 * Widget Header
 			 */
 			if ( ! empty( $instance['title'] ) ) {
 				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
@@ -116,7 +116,9 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 		 * @param array $instance Previously saved values from database.
 		 */
 		public function form( $instance ) {
-		    
+
+            tp_twitch_pre_pro_the_widget_upgrade_info();
+
 			$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
 			?>
             <!-- Title -->

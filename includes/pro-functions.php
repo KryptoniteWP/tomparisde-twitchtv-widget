@@ -39,6 +39,20 @@ function tp_twitch_get_pro_version_url( $source = '', $medium = '' ) {
 /**
  * Output the widget streams max note
  */
+function tp_twitch_pre_pro_the_widget_upgrade_info() {
+
+    if ( tp_twitch_is_pro_version() )
+        return;
+    ?>
+    <p>
+        <span class="dashicons dashicons-star-filled"></span>&nbsp;<?php printf( wp_kses( __( 'You want more features? <a href="%s" target="_blank" rel="nofollow">Check out the Pro version</a>!', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => '_blank', 'rel' => 'nofollow' ) ) ), esc_url( tp_twitch_get_pro_version_url( 'widgets-page', 'textlink' ) ) ); ?>
+    </p>
+    <?php
+}
+
+/**
+ * Output the widget streams max note
+ */
 function tp_twitch_pre_pro_the_widget_streams_max_note() {
 
     if ( tp_twitch_is_pro_version() )

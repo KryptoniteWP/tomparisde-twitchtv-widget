@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Twitch for WordPress\n"
-"POT-Creation-Date: 2019-11-26 16:34+0100\n"
+"POT-Creation-Date: 2019-11-26 16:49+0100\n"
 "PO-Revision-Date: 2018-09-24 17:41+0700\n"
 "Last-Translator: \n"
 "Language-Team: KryptoniteWP\n"
@@ -61,7 +61,7 @@ msgid "Default Settings"
 msgstr ""
 
 #: includes/admin/class-settings.php:139 includes/admin/class-settings.php:563
-#: includes/widget.php:165
+#: includes/widget.php:167
 msgid "Language"
 msgstr ""
 
@@ -213,7 +213,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: includes/admin/class-settings.php:536 includes/widget.php:152
+#: includes/admin/class-settings.php:536 includes/widget.php:154
 msgid "Game"
 msgstr ""
 
@@ -547,17 +547,24 @@ msgstr ""
 
 #: includes/pro-functions.php:48
 #, php-format
+msgid ""
+"You want more features? <a href=\"%s\" target=\"_blank\" rel=\"nofollow"
+"\">Check out the Pro version</a>!"
+msgstr ""
+
+#: includes/pro-functions.php:62
+#, php-format
 msgid "You can display a maximum of %d streams."
 msgstr ""
 
-#: includes/pro-functions.php:50
+#: includes/pro-functions.php:64
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_blank\">Upgrade now</a> in order to show more "
 "streams."
 msgstr ""
 
-#: includes/pro-functions.php:63
+#: includes/pro-functions.php:77
 #, php-format
 msgid ""
 "You would like to have more designs to choose from? <a href=\"%s\" target="
@@ -576,61 +583,61 @@ msgstr ""
 msgid "Display Twitch streams in your sidebars."
 msgstr ""
 
-#: includes/widget.php:124
+#: includes/widget.php:126
 msgid "Title:"
 msgstr ""
 
-#: includes/widget.php:131
+#: includes/widget.php:133
 msgid "Streams Settings"
 msgstr ""
 
-#: includes/widget.php:134
+#: includes/widget.php:136
 msgid "Streamer"
 msgstr ""
 
-#: includes/widget.php:139
+#: includes/widget.php:141
 #, php-format
 msgid "The username of a streamer. For instance: %s"
 msgstr ""
 
-#: includes/widget.php:142
+#: includes/widget.php:144
 #, php-format
 msgid "Comma separate multiple streamers as follows: %s"
 msgstr ""
 
-#: includes/widget.php:174
+#: includes/widget.php:176
 msgid "Output Settings"
 msgstr ""
 
-#: includes/widget.php:178
+#: includes/widget.php:180
 msgid "Maximum Amount of Streams"
 msgstr ""
 
-#: includes/widget.php:187
+#: includes/widget.php:189
 msgid "Hide offline streams"
 msgstr ""
 
-#: includes/widget.php:192
+#: includes/widget.php:194
 msgid "Template Settings"
 msgstr ""
 
-#: includes/widget.php:199
+#: includes/widget.php:201
 msgid "Style"
 msgstr ""
 
-#: includes/widget.php:213
+#: includes/widget.php:215
 msgid "Size"
 msgstr ""
 
-#: includes/widget.php:226
+#: includes/widget.php:228
 msgid "Preview"
 msgstr ""
 
-#: includes/widget.php:237
+#: includes/widget.php:239
 msgid "Need help?"
 msgstr ""
 
-#: includes/widget.php:239
+#: includes/widget.php:241
 #, php-format
 msgid ""
 "Please take a look into the <a href=\"%s\">documentation</a> for help and "
