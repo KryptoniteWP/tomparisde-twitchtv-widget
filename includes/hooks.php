@@ -80,6 +80,12 @@ function tp_twitch_extend_available_games( $games ) {
         'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/Soulcalibur%VI-{width}x{height}.jpg'
     );
 
+    $games[513170] = array(
+        'id'          => 513170,
+        'name'        => "NHL 20",
+        'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/NHL%2020-{width}x{height}.jpg'
+    );
+
     return $games;
 }
 add_filter( 'tp_twitch_games', 'tp_twitch_extend_available_games', 10 );
