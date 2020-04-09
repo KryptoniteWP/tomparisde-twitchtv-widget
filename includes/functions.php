@@ -48,7 +48,7 @@ function tp_twitch_get_option_default_value( $key ) {
 
 	switch ( $key ) {
 		case 'cache_duration':
-			$value = 6;
+			$value = 360;
 			break;
         case 'language':
             $value = 'en';
@@ -356,7 +356,7 @@ function tp_twitch_set_streams_cache( $streams, $args ) {
 	$streams_key = tp_twitch_get_streams_key( $args );
 
 	// Cache data
-	set_transient( $streams_key, $streams, $cache_duration * HOUR_IN_SECONDS );
+	set_transient( $streams_key, $streams, $cache_duration * MINUTE_IN_SECONDS );
 }
 
 /**
