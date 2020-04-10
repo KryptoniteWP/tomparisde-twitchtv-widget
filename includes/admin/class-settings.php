@@ -372,7 +372,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		}
 
 		/**
-		 * API Client ID
+		 * API Client Secret
 		 */
 		function api_client_secret_render() {
 
