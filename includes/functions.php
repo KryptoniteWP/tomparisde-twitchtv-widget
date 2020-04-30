@@ -20,6 +20,15 @@ function tp_twitch_get_options() {
 }
 
 /**
+ * Update options
+ *
+ * @param $options
+ */
+function tp_twitch_update_options( $options ) {
+    update_option( 'tp_twitch', $options );
+}
+
+/**
  * Get single option (incl. default value)
  *
  * @param $key

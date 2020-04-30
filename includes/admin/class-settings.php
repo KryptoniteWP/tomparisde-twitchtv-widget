@@ -302,8 +302,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             </p>
 
             <p>
-                <strong><?php _e( 'Step 3: Enter your Client Secret', 'tomparisde-twitchtv-widget' ); ?></strong>
-	            <span style="color: red;">&nbsp;-&nbsp;<span style="font-weight: bold;"><?php _e( 'required by new Twitch API conditions', 'tomparisde-twitchtv-widget' ); ?></span></span><br />
+                <strong><?php _e( 'Step 3: Enter your Client Secret', 'tomparisde-twitchtv-widget' ); ?></strong><br />
                 <?php _e('Once you created your API credentials, enter your personal <em>Client Secret</em> into the field below.', 'tomparisde-twitchtv-widget'); ?>
             </p>
 
@@ -631,7 +630,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
         function section_help_render() {
 
             global $wp_version;
-            
+
             $curl = $this->check_curl();
 
             $enabled = '<span style="color: green;"><strong><span class="dashicons dashicons-yes"></span> ' . __('Enabled', 'tomparisde-twitchtv-widget') . '</strong></span>';
@@ -829,9 +828,9 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
 /**
  * Custom settings section output
- * 
+ *
  * Replacing: do_settings_sections( 'tp_twitch' );
- * 
+ *
  * @param $page
  */
 function tp_twitch_do_settings_sections($page)
