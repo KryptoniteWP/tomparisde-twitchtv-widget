@@ -372,7 +372,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		}
 
 		/**
-		 * API Client ID
+		 * API Client Secret
 		 */
 		function api_client_secret_render() {
 
@@ -406,13 +406,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function cache_duration_render() {
 
 			$cache_duration_options = array(
-                1 => sprintf( esc_html( _n( '%d hour', '%d hours', 1, 'tomparisde-twitchtv-widget'  ) ), 1 ),
-                2 => sprintf( esc_html( _n( '%d hour', '%d hours', 2, 'tomparisde-twitchtv-widget'  ) ), 2 ),
-                3 => sprintf( esc_html( _n( '%d hour', '%d hours', 3, 'tomparisde-twitchtv-widget'  ) ), 3 ),
-                4 => sprintf( esc_html( _n( '%d hour', '%d hours', 4, 'tomparisde-twitchtv-widget'  ) ), 4 ),
-				6 => sprintf( esc_html( _n( '%d hour', '%d hours', 6, 'tomparisde-twitchtv-widget'  ) ), 6 ),
-				12 => sprintf( esc_html( _n( '%d hour', '%d hours', 12, 'tomparisde-twitchtv-widget'  ) ), 12 ),
-				24 => sprintf( esc_html( _n( '%d hour', '%d hours', 24, 'tomparisde-twitchtv-widget'  ) ), 24 )
+				15 => sprintf( esc_html( _n( '%d minute', '%d minutes', 15, 'tomparisde-twitchtv-widget'  ) ), 15 ),
+				30 => sprintf( esc_html( _n( '%d minute', '%d minutes', 30, 'tomparisde-twitchtv-widget'  ) ), 30 ),
+                60 => sprintf( esc_html( _n( '%d hour', '%d hours', 1, 'tomparisde-twitchtv-widget'  ) ), 1 ),
+                120 => sprintf( esc_html( _n( '%d hour', '%d hours', 2, 'tomparisde-twitchtv-widget'  ) ), 2 ),
+                180 => sprintf( esc_html( _n( '%d hour', '%d hours', 3, 'tomparisde-twitchtv-widget'  ) ), 3 ),
+                240 => sprintf( esc_html( _n( '%d hour', '%d hours', 4, 'tomparisde-twitchtv-widget'  ) ), 4 ),
+				360 => sprintf( esc_html( _n( '%d hour', '%d hours', 6, 'tomparisde-twitchtv-widget'  ) ), 6 ),
+				720 => sprintf( esc_html( _n( '%d hour', '%d hours', 12, 'tomparisde-twitchtv-widget'  ) ), 12 ),
+				1440 => sprintf( esc_html( _n( '%d hour', '%d hours', 24, 'tomparisde-twitchtv-widget'  ) ), 24 )
             );
 
 			$cache_duration = ( isset ( $this->options['cache_duration'] ) && is_numeric( $this->options['cache_duration'] ) ) ? intval( $this->options['cache_duration'] ) : tp_twitch_get_option_default_value( 'cache_duration' );
