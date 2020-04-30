@@ -77,8 +77,6 @@ function tp_twitch_plugin_upgrade_v2_rebuild() {
  */
 function tp_twitch_plugin_upgrade_v3() {
 
-    tp_twitch_debug_log( 'tp_twitch_plugin_upgrade_v3' );
-
     if ( ! empty ( tp_twitch_get_option( 'api_client_id' ) ) && empty ( tp_twitch_get_option( 'api_client_secret' ) ) ) {
 
         $options = tp_twitch_get_options();
