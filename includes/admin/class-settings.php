@@ -89,6 +89,15 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 				array('label_for' => 'tp_twitch_api_client_id')
 			);
 
+			add_settings_field(
+				'tp_twitch_api_client_secret',
+				__( 'Client Secret', 'tomparisde-twitchtv-widget' ),
+				array( &$this, 'api_client_secret_render' ),
+				'tp_twitch',
+				'tp_twitch_api',
+				array('label_for' => 'tp_twitch_api_client_secret')
+			);
+
 			do_action( 'tp_twitch_register_api_settings' );
 
 			add_settings_section(
@@ -210,24 +219,33 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 			$api_status = ( isset ( $this->options['api_status'] ) ) ? $this->options['api_status'] : false;
 			$api_error = ( isset ( $this->options['api_error'] ) ) ? $this->options['api_error'] : '';
 
-			if ( ! empty ( $input['api_client_id'] ) ) {
+			if ( ! empty ( $input['api_client_id'] ) && ! empty ( $input['api_client_secret'] ) ) {
 
 				$api_client_id = ( isset ( $this->options['api_client_id'] ) ) ? $this->options['api_client_id'] : '';
-				$api_client_id_new = $input['api_client_id'];
+				$api_client_id_new = esc_html( $input['api_client_id'] );
 
-				if ( $api_client_id_new != $api_client_id ) {
+				$api_client_secret = ( isset ( $this->options['api_client_secret'] ) ) ? $this->options['api_client_secret'] : '';
+				$api_client_secret_new = esc_html( $input['api_client_secret'] );
 
-					$result = tp_twitch()->api->verify_client_id( $api_client_id_new );
+				if ( $api_client_id_new != $api_client_id || $api_client_secret_new != $api_client_secret ) {
+
+					$delete_cache = true;
+
+					$result = tp_twitch()->api->verify_client_credentials( $api_client_id_new, $api_client_secret_new, true );
 
 					$api_status = ( is_array( $result ) && isset( $result['data'] ) ) ? true : false;
 					$api_error = ( ! empty ( $result['error'] ) ) ? $result['error'] : '';
 
 					if ( ! empty ( $api_error ) )
-					    tp_twitch_addlog( 'Twitch API >> Verify client id >> Error: "' . $api_error . '"' );
+					    tp_twitch_addlog( 'Twitch API >> Verify client id or client secret >> Error: "' . $api_error . '"' );
+
+					// Sanitized Client ID and Client Secret input values
+					$input['api_client_id'] = $api_client_id_new;
+					$input['api_client_secret'] = $api_client_secret_new;
 				}
 
 			} else {
-			    // Client ID empty leads always to a false status
+				// Client ID empty or Client Secret empty leads always to a false status
 				$api_status = false;
             }
 
@@ -284,7 +302,13 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             </p>
 
             <p>
-                <strong><?php _e( 'Step 3: Place Twitch Streams on your Site', 'tomparisde-twitchtv-widget' ); ?></strong><br />
+                <strong><?php _e( 'Step 3: Enter your Client Secret', 'tomparisde-twitchtv-widget' ); ?></strong>
+	            <span style="color: red;">&nbsp;-&nbsp;<span style="font-weight: bold;"><?php _e( 'required by new Twitch API conditions', 'tomparisde-twitchtv-widget' ); ?></span></span><br />
+                <?php _e('Once you created your API credentials, enter your personal <em>Client Secret</em> into the field below.', 'tomparisde-twitchtv-widget'); ?>
+            </p>
+
+            <p>
+                <strong><?php _e( 'Step 4: Place Twitch Streams on your Site', 'tomparisde-twitchtv-widget' ); ?></strong><br />
                 <?php printf( wp_kses( __( 'Go to the <a href="%s" target="_blank" rel="nofollow">Widgets page</a>, place our Twitch widget wherever you want and adjust it according to your needs.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => '_blank', 'rel' => 'nofollow' ) ) ), esc_url( admin_url( 'widgets.php' ) ) ); ?>
             </p>
 
@@ -343,6 +367,25 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 	                'utm_medium'   => 'api-client-id',
 	                'utm_campaign' => 'Twitch WP',
                 ), TP_TWITCH_DOCS_URL ) ) ); ?>
+            </p>
+			<?php
+		}
+
+		/**
+		 * API Client ID
+		 */
+		function api_client_secret_render() {
+
+			$api_client_secret = ( isset ( $this->options['api_client_secret'] ) ) ? $this->options['api_client_secret'] : '';
+			?>
+            <input id="tp_twitch_api_client_secret" class="regular-text" name="tp_twitch[api_client_secret]" type="password" value="<?php echo esc_html( $api_client_secret ); ?>" />
+            <p class="description">
+
+                <?php printf( wp_kses( __( 'We created a detailed guide which shows you <a href="%s" target="_blank" rel="nofollow">how to get your client secret</a>.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => '_blank', 'rel' => 'nofollow' ) ) ), esc_url( add_query_arg( array(
+	                'utm_source'   => 'settings-page',
+	                'utm_medium'   => 'api-client-secret',
+	                'utm_campaign' => 'Twitch WP',
+                ), TP_TWITCH_DOCS_URL ) ) );  ?>
             </p>
 			<?php
 		}

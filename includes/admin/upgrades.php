@@ -17,6 +17,14 @@ function tp_twitch_plugin_upgrades() {
 
     $version_installed = get_option( 'tp_twitch_version', '' );
 
+	if ( version_compare( $version_installed, '2.0.5', '>' ) ) {
+
+		// > 2.0.5 (OAuth Client Credentials Flow)
+		if ( empty( tp_twitch_get_option( 'api_client_secret' ) ) || false === tp_twitch_get_option( 'api_status' ) ) {
+			tp_twitch_plugin_upgrade_oauth();
+		}
+    }
+
     // Plugin already up2date
     if ( $version_installed === TP_TWITCH_VERSION )
         return;
@@ -59,6 +67,26 @@ function tp_twitch_plugin_upgrade_v2_rebuild() {
             <ol>
                <li><?php printf( wp_kses( __( 'Please go to the <a href="%s">settings page</a> and enter your credentials for the new Twitch API.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'options-general.php?page=tp_twitch' ) ) ); ?></li>
                 <li><?php printf( wp_kses( __( 'Afterward, visit the <a href="%s">widgets page</a> and place our new widgets in your sidebar.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'widgets.php' ) ) ); ?></li>
+            </ol>
+            <p><?php _e('Thank you for using our plugin! You are awesome.', 'tomparisde-twitchtv-widget' ); ?></p>
+        </div>
+        <?php
+    });
+}
+
+/**
+ * OAuth Client Credentials Flow
+ */
+function tp_twitch_plugin_upgrade_oauth() {
+
+    // Add admin notice
+    add_action( 'admin_notices', function() {
+        ?>
+        <div class="notice-warning notice tp-twitch-notice is-dismissible">
+            <p><?php _e('Welcome to our brand new Twitch for WordPress plugin!', 'tomparisde-twitchtv-widget' ); ?></p>
+            <p><?php _e('We added a new credential field which is required by new Twitch API starting on April 30, 2020. Please complete the following step in order to continue using the plugin:', 'tomparisde-twitchtv-widget' ); ?></p>
+            <ol>
+               <li><?php printf( wp_kses( __( 'Please go to the <a href="%s">settings page</a> and enter your credentials for the new Twitch API.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'options-general.php?page=tp_twitch' ) ) ); ?></li>
             </ol>
             <p><?php _e('Thank you for using our plugin! You are awesome.', 'tomparisde-twitchtv-widget' ); ?></p>
         </div>

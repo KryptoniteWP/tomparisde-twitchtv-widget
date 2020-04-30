@@ -22,9 +22,24 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 		private $api_url = 'https://api.twitch.tv/helix/';
 
 		/**
+		 * OAuth token URL
+		 *
+		 * OAuth Client Credentials Flow:
+		 * https://dev.twitch.tv/docs/authentication/
+		 *
+		 * @var string
+		 */
+		private $token_url = 'https://id.twitch.tv/oauth2/token';
+
+		/**
 		 * Client ID
 		 */
 		private $client_id;
+
+		/**
+		 * Client secret
+		 */
+		private $client_secret;
 
 		/**
 		 * Debug mode
@@ -39,6 +54,8 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 			$options = tp_twitch_get_options();
 
 			$this->client_id = ( ! empty ( $options['api_client_id'] ) ) ? esc_html( $options['api_client_id'] ) : '';
+
+			$this->client_secret = ( ! empty ( $options['api_client_secret'] ) ) ? esc_html( $options['api_client_secret'] ) : '';
 		}
 
 		/**
@@ -49,15 +66,21 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 		}
 
 		/**
-		 * Verify client id
+		 * Verify client credentials
 		 *
 		 * @param $client_id
+		 * @param $client_secret
+		 * @param bool $delete_cache
 		 *
-		 * @return bool
+		 * @return mixed
 		 */
-		public function verify_client_id( $client_id ) {
+		public function verify_client_credentials( $client_id, $client_secret, $delete_cache = false ) {
 
 			$this->client_id = $client_id;
+			$this->client_secret = $client_secret;
+
+			if ( $delete_cache )
+				delete_transient( 'tp_twitch_token' );
 
 			$result = $this->get_top_games();
 
@@ -149,7 +172,12 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 		 */
 		private function request( $url = '', $args = array() ) {
 
-			if ( empty( $this->client_id ) )
+			if ( empty( $this->client_id ) || empty( $this->client_secret ) )
+				return null;
+
+			$token = $this->get_token();
+
+			if ( false === $token )
 				return null;
 
 			if ( is_array( $args ) && sizeof( $args ) > 0 ) {
@@ -182,7 +210,8 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 			$this->debug( 'TP_Twitch_API->request >> ' . $url );
 
 			$headers = array(
-				'Client-ID' => $this->client_id
+				'Client-ID' => $this->client_id,
+				'Authorization' => 'Bearer ' . base64_decode( $token )
              );
 
 			$response = wp_remote_get( $this->api_url . $url, array(
@@ -206,6 +235,62 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 			$this->debug( $result, 'TP_Twitch_API->request >> $result' );
 
 			return $result;
+		}
+
+		/**
+		 * Get OAuth token
+		 *
+		 * @return bool|string
+		 */
+		private function get_token() {
+
+			$token = get_transient( 'tp_twitch_token' );
+
+			if ( false !== $token ) {
+				return $token;
+			}
+
+			$args = [
+				'client_id' => $this->client_id,
+				'client_secret' => $this->client_secret,
+				'grant_type' => 'client_credentials'
+			];
+
+			$headers = [
+				'Content-Type' => 'application/json'
+			];
+
+			$response = wp_remote_post( $this->token_url, [
+				'headers' => $headers,
+				'body'    => wp_json_encode( $args ),
+				'timeout' => 15
+			]);
+
+			if ( is_wp_error( $response ) ) {
+				return false;
+			}
+
+			$result = wp_remote_retrieve_body( $response );
+
+			$result = json_decode( $result, true );
+
+			/**
+			 * Additionally we can validate token for debugging:
+			 * curl -H "Authorization: OAuth <access_token>" https://id.twitch.tv/oauth2/validate
+			 *
+			 * response example:
+			 * {"client_id":"1cphbefbx1lbtyfvzx3ja268226w7y","scopes":[],"expires_in":5445171}
+			 */
+			$this->debug( $result, 'TP_Twitch_API->get_token >> $token' );
+
+			if ( $result === false || ! isset( $result['access_token'] ) )
+				return false;
+
+			$token = base64_encode( $result['access_token'] );
+
+			set_transient( 'tp_twitch_token', $token, $result['expires_in'] - 30 );
+
+			return $token;
 		}
 
 		/**
