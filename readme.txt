@@ -4,8 +4,8 @@ Donate link: https://donate.flowdee.de/
 Tags: twitch, api, widget, twitch api, twitch widget, twitchtv, flowdee, kryptonitewp
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
-Tested up to: 5.3.0
-Stable tag: 2.0.5
+Tested up to: 5.4.1
+Stable tag: 3.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,7 +31,7 @@ Display Twitch streams in your sidebars.
 = Quickstart Examples =
 
 * Step 1: Create API Credentials
-* Step 2: Enter your Client ID
+* Step 2: Enter your API credentials
 * Step 3: Place Twitch streams in your sidebars
 
 = More features with the PRO version =
@@ -95,6 +95,12 @@ Yes of course.
 
 == Changelog ==
 
+= Version 3.0.0 (30th April 2020) =
+* New: Added support for the new Twitch Helix API
+* New: Added 15 and 30 minutes as new cache durations
+* Tweak: Default cache duration is 60 minutes now
+* WordPress v5.4.1 compatibility
+
 = Version 2.0.5 (26th November 2019) =
 * New: Added support for the following game(s): NHL 20
 * Tweak: Widget title can now be empty as well
@@ -123,6 +129,12 @@ Yes of course.
 * WordPress v4.9.8 compatibility
 
 == Upgrade Notice ==
+
+= Version 3.0.0 (30th April 2020) =
+* New: Added support for the new Twitch Helix API
+* New: Added 15 and 30 minutes as new cache durations
+* Tweak: Default cache duration is 60 minutes now
+* WordPress v5.4.1 compatibility
 
 = Version 2.0.5 (26th November 2019) =
 * New: Added support for the following game(s): NHL 20
