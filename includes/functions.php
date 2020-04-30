@@ -57,7 +57,7 @@ function tp_twitch_get_option_default_value( $key ) {
 
 	switch ( $key ) {
 		case 'cache_duration':
-			$value = 360;
+			$value = 60;
 			break;
         case 'language':
             $value = 'en';
