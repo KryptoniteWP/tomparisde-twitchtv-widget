@@ -29,7 +29,7 @@ $stream_count = 0;
                             <div class="tp-twitch-stream__video">
                                 <div class="tp-twitch-iframe-container">
                                     <iframe
-                                            src="https://player.twitch.tv/?channel=<?php echo $stream->get_user_name(); ?>&muted=true"
+                                            src="https://player.twitch.tv/?channel=<?php echo $stream->get_user_name(); ?>&parent=<?php echo tp_twitch_get_site_host(); ?>&muted=true"
                                             width="560"
                                             height="315"
                                             frameborder="0"

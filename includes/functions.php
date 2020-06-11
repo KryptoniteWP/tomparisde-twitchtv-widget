@@ -612,3 +612,15 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 function tp_twitch_get_default_streams_max() {
     return 3;
 }
+
+/**
+ * Get current site host
+ *
+ * @return string
+ */
+function tp_twitch_get_site_host() {
+
+	$parsed_url = parse_url( get_site_url() );
+
+	return $parsed_url['host'];
+}
