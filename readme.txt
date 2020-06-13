@@ -4,8 +4,8 @@ Donate link: https://donate.flowdee.de/
 Tags: twitch, api, widget, twitch api, twitch widget, twitchtv, flowdee, kryptonitewp
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
-Tested up to: 5.4.1
-Stable tag: 3.0.0
+Tested up to: 5.4.2
+Stable tag: 3.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -95,6 +95,10 @@ Yes of course.
 
 == Changelog ==
 
+= Version 3.0.1 (13th June 2020) =
+* Fix: Embedded player didn't play the video and showed: "Whoops! This embed is misconfigured"
+* WordPress v5.4.2 compatibility
+
 = Version 3.0.0 (30th April 2020) =
 * New: Added support for the new Twitch Helix API
 * New: Added 15 and 30 minutes as new cache durations
@@ -129,6 +133,9 @@ Yes of course.
 * WordPress v4.9.8 compatibility
 
 == Upgrade Notice ==
+
+= Version 3.0.1 (13th June 2020) =
+* Fixed embedded player which didn't play the video and showed: "Whoops! This embed is misconfigured"
 
 = Version 3.0.0 (30th April 2020) =
 * New: Added support for the new Twitch Helix API
