@@ -51,6 +51,12 @@ add_filter( 'tp_twitch_display_streams', 'tp_twitch_manipulate_display_streams',
  *
  * Info: By default we only have access to the top games, so we may have to extend this list
  *
+ * Several ways for getting the 'EA Sports UFC 4' game ID:
+ *  1. Chrome browser DevTools -> Network -> XHR: one of the 'gql' requests has the response like:
+ *   [{"data":{"game":{"id":"518711","displayName":"EA Sports UFC 4","__typename":"Game"}} ...
+ *
+ * 2. curl -H 'Client-ID: <client id>' -H 'Authorization: Bearer <token>' -X GET 'https://api.twitch.tv/helix/games?name=EA%20Sports%20UFC%204'
+ *
  * @param $games
  * @return mixed
  */
@@ -84,6 +90,12 @@ function tp_twitch_extend_available_games( $games ) {
         'id'          => 513170,
         'name'        => "NHL 20",
         'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/NHL%2020-{width}x{height}.jpg'
+    );
+
+    $games[518711] = array(
+        'id'          => 518711,
+        'name'        => "EA Sports UFC 4",
+        'box_art_url' => 'https://static-cdn.jtvnw.net/ttv-boxart/EA%20Sports%20UFC%204-{width}x{height}.jpg'
     );
 
     return $games;
