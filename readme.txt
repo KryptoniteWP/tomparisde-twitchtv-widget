@@ -1,11 +1,11 @@
 === Twitch for WordPress ===
 Contributors: flowdee, kryptonitewp
 Donate link: https://donate.flowdee.de/
-Tags: twitch, api, widget, twitch api, twitch widget, twitchtv, flowdee, kryptonitewp
+Tags: twitch, twitch.tv, twitchtv, twitch api
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
-Tested up to: 5.4.2
-Stable tag: 3.0.1
+Tested up to: 5.5
+Stable tag: 3.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -20,6 +20,7 @@ Display Twitch streams in your sidebars.
 *   This plugin allows you to display Twitch™ streams in your sidebars
 *   Display streams of certain streamers (by username)
 *   Display streams for certain games (e.g. League of Legends only)
+*   Choose from 100 available games
 *   Filter streams by their language (e.g. showing German streams only)
 *   Define the maximum amount of streams to show
 *   Select between the following layouts: Large, small & a combination of both
@@ -39,6 +40,7 @@ Display Twitch streams in your sidebars.
 The PRO version extends this plugin exclusively with a variety of different styles and some exclusively features:
 
 *   Display more than 3 streams
+*   More than 200+ games available
 *   Place streams via shortcode inside your posts and pages
 *   Choose from different styles
 *   Sort streams by different criteria
@@ -94,6 +96,11 @@ Yes of course.
 3. Settings Page
 
 == Changelog ==
+
+= Version 3.1.0 (27th August 2020) =
+* New: Added support for the following game(s): EA Sports UFC 4
+* Tweak: Optimized settings page "API Related Data" section
+* WordPress v5.5 compatibility
 
 = Version 3.0.1 (13th June 2020) =
 * Fix: Embedded player didn't play the video and showed: "Whoops! This embed is misconfigured"

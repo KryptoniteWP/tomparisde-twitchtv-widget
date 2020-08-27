@@ -41,7 +41,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		 * @since  2.0.0
 		 * @var    string
 		 */
-		private $version = '3.0.1';
+		private $version = '3.1.0';
 
 		/**
 		 * The settings instance variable.
