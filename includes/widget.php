@@ -157,6 +157,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                             <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $game, $key ); ?>><?php echo esc_attr( $label ); ?></option>
                         <?php } ?>
                     </select>
+                    <?php tp_twitch_pre_pro_the_available_games_note(); ?>
                 </p>
                 <!-- Language -->
                 <?php

@@ -66,7 +66,7 @@ function tp_twitch_pre_pro_the_widget_streams_max_note() {
 }
 
 /**
- * Output the styles
+ * Output the styles note
  */
 function tp_twitch_pre_pro_the_styles_note() {
 
@@ -75,5 +75,18 @@ function tp_twitch_pre_pro_the_styles_note() {
 
     echo '<small>';
     printf( wp_kses( __( 'You would like to have more designs to choose from? <a href="%s" target="_blank">Upgrade now</a>.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( tp_twitch_get_pro_version_url( 'widgets-page', 'styles-note' ) ) );
+    echo '</small>';
+}
+
+/**
+ * Output the available games note
+ */
+function tp_twitch_pre_pro_the_available_games_note() {
+
+    if ( tp_twitch_is_pro_version() )
+      return;
+
+    echo '<small>';
+    printf( wp_kses( __( 'There are <strong>+100 more games</strong> available in the PRO version! <a href="%s" target="_blank">Upgrade now</a>.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ), 'strong' => array() ) ), esc_url( tp_twitch_get_pro_version_url( 'widgets-page', 'styles-note' ) ) );
     echo '</small>';
 }

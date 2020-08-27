@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Twitch for WordPress\n"
-"POT-Creation-Date: 2020-08-27 09:18+0200\n"
+"POT-Creation-Date: 2020-08-27 10:09+0200\n"
 "PO-Revision-Date: 2018-09-24 17:41+0700\n"
 "Last-Translator: \n"
 "Language-Team: KryptoniteWP\n"
@@ -65,7 +65,7 @@ msgid "Default Settings"
 msgstr ""
 
 #: includes/admin/class-settings.php:148 includes/admin/class-settings.php:635
-#: includes/widget.php:167
+#: includes/widget.php:168
 msgid "Language"
 msgstr ""
 
@@ -635,6 +635,13 @@ msgid ""
 "\"_blank\">Upgrade now</a>."
 msgstr ""
 
+#: includes/pro-functions.php:90
+#, php-format
+msgid ""
+"There are <strong>+100 more games</strong> available in the PRO version! <a "
+"href=\"%s\" target=\"_blank\">Upgrade now</a>."
+msgstr ""
+
 #: includes/template-functions.php:79
 msgid "Template not found."
 msgstr ""
@@ -669,39 +676,39 @@ msgstr ""
 msgid "Comma separate multiple streamers as follows: %s"
 msgstr ""
 
-#: includes/widget.php:176
+#: includes/widget.php:177
 msgid "Output Settings"
 msgstr ""
 
-#: includes/widget.php:180
+#: includes/widget.php:181
 msgid "Maximum Amount of Streams"
 msgstr ""
 
-#: includes/widget.php:189
+#: includes/widget.php:190
 msgid "Hide offline streams"
 msgstr ""
 
-#: includes/widget.php:194
+#: includes/widget.php:195
 msgid "Template Settings"
 msgstr ""
 
-#: includes/widget.php:201
+#: includes/widget.php:202
 msgid "Style"
 msgstr ""
 
-#: includes/widget.php:215
+#: includes/widget.php:216
 msgid "Size"
 msgstr ""
 
-#: includes/widget.php:228
+#: includes/widget.php:229
 msgid "Preview"
 msgstr ""
 
-#: includes/widget.php:239
+#: includes/widget.php:240
 msgid "Need help?"
 msgstr ""
 
-#: includes/widget.php:241
+#: includes/widget.php:242
 #, php-format
 msgid ""
 "Please take a look into the <a href=\"%s\">documentation</a> for help and "
