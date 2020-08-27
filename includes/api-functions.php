@@ -19,9 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function tp_twitch_get_top_games_from_api( $args = array() ) {
 
-	$results = tp_twitch()->api->get_top_games( $args );
+    $response = tp_twitch()->api->get_top_games( $args );
 
-    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results['data'] : null;
+    if ( empty( $response['data'] ) || ! is_array( $response['data'] ) )
+        return null;
+
+    return apply_filters( 'tp_twitch_api_top_games', $response['data'], $response, $args );
 }
 
 /**
