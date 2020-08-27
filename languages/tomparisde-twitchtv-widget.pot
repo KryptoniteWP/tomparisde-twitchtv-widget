@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Twitch for WordPress\n"
-"POT-Creation-Date: 2020-04-30 16:25+0200\n"
+"POT-Creation-Date: 2020-08-27 09:18+0200\n"
 "PO-Revision-Date: 2018-09-24 17:41+0700\n"
 "Last-Translator: \n"
 "Language-Team: KryptoniteWP\n"
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Default Settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:148 includes/admin/class-settings.php:607
+#: includes/admin/class-settings.php:148 includes/admin/class-settings.php:635
 #: includes/widget.php:167
 msgid "Language"
 msgstr ""
@@ -146,11 +146,11 @@ msgid ""
 "<a href=\"%s\" target=\"_blank\" rel=\"nofollow\">Twitch API</a>."
 msgstr ""
 
-#: includes/admin/class-settings.php:343 includes/admin/class-settings.php:656
+#: includes/admin/class-settings.php:343 includes/admin/class-settings.php:684
 msgid "Connected"
 msgstr ""
 
-#: includes/admin/class-settings.php:345 includes/admin/class-settings.php:658
+#: includes/admin/class-settings.php:345 includes/admin/class-settings.php:686
 msgid "Disconnected"
 msgstr ""
 
@@ -225,43 +225,67 @@ msgid ""
 "streams and may be overwritten individually."
 msgstr ""
 
-#: includes/admin/class-settings.php:561
+#: includes/admin/class-settings.php:568
 msgid "Here you can find an overview of all available API related data."
 msgstr ""
 
-#: includes/admin/class-settings.php:564
-msgid "Toggle Information"
+#: includes/admin/class-settings.php:573
+msgid "Data"
 msgstr ""
 
-#: includes/admin/class-settings.php:575
+#: includes/admin/class-settings.php:574
+msgid "Description"
+msgstr ""
+
+#: includes/admin/class-settings.php:580 includes/admin/class-settings.php:599
 msgid "Games"
 msgstr ""
 
-#: includes/admin/class-settings.php:579
-msgid "ID"
+#: includes/admin/class-settings.php:581
+#, php-format
+msgid ""
+"Currently there are <strong>%d games</strong> available in the database."
 msgstr ""
 
-#: includes/admin/class-settings.php:580 includes/widget.php:154
-msgid "Game"
+#: includes/admin/class-settings.php:582
+msgid "Toggle Games List"
 msgstr ""
 
-#: includes/admin/class-settings.php:602
+#: includes/admin/class-settings.php:585 includes/admin/class-settings.php:630
 msgid "Languages"
 msgstr ""
 
-#: includes/admin/class-settings.php:606
+#: includes/admin/class-settings.php:586
+#, php-format
+msgid ""
+"Currently there are <strong>%d languages</strong> available in the database."
+msgstr ""
+
+#: includes/admin/class-settings.php:587
+msgid "Toggle Languages List"
+msgstr ""
+
+#: includes/admin/class-settings.php:603
+msgid "ID"
+msgstr ""
+
+#: includes/admin/class-settings.php:604 includes/widget.php:154
+msgid "Game"
+msgstr ""
+
+#: includes/admin/class-settings.php:634
 msgid "Code"
 msgstr ""
 
-#: includes/admin/class-settings.php:636
+#: includes/admin/class-settings.php:664
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin/class-settings.php:637
+#: includes/admin/class-settings.php:665
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin/class-settings.php:641
+#: includes/admin/class-settings.php:669
 #, php-format
 msgid ""
 "In case you experience some issue with our plugin, please <a href=\"%s\" "
@@ -269,104 +293,104 @@ msgid ""
 "table below."
 msgstr ""
 
-#: includes/admin/class-settings.php:647
+#: includes/admin/class-settings.php:675
 msgid "Setting"
 msgstr ""
 
-#: includes/admin/class-settings.php:648
+#: includes/admin/class-settings.php:676
 msgid "Values"
 msgstr ""
 
-#: includes/admin/class-settings.php:671
+#: includes/admin/class-settings.php:699
 #, php-format
 msgid "PHP \"%1$s\" extension"
 msgstr ""
 
-#: includes/admin/class-settings.php:681
+#: includes/admin/class-settings.php:709
 msgid ""
 "In case one of the values above is <span style=\"color: red;\"><strong>red</"
 "strong></span>, please get in contact with your webhoster in order to enable "
 "the missing PHP extensions."
 msgstr ""
 
-#: includes/admin/class-settings.php:685
+#: includes/admin/class-settings.php:713
 msgid "Log file"
 msgstr ""
 
-#: includes/admin/class-settings.php:686
+#: includes/admin/class-settings.php:714
 msgid "No entries yet. "
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-#: includes/admin/class-settings.php:703
+#: includes/admin/class-settings.php:731
 msgid "Twitch for WordPress"
 msgstr ""
 
-#: includes/admin/class-settings.php:718
+#: includes/admin/class-settings.php:746
 msgid "Delete Cache"
 msgstr ""
 
-#: includes/admin/class-settings.php:729
+#: includes/admin/class-settings.php:757
 msgid "Resources &amp; Support"
 msgstr ""
 
-#: includes/admin/class-settings.php:731
+#: includes/admin/class-settings.php:759
 msgid ""
 "In order to make it as simple as possible for you, we created a detailed "
 "online documentation."
 msgstr ""
 
-#: includes/admin/class-settings.php:742 includes/admin/plugins.php:51
+#: includes/admin/class-settings.php:770 includes/admin/plugins.php:51
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/class-settings.php:745
+#: includes/admin/class-settings.php:773
 msgid "Plugin Page"
 msgstr ""
 
-#: includes/admin/class-settings.php:748
+#: includes/admin/class-settings.php:776
 msgid "Changelog"
 msgstr ""
 
-#: includes/admin/class-settings.php:751
+#: includes/admin/class-settings.php:779
 msgid "Follow us on Twitter"
 msgstr ""
 
-#: includes/admin/class-settings.php:769
+#: includes/admin/class-settings.php:797
 msgid "Upgrade to PRO Version"
 msgstr ""
 
-#: includes/admin/class-settings.php:772
+#: includes/admin/class-settings.php:800
 msgid ""
 "The PRO version extends the plugin exclusively with a variety of different "
 "styles and some exclusively features."
 msgstr ""
 
-#: includes/admin/class-settings.php:775
+#: includes/admin/class-settings.php:803
 msgid "Display more than 3 streams"
 msgstr ""
 
-#: includes/admin/class-settings.php:776
+#: includes/admin/class-settings.php:804
 msgid "Place streams via shortcode"
 msgstr ""
 
-#: includes/admin/class-settings.php:777
+#: includes/admin/class-settings.php:805
 msgid "Choose from different styles"
 msgstr ""
 
-#: includes/admin/class-settings.php:778
+#: includes/admin/class-settings.php:806
 msgid "Sort streams by different criteria"
 msgstr ""
 
-#: includes/admin/class-settings.php:779
+#: includes/admin/class-settings.php:807
 msgid "And more!"
 msgstr ""
 
-#: includes/admin/class-settings.php:783
+#: includes/admin/class-settings.php:811
 msgid "We would be happy if you give it a chance!"
 msgstr ""
 
-#: includes/admin/class-settings.php:790
+#: includes/admin/class-settings.php:818
 msgid "More details"
 msgstr ""
 

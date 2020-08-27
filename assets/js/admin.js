@@ -10,8 +10,12 @@ jQuery(document).ready(function ($) {
     /**
      * Settings: Toggle Data Container
      */
-    jQuery( document ).on( 'click', '#tp-twitch-data-toggle', function(event) {
-        jQuery('#tp-twitch-data-container').toggle();
+    jQuery( document ).on( 'click', '#tp-twitch-data-games-toggle', function(event) {
+        jQuery('#tp-twitch-data-games-container').toggle();
+    });
+
+    jQuery( document ).on( 'click', '#tp-twitch-data-languages-toggle', function(event) {
+        jQuery('#tp-twitch-data-languages-container').toggle();
     });
 
     /**
