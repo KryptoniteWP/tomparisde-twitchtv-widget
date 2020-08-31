@@ -5,7 +5,7 @@ Tags: twitch, twitch.tv, twitchtv, twitch api
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
 Tested up to: 5.5
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,9 @@ Yes of course.
 3. Settings Page
 
 == Changelog ==
+
+= Version 3.1.1 (31th August 2020) =
+* Plugin update was not distributed due to wrong versioning
 
 = Version 3.1.0 (27th August 2020) =
 * New: Added support for the following game(s): EA Sports UFC 4
