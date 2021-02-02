@@ -91,6 +91,10 @@ function tp_twitch_delete_cache() {
 	$sql = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "%_transient_tp_twitch_%"';
 
 	$wpdb->query( $sql );
+
+    if ( tp_twitch_is_pro_version() ) {
+        set_transient( 'tp_twitch_delete_cache', '1', 10 ); // 10 sec
+    }
 }
 
 /**
@@ -128,17 +132,17 @@ function tp_twitch_get_games() {
         if ( empty( $games ) )
             return null;
 
-        $games_indexed = array(); // We need the game id to make them accessible
+        $indexed_games = array(); // We need the game id to make them accessible
 
         foreach ( $games as $game ) {
 
             if ( ! isset( $game['id'] ) || ! isset( $game['name'] ) )
                 continue;
 
-            $games_indexed[$game['id']] = $game;
+            $indexed_games[$game['id']] = $game;
         }
 
-        $games = $games_indexed;
+        $games = $indexed_games;
 
         // Cache data
         set_transient( 'tp_twitch_games', $games, 7 * DAY_IN_SECONDS );
@@ -154,18 +158,17 @@ function tp_twitch_get_games() {
 /**
  * Get game by id
  *
- * @param $game_id
- *
- * @return mixed|null
+ * @param   $game_id
+ * @return  array
  */
 function tp_twitch_get_game_by_id( $game_id ) {
 
 	if ( empty ( $game_id ) )
-		return null;
+		return array();
 
 	$games = tp_twitch_get_games();
 
-	return ( isset ( $games[$game_id] ) ) ? $games[$game_id] : null;
+    return ( isset ( $games[$game_id] ) ) ? $games[$game_id] : array();
 }
 
 /**

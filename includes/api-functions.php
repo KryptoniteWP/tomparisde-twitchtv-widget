@@ -13,9 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Get top games from API
  *
- * @param array $args
- *
- * @return null
+ * @param   array $args
+ * @return  mixed
  */
 function tp_twitch_get_top_games_from_api( $args = array() ) {
 
@@ -30,9 +29,8 @@ function tp_twitch_get_top_games_from_api( $args = array() ) {
 /**
  * Get streams from API
  *
- * @param array $args
- *
- * @return null
+ * @param   array $args
+ * @return  mixed
  */
 function tp_twitch_get_streams_from_api( $args = array() ) {
 
@@ -54,9 +52,8 @@ function tp_twitch_get_streams_from_api( $args = array() ) {
 /**
  * Get users from API
  *
- * @param array $args
- *
- * @return null
+ * @param   array $args
+ * @return  mixed
  */
 function tp_twitch_get_users_from_api( $args = array() ) {
 

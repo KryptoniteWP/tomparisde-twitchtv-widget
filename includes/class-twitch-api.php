@@ -170,7 +170,7 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 		 *
 		 * @return array|mixed|null|object|string
 		 */
-		private function request( $url = '', $args = array() ) {
+		protected function request( $url = '', $args = array() ) {
 
 			if ( empty( $this->client_id ) || empty( $this->client_secret ) )
 				return null;

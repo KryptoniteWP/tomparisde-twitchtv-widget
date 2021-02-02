@@ -54,7 +54,7 @@ add_filter( 'tp_twitch_display_streams', 'tp_twitch_manipulate_display_streams',
  */
 function tp_twitch_add_missing_games( $games ) {
 
-    $games_missing = array(
+    $missing_games = array(
         array(
             'id'          => 490379,
             'name'        => "Tom Clancy's Ghost Recon: Wildlands",
@@ -87,12 +87,17 @@ function tp_twitch_add_missing_games( $games ) {
         )
     );
 
-    foreach ( $games_missing as $game ) {
+    foreach ( $games as $game ) {
 
-        if ( ! isset ( $games[ $game['id'] ] ) )
-            $games[ $game['id'] ] = $game;
+        foreach ( $missing_games as $id => $missing_game ) {
+
+            if ( $game['id'] == $missing_game['id'] ) {
+                unset( $missing_games[$id] );
+                break;
+            }
+        }
     }
 
-    return $games;
+    return array_merge( $missing_games, $games );
 }
 add_filter( 'tp_twitch_games', 'tp_twitch_add_missing_games', 99 );

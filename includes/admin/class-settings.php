@@ -361,7 +361,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 			?>
             <input id="tp_twitch_api_client_id" class="regular-text" name="tp_twitch[api_client_id]" type="text" value="<?php echo esc_html( $api_client_id ); ?>" />
             <p class="description">
-                <?php printf( wp_kses( __( 'We created a detailed guide which shows you <a href="%s" target="_blank" rel="nofollow">how to get your client id</a>.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => '_blank', 'rel' => 'nofollow' ) ) ), esc_url( add_query_arg( array(
+                <?php printf( wp_kses( __( 'We created a detailed guide which shows you <a href="%s" target="_blank" rel="nofollow">how to get your client id</a>.', 'tomparisde-twitchtv-widget' ), array( 'a' => array( 'href' => array(), 'target' => '_blank', 'rel' => 'nofollow' ) ) ), esc_url( add_query_arg( array(
 	                'utm_source'   => 'settings-page',
 	                'utm_medium'   => 'api-client-id',
 	                'utm_campaign' => 'Twitch WP',
@@ -650,6 +650,8 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 </table>
             </div>
             <?php
+
+            do_action( 'tp_twitch_add_data_settings' );
         }
 
         /**
@@ -666,7 +668,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             ?>
             <p>
-                <?php printf( wp_kses( __( 'In case you experience some issue with our plugin, please <a href="%s" target="_blank">get in touch with us</a> and provide a screenshot of the table below.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( 'https://kryptonitewp.com/support/' ) ); ?>
+                <?php printf( wp_kses( __( 'In case you experience some issue with our plugin, please <a href="%s" target="_blank">get in touch with us</a> and provide a screenshot of the table below.', 'tomparisde-twitchtv-widget' ), array( 'a' => array( 'href' => array(), 'target' => array( '_blank' ) ) ) ), esc_url( 'https://kryptonitewp.com/support/' ) ); ?>
             </p>
 
             <table class="widefat tp-twitch-settings-table">
@@ -861,8 +863,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
  *
  * @param $page
  */
-function tp_twitch_do_settings_sections($page)
-{
+function tp_twitch_do_settings_sections($page) {
 
     global $wp_settings_sections, $wp_settings_fields;
 

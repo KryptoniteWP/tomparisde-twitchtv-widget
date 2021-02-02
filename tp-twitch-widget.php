@@ -176,7 +176,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 
 			// Docs URL
 			if ( ! defined( 'TP_TWITCH_DOCS_URL' ) ) {
-				define( 'TP_TWITCH_DOCS_URL', 'https://kryptonitewp.com/support/knb/twitch-wordpress-documentation/' );
+				define( 'TP_TWITCH_DOCS_URL', 'https://kryptonitewp.com/docs/article/twitch-wordpress-documentation/' );
 			}
 		}
 
