@@ -578,13 +578,13 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 <tbody>
                     <tr>
                         <td><?php _e('Games', 'tomparisde-twitchtv-widget' ); ?></td>
-                        <td><?php printf( __( 'Currently there are <strong>%d games</strong> available in the database.', 'tomparisde-twitchtv-widget' ), $games_count ); ?></td>
-                        <td><span id="tp-twitch-data-games-toggle" class="button button-secondary"><?php _e('Toggle Games List', 'tomparisde-twitchtv-widget' ); ?></span></td>
+                        <td><?php printf( __( 'Currently there are <strong id="tp-twitch-games-count">%d games</strong> available in the database.', 'tomparisde-twitchtv-widget' ), $games_count ); ?></td>
+                        <td><span id="tp-twitch-data-games-toggle" class="button button-secondary" style="width: 160px; text-align: center;"><?php _e('Toggle Games List', 'tomparisde-twitchtv-widget' ); ?></span></td>
                     </tr>
                     <tr>
                         <td><?php _e('Languages', 'tomparisde-twitchtv-widget' ); ?></td>
                         <td><?php printf( __( 'Currently there are <strong>%d languages</strong> available in the database.', 'tomparisde-twitchtv-widget' ), $languages_count ); ?></td>
-                        <td><span id="tp-twitch-data-languages-toggle" class="button button-secondary"><?php _e('Toggle Languages List', 'tomparisde-twitchtv-widget' ); ?></span></td>
+                        <td><span id="tp-twitch-data-languages-toggle" class="button button-secondary" style="width: 160px; text-align: center;"><?php _e('Toggle Languages List', 'tomparisde-twitchtv-widget' ); ?></span></td>
                     </tr>
                 </tbody>
             </table>
@@ -592,12 +592,16 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
             <div id="tp-twitch-data-games-container" style="display: none;">
                 <?php
                 // Sort games.
-                if ( $games && is_array( $games ) )
+                if ( $games && is_array( $games ) ) {
                     $games = tp_twitch_array_sort( $games, 'name' );
+                }
 
                 if ( $games && is_array( $games ) && sizeof( $games ) > 0 ) { ?>
                     <h4><?php _e('Games','tomparisde-twitchtv-widget' ); ?></h4>
-                    <table class="widefat">
+
+                    <?php do_action( 'tp_twitch_add_data_settings' ); ?>
+
+                    <table id="tp-twitch-data-games-list" class="widefat">
                         <thead>
                             <tr>
                                 <th><?php _e('ID', 'tomparisde-twitchtv-widget' ); ?></th>
@@ -617,9 +621,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                             <?php } ?>
                         </tbody>
                     </table>
-                <?php
-                }
-                ?>
+                <?php } ?>
             </div>
 
             <div id="tp-twitch-data-languages-container" style="display: none;">
@@ -650,8 +652,6 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                 </table>
             </div>
             <?php
-
-            do_action( 'tp_twitch_add_data_settings' );
         }
 
         /**
@@ -736,7 +736,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                         <div id="post-body" class="metabox-holder columns-2">
                             <div id="post-body-content">
                                 <div class="meta-box-sortables ui-sortable">
-                                    <form action="options.php" method="post">
+                                    <form id="tp_twitch_settings_form" action="options.php" method="post">
 
                                         <?php
                                         settings_fields('tp_twitch');
