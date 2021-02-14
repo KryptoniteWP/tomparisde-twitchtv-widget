@@ -41,7 +41,7 @@ function tp_twitch_array_sort( $array, $key ) {
 		$sorter[ $ii ] = $va[ $key ];
 	}
 
-	asort( $sorter );
+	asort( $sorter, SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL );
 
 	foreach ( $sorter as $ii => $va ) {
 		$ret[ $ii ] = $array[ $ii ];
