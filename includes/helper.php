@@ -51,6 +51,26 @@ function tp_twitch_array_sort( $array, $key ) {
 }
 
 /**
+ * Add missing games
+ *
+ * @param   array
+ * @param   array
+ *
+ * @return  array
+ */
+function tp_twitch_maybe_add_missing_games( $games, $missing_games ) {
+
+    foreach ( $missing_games as $missing_game ) {
+
+        if ( ! isset ( $games[ $missing_game['id'] ] ) ) {
+            $games[ $missing_game['id'] ] = $missing_game;
+        }
+    }
+
+	return $games;
+}
+
+/**
  * Get site language
  *
  * @return string

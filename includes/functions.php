@@ -158,17 +158,25 @@ function tp_twitch_get_games() {
 /**
  * Get game by id
  *
- * @param   $game_id
+ * @param   $id
  * @return  array
  */
-function tp_twitch_get_game_by_id( $game_id ) {
+function tp_twitch_get_game_by_id( $id ) {
 
-	if ( empty ( $game_id ) )
+    //tp_twitch_debug_log( __FUNCTION__ );
+
+	if ( empty ( $id ) )
 		return array();
 
 	$games = tp_twitch_get_games();
 
-    return ( isset ( $games[$game_id] ) ) ? $games[$game_id] : array();
+    foreach ( $games as $game ) {
+
+        if ( $game['id'] == $id )
+            return $game;
+    }
+
+    return array();
 }
 
 /**

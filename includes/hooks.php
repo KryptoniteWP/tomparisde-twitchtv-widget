@@ -87,17 +87,8 @@ function tp_twitch_add_missing_games( $games ) {
         )
     );
 
-    foreach ( $games as $game ) {
+    $games = tp_twitch_maybe_add_missing_games( $games, $missing_games );
 
-        foreach ( $missing_games as $id => $missing_game ) {
-
-            if ( $game['id'] == $missing_game['id'] ) {
-                unset( $missing_games[$id] );
-                break;
-            }
-        }
-    }
-
-    return array_merge( $missing_games, $games );
+    return $games;
 }
 add_filter( 'tp_twitch_games', 'tp_twitch_add_missing_games', 99 );
