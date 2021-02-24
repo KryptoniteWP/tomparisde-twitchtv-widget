@@ -38,15 +38,17 @@ function tp_twitch_get_streams_from_api( $args = array() ) {
 	if ( isset( $args['streamer'] ) )
 		$args['user_login'] = $args['streamer'];
 
-	if ( isset( $args['max'] ) )
-		$args['first'] = $args['max'];
-
-	// Call API
+    // Call API
 	$results = tp_twitch()->api->get_streams( $args );
+
+
+tp_twitch_debug_log( __FUNCTION__ . ' > $results:' );
+tp_twitch_debug_log( $results );
+
 
     //tp_twitch_debug( $results, 'tp_twitch_get_streams_from_api > $results' );
 
-	return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results['data'] : null;
+    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results : null;
 }
 
 /**
