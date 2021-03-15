@@ -17,7 +17,6 @@
     "production": "mix --production",
     "prod": "npm run production"
   },
-  "dependencies": {},
   "devDependencies": {
     "laravel-mix": "^6.0.10",
     "less": "^4.1.0",
