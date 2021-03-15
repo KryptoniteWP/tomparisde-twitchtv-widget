@@ -4,8 +4,8 @@ Donate link: https://donate.flowdee.de/
 Tags: twitch, twitch.tv, twitchtv, twitch api
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
-Tested up to: 5.5
-Stable tag: 3.1.1
+Tested up to: 5.7.0
+Stable tag: 3.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,12 @@ Yes of course.
 3. Settings Page
 
 == Changelog ==
+
+= Version 3.2.0 (15th March 2021) =
+* New: Added settings widget to easily submit a plugin review
+* Tweak: Optimized Twitch API calls to be able to receive more than 100 streams
+* Tweak: Optimized assets building
+* WordPress v5.7 compatibility
 
 = Version 3.1.1 (31th August 2020) =
 * Plugin update was not distributed due to wrong versioning
