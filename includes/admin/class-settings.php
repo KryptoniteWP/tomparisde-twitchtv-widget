@@ -754,6 +754,18 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
                             </div>
                             <!-- /#post-body-content -->
                             <div id="postbox-container-1" class="postbox-container">
+
+                                <div class="postbox">
+                                    <h3><span><span class="dashicons dashicons-star-filled"></span>&nbsp;<?php esc_html_e( 'Do You Enjoy our Plugin?', 'tomparisde-twitchtv-widget' ); ?></span></h3>
+                                    <div class="inside">
+                                        <p><?php _e( 'It would be great if you <strong>do us a big favor and give us a review</strong> for our plugin.', 'tomparisde-twitchtv-widget' ); ?></p>
+                                        <p><?php esc_html_e( 'This will help us to make others aware of our plugin and we can continue to provide it with great features in long term.', 'tomparisde-twitchtv-widget' ); ?></p>
+                                        <p>
+                                            <a class="tp-twitch-settings-button tp-twitch-settings-button--block" target="_blank" href="<?php echo esc_url( 'https://wordpress.org/support/plugin/tomparisde-twitchtv-widget/reviews/?filter=5#new-post' ); ?>" rel="nofollow"><?php _e( 'Submit a review', 'tomparisde-twitchtv-widget' ); ?></a>
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <div class="meta-box-sortables">
                                     <div class="postbox">
                                         <h3><span><?php _e('Resources &amp; Support', 'tomparisde-twitchtv-widget' ); ?></span></h3>
