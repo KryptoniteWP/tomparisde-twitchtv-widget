@@ -30,7 +30,7 @@ function tp_twitch_get_top_games_from_api( $args = array() ) {
  * Get streams from API
  *
  * @param   array $args
- * @return  mixed
+ * @return  array
  */
 function tp_twitch_get_streams_from_api( $args = array() ) {
 
@@ -41,21 +41,19 @@ function tp_twitch_get_streams_from_api( $args = array() ) {
     // Call API
 	$results = tp_twitch()->api->get_streams( $args );
 
-
-tp_twitch_debug_log( __FUNCTION__ . ' > $results:' );
-tp_twitch_debug_log( $results );
-
+    //tp_twitch_debug_log( __FUNCTION__ . ' > $results:' );
+    //tp_twitch_debug_log( $results );
 
     //tp_twitch_debug( $results, 'tp_twitch_get_streams_from_api > $results' );
 
-    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results : null;
+    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results : array();
 }
 
 /**
  * Get users from API
  *
  * @param   array $args
- * @return  mixed
+ * @return  array
  */
 function tp_twitch_get_users_from_api( $args = array() ) {
 
@@ -69,5 +67,5 @@ function tp_twitch_get_users_from_api( $args = array() ) {
 	// Call API
 	$results = tp_twitch()->api->get_users( $args );
 
-    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results['data'] : null;
+    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results['data'] : array();
 }

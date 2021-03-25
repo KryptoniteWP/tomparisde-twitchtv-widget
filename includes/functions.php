@@ -355,7 +355,7 @@ function tp_twitch_get_streams_cache( $args ) {
 
 	$streams = get_transient( $streams_key );
 
-	return $streams;
+	return ( ! empty( $streams ) ) ? $streams : array();
 }
 
 /**
@@ -388,6 +388,13 @@ function tp_twitch_set_streams_cache( $streams, $args ) {
  */
 function tp_twitch_get_streams( $args = array(), $output_args = array() ) {
 
+    tp_twitch_debug_log( __FUNCTION__ );
+
+    tp_twitch_debug_log( '$args: ' );
+    tp_twitch_debug_log( $args );
+
+    $streams = array();
+
     $args = tp_twitch_prepare_streams_args( $args, $output_args );
 
     //tp_twitch_debug( $args, __FUNCTION__ . ' > $args' );
@@ -396,13 +403,24 @@ function tp_twitch_get_streams( $args = array(), $output_args = array() ) {
 
         $streams = tp_twitch_get_streams_cache( $args );
 
-        if ( ! empty( $streams ) )
+        if ( ! empty( $streams ) ) {
             return tp_twitch_setup_streams( $streams );
+        }
     }
 
 	//tp_twitch_debug( 'tp_twitch_get_streams >> no cache!' );
 
-    if ( isset( $args['max'] ) && is_numeric( $args['max'] ) ) {
+    if ( ! isset( $args['max'] ) || ! is_numeric( $args['max'] ) ) {
+
+        // First: Fetch streams from API
+        $streams_response = tp_twitch_get_streams_from_api( $args );
+
+        // Second: Validate data, fetch additional info from API and setup the final data structure
+        if ( isset( $streams_response['data'] ) ) {
+            $streams = tp_twitch_setup_streams_data( $streams_response['data'], $args );
+        }
+
+    } else {
 
         $allowed_limit = 100;
 
@@ -414,14 +432,19 @@ function tp_twitch_get_streams( $args = array(), $output_args = array() ) {
 
             $streams_response = tp_twitch_get_streams_from_api( $args );
 
-            $streams = tp_twitch_setup_streams_data( $streams_response['data'], $args );
+tp_twitch_debug_log( '$streams_response: ' );
+tp_twitch_debug_log( $streams_response );
+
+            if ( isset( $streams_response['data'] ) ) {
+                $streams = tp_twitch_setup_streams_data( $streams_response['data'], $args );
+            }
 
         } else {
 
+            //@TODO: pagination is not finished
+
 tp_twitch_debug_log( 'pagination: ' . $args['pagination'] );
 tp_twitch_debug_log( 'max: ' . $args['max'] );
-
-            $streams = array();
 
             $step = $allowed_limit;
             $max = $args['max'];
@@ -469,7 +492,7 @@ tp_twitch_debug_log( $streams );
 tp_twitch_debug_log( '$streams_response[\'pagination\']:' );
 tp_twitch_debug_log( $streams_response['pagination'] );
 
-                // @Todo: pagination type is object (not array)
+                // @Todo: ? pagination type is object (not array) ?
                 $args['after'] = $streams_response['pagination']['cursor'];
 
 tp_twitch_debug_log( 'after: ' . $args['after'] );
@@ -496,7 +519,7 @@ tp_twitch_debug_log( '$current AFTER: ' . $current );
  */
 function tp_twitch_prepare_streams_args( $args, $output_args ) {
 
-    if ( empty( $args['streamer'] ) ) {
+    if ( empty( $args['streamer'] ) && empty( $args['game_id'] ) ) {
 
         if ( empty( $output_args['max'] ) || ! is_numeric( $output_args['max'] ) )
             return $args;
@@ -511,59 +534,62 @@ function tp_twitch_prepare_streams_args( $args, $output_args ) {
         return $args;
     }
 
-tp_twitch_debug_log( __FUNCTION__ . ' > $output_args:' );
-tp_twitch_debug_log( $output_args );
-
     // Maximum number of objects to return allowed by twitch API for a single request
     $allowed_limit = 100;
 
-    $args['streamer'] = strtolower( $args['streamer'] );
+    if ( ! empty( $args['streamer'] ) ) {
 
-    // Trim possible spaces
-    $args['streamer'] = str_replace( ' ', '', $args['streamer'] );
 
-    $stream_array = explode( ',', $args['streamer'] );
+tp_twitch_debug_log( __FUNCTION__ . ' > $args BEFORE FILTER:' );
+tp_twitch_debug_log( $args );
 
-    $stream_count = count( $stream_array );
 
-    // Count of streamers <= 100
+        $args['streamer'] = strtolower( $args['streamer'] );
 
-    if ( $stream_count <= $allowed_limit ) {
+        // Trim possible spaces
+        $args['streamer'] = str_replace( ' ', '', $args['streamer'] );
 
-        if ( empty( $output_args['max'] ) || ! is_numeric( $output_args['max'] ) )
+        $stream_array = explode( ',', $args['streamer'] );
+
+        $stream_count = count( $stream_array );
+
+        // Count of streamers <= 100
+
+        if ( $stream_count <= $allowed_limit ) {
+
+            if ( empty( $output_args['max'] ) || ! is_numeric( $output_args['max'] ) )
+                return $args;
+
+            if ( intval( $output_args['max'] ) > apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() ) ) {
+
+                $args['max'] = apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() );
+            } else {
+                $args['max'] = intval( $output_args['max'] );
+            }
+
             return $args;
+        }
 
-        if ( intval( $output_args['max'] ) > apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() ) ) {
+        // Count of streamers > 100
 
-            $args['max'] = apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() );
+        $args['pagination'] = $stream_count;
+
+        if ( empty( $output_args['max'] ) || ! is_numeric( $output_args['max'] ) ) {
+
+            $args['max'] = $allowed_limit;
         } else {
             $args['max'] = intval( $output_args['max'] );
         }
 
-        return $args;
+        if ( $args['max'] <= $allowed_limit )
+            $stream_array = array_slice( $stream_array, 0,  $args['max'] - 1 );
+
+        $args['streamer'] = implode( ',', $stream_array );
+
+tp_twitch_debug_log( __FUNCTION__ . ' > $args AFTER FILTER:' );
+tp_twitch_debug_log( $args );
+
     }
-
-    // Count of streamers > 100
-
-    $args['pagination'] = $stream_count;
-
-    if ( empty( $output_args['max'] ) || ! is_numeric( $output_args['max'] ) ) {
-
-        $args['max'] = $allowed_limit;
-    } else {
-        $args['max'] = intval( $output_args['max'] );
-    }
-
-    if ( $args['max'] <= $allowed_limit )
-        $stream_array = array_slice( $stream_array, 0,  $args['max'] - 1 );
-
-    $args['streamer'] = implode( ',', $stream_array );
-
-
-if ( ! empty( $args['streamer'] ) ) {
-    tp_twitch_debug_log( __FUNCTION__ . ' > $args AFTER FILTER:' );
-    tp_twitch_debug_log( $args );
-}
 
     return $args;
 }
@@ -598,7 +624,7 @@ function tp_twitch_setup_streams( $streams ) {
  *
  * @param $streams
  * @param $streams_args
- * @return array|null
+ * @return array
  */
 function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 
@@ -618,7 +644,7 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
         }
     }
 
-	$users = ( sizeof( $user_ids ) > 0 ) ? tp_twitch_get_users_from_api( array( 'user_id' => $user_ids ) ) : array();
+	$users = tp_twitch_get_users_from_api( array( 'user_id' => $user_ids ) );
 
 	// Handling offline users/streams
     if ( ! empty ( $streams_args['streamer'] ) ) {
@@ -626,7 +652,7 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
         $user_logins_fetched = array();
 
         // Collecting already fetched user logins
-        if ( is_array( $users ) && sizeof( $users ) > 0 ) {
+        if ( sizeof( $users ) > 0 ) {
 
             foreach ( $users as $user ) {
 
@@ -668,7 +694,7 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 	// Prepare users data
 	$users_data = array();
 
-	if ( is_array( $users ) && sizeof( $users ) > 0 ) {
+	if ( sizeof( $users ) > 0 ) {
 
 		foreach ( $users as $user ) {
 
@@ -705,7 +731,7 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 	// Prepare streams
     $user_streams = array();
 
-    if ( is_array( $streams ) && sizeof( $streams ) > 0 ) {
+    if ( sizeof( $streams ) > 0 ) {
 
         foreach ( $streams as $stream ) {
 
