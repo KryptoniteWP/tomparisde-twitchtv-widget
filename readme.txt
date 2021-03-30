@@ -5,7 +5,7 @@ Tags: twitch, twitch.tv, twitchtv, twitch api
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
 Tested up to: 5.7.0
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,9 @@ Yes of course.
 3. Settings Page
 
 == Changelog ==
+
+= Version 3.2.2 (30th March 2021) =
+* Fix: Streams couldn't be displayed after the last plugin update
 
 = Version 3.2.1 (15th March 2021) =
 * Tweak: Optimized webpack for assets building

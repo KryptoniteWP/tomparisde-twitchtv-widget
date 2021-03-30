@@ -3,7 +3,7 @@
  * Plugin Name:     Twitch for WordPress
  * Plugin URI:      https://de.wordpress.org/plugins/tomparisde-twitchtv-widget/
  * Description:     Display Twitch streams on your sidebars.
- * Version:         3.2.1
+ * Version:         3.2.2
  * Author:          KryptoniteWP
  * Author URI:      https://kryptonitewp.com
  * Text Domain:     tomparisde-twitchtv-widget
@@ -41,7 +41,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		 * @since  2.0.0
 		 * @var    string
 		 */
-		private $version = '3.2.1';
+		private $version = '3.2.2';
 
 		/**
 		 * The settings instance variable.
