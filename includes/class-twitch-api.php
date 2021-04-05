@@ -127,9 +127,6 @@ if ( ! class_exists( 'TP_Twitch_API' ) ) {
 			 */
 			$args = wp_parse_args( $args, $defaults );
 
-            if ( isset( $args['streamer'] ) )
-                unset( $args['streamer'] );
-
             //tp_twitch_debug( $args, 'API > get_streams > $args' );
 
 			$result = $this->request( 'streams', $args );
