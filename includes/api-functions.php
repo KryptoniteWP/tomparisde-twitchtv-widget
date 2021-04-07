@@ -42,14 +42,14 @@ function tp_twitch_get_streams_from_api( $args = array() ) {
     }
 
     // Call API
-	$results = tp_twitch()->api->get_streams( $args );
+    $response = tp_twitch()->api->get_streams( $args );
 
-    //tp_twitch_debug_log( __FUNCTION__ . ' > $results:' );
-    //tp_twitch_debug_log( $results );
+    //tp_twitch_debug( $response, 'tp_twitch_get_streams_from_api > $response' );
 
-    //tp_twitch_debug( $results, 'tp_twitch_get_streams_from_api > $results' );
+    if ( empty( $response['data'] ) || ! is_array( $response['data'] ) )
+        return array();
 
-    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results : array();
+    return apply_filters( 'tp_twitch_api_streams', $response['data'], $response, $args );
 }
 
 /**
