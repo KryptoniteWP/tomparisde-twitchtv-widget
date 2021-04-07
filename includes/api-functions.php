@@ -35,18 +35,21 @@ function tp_twitch_get_top_games_from_api( $args = array() ) {
 function tp_twitch_get_streams_from_api( $args = array() ) {
 
 	// Convert non-standard arguments
-	if ( isset( $args['streamer'] ) )
-		$args['user_login'] = $args['streamer'];
+	if ( isset( $args['streamer'] ) ) {
+
+        $args['user_login'] = $args['streamer'];
+        unset( $args['streamer'] );
+    }
 
     // Call API
-	$results = tp_twitch()->api->get_streams( $args );
+    $response = tp_twitch()->api->get_streams( $args );
 
-    //tp_twitch_debug_log( __FUNCTION__ . ' > $results:' );
-    //tp_twitch_debug_log( $results );
+    //tp_twitch_debug( $response, 'tp_twitch_get_streams_from_api > $response' );
 
-    //tp_twitch_debug( $results, 'tp_twitch_get_streams_from_api > $results' );
+    if ( empty( $response['data'] ) || ! is_array( $response['data'] ) )
+        return array();
 
-    return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results : array();
+    return apply_filters( 'tp_twitch_api_streams', $response['data'], $response, $args );
 }
 
 /**
@@ -57,14 +60,18 @@ function tp_twitch_get_streams_from_api( $args = array() ) {
  */
 function tp_twitch_get_users_from_api( $args = array() ) {
 
-	// Convert non-standard arguments
+    if ( empty( $args['user_id'] ) && empty( $args['user_login'] ) ) {
+        return array();
+    }
+
+    // Convert non-standard arguments
 	if ( isset( $args['user_id'] ) )
 		$args['id'] = $args['user_id'];
 
 	if ( isset( $args['user_login'] ) )
 		$args['login'] = $args['user_login'];
 
-	// Call API
+    // Call API
 	$results = tp_twitch()->api->get_users( $args );
 
     return ( isset( $results['data'] ) && is_array( $results['data'] ) && sizeof( $results['data'] ) > 0 ) ? $results['data'] : array();
