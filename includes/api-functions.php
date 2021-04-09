@@ -41,6 +41,16 @@ function tp_twitch_get_streams_from_api( $args = array() ) {
         unset( $args['streamer'] );
     }
 
+	if ( isset( $args['max'] ) ) {
+
+        $args['first'] = $args['max'];
+        unset( $args['max'] );
+    }
+
+	if ( isset( $args['pagination'] ) ) {
+        unset( $args['pagination'] );
+    }
+
     // Call API
     $response = tp_twitch()->api->get_streams( $args );
 
@@ -49,7 +59,17 @@ function tp_twitch_get_streams_from_api( $args = array() ) {
     if ( empty( $response['data'] ) || ! is_array( $response['data'] ) )
         return array();
 
-    return apply_filters( 'tp_twitch_api_streams', $response['data'], $response, $args );
+    // $response: {
+    //   "data": [
+    //     { <obj> },
+    //     { <obj> },
+    //     ...
+    //   ],
+    //   "pagination": {
+    //     "cursor": <string>
+    //   }
+    // }
+    return apply_filters( 'tp_twitch_api_streams', $response, $args );
 }
 
 /**
