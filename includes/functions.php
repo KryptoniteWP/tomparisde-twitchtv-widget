@@ -393,8 +393,6 @@ function tp_twitch_get_streams( $args = array(), $output_args = array() ) {
     //tp_twitch_debug_log( '$args: ' );
     //tp_twitch_debug_log( $args );
 
-    $streams = array();
-
     $args = tp_twitch_prepare_streams_args( $args, $output_args );
 
     //tp_twitch_debug( $args, __FUNCTION__ . ' > $args' );
@@ -410,33 +408,21 @@ function tp_twitch_get_streams( $args = array(), $output_args = array() ) {
 
 	//tp_twitch_debug( 'tp_twitch_get_streams >> no cache!' );
 
-    if ( ! isset( $args['max'] ) || ! is_numeric( $args['max'] ) ) {
+    if ( empty( $args['pagination'] ) ) {
 
-        $streams_data =tp_twitch_get_streams_from_api( $args );
+        $api_response = tp_twitch_get_streams_from_api( $args );
 
-        $streams = tp_twitch_setup_streams_data( $streams_data, $args );
+        $streams_data = ( ! empty( $api_response['data'] ) ) ? $api_response['data'] : array();
 
     } else {
-
-        $allowed_limit = 100;
-
-        if ( ! isset( $args['pagination'] ) ) {
-
-            $args['first'] = ( $args['max'] > $allowed_limit ) ? $allowed_limit : $args['max'];
-
-            unset( $args['max'] );
-
-            $streams_data = tp_twitch_get_streams_from_api( $args );
-
-            $streams = tp_twitch_setup_streams_data( $streams_data, $args );
-
-        } else {
-            $streams = apply_filters( 'tp_twitch_stream_pagination', $args );
-        }
+        $streams_data = apply_filters( 'tp_twitch_stream_pagination', $args );
     }
 
-	if ( ! empty( $streams ) )
-		tp_twitch_set_streams_cache( $streams, $args );
+    $streams = tp_twitch_setup_streams_data( $streams_data, $args );
+
+   if ( ! empty( $streams ) ) {
+       tp_twitch_set_streams_cache( $streams, $args );
+   }
 
 	return tp_twitch_setup_streams( $streams );
 }
@@ -450,74 +436,47 @@ function tp_twitch_get_streams( $args = array(), $output_args = array() ) {
  */
 function tp_twitch_prepare_streams_args( $args, $output_args ) {
 
-    if ( empty( $args['streamer'] ) && empty( $args['game_id'] ) ) {
+    // Max
+    if ( ! empty( $output_args['max'] ) && is_numeric( $output_args['max'] ) ) {
 
-        if ( empty( $output_args['max'] ) || ! is_numeric( $output_args['max'] ) ) {
-            return $args;
-        }
-
-        $max = intval( $output_args['max'] );
-
-        if ( $max > apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() ) ) {
+        if ( intval( $output_args['max'] ) > apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() ) ) {
 
             $args['max'] = apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() );
+
+        } else {
+            $args['max'] = $output_args['max'];
         }
 
+        $args['max'] = intval( $args['max'] );
+    }
+
+    if ( empty( $args['streamer'] ) ) {
         return $args;
     }
 
-    // Maximum number of objects to return allowed by twitch API for a single request
-    $allowed_limit = 100;
+    $limit = tp_twitch_get_request_limit();
 
-    if ( ! empty( $args['streamer'] ) ) {
+    // Stream count
+    $args['streamer'] = strtolower( $args['streamer'] );
 
-        //tp_twitch_debug_log( __FUNCTION__ . ' > $args BEFORE FILTER:' );
-        //tp_twitch_debug_log( $args );
+    $args['streamer'] = str_replace( ' ', '', $args['streamer'] );
 
-        $args['streamer'] = strtolower( $args['streamer'] );
+    $stream_array = explode( ',', $args['streamer'] );
 
-        // Trim possible spaces
-        $args['streamer'] = str_replace( ' ', '', $args['streamer'] );
+    if ( ! empty( $args['max'] ) ) {
 
-        $stream_array = explode( ',', $args['streamer'] );
-
-        $stream_count = count( $stream_array );
-
-        // Count of streamers <= 100
-
-        if ( $stream_count <= $allowed_limit ) {
-
-            if ( empty( $output_args['max'] ) || ! is_numeric( $output_args['max'] ) ) {
-                return $args;
-            }
-
-            if ( intval( $output_args['max'] ) > apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() ) ) {
-
-                $args['max'] = apply_filters( 'tp_twitch_streams_max', tp_twitch_get_default_streams_max() );
-            } else {
-                $args['max'] = intval( $output_args['max'] );
-            }
-
-            return $args;
+        if ( count( $stream_array ) > $args['max'] ) {
+            $stream_array = array_slice( $stream_array, 0,  $args['max'] );
         }
-
-        // Count of streamers > 100
-
-        $args['pagination'] = $stream_count;
-
-        if ( empty( $output_args['max'] ) || ! is_numeric( $output_args['max'] ) ) {
-
-            $args['max'] = $allowed_limit;
-        } else {
-            $args['max'] = intval( $output_args['max'] );
-        }
-
-        if ( $args['max'] <= $allowed_limit ) {
-            $stream_array = array_slice( $stream_array, 0,  $args['max'] - 1 );
-        }
-
-        $args['streamer'] = implode( ',', $stream_array );
     }
+
+    // Pagination
+    if ( count( $stream_array ) > $limit ) {
+
+        $args['pagination'] = count( $stream_array );
+    }
+
+    $args['streamer'] = implode( ',', $stream_array );
 
     return $args;
 }
@@ -531,8 +490,9 @@ function tp_twitch_prepare_streams_args( $args, $output_args ) {
  */
 function tp_twitch_setup_streams( $streams ) {
 
-	if ( ! is_array( $streams ) )
-		return $streams;
+	if ( ! is_array( $streams ) ) {
+        return array();
+    }
 
 	// Build objects
 	$streams_objects = array();
@@ -556,11 +516,14 @@ function tp_twitch_setup_streams( $streams ) {
  */
 function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 
-	if ( ! is_array( $streams ) )
+	if ( ! is_array( $streams ) ) {
         $streams = array();
+    }
 
 	// Collect users
 	$user_ids = array();
+
+    $users = array();
 
 	if ( sizeof( $streams ) > 0 ) {
 
@@ -572,7 +535,31 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
         }
     }
 
-	$users = tp_twitch_get_users_from_api( array( 'user_id' => $user_ids ) );
+    $limit = tp_twitch_get_request_limit();
+
+    if ( sizeof( $user_ids ) > 0 ) {
+
+        if ( $limit >= sizeof( $user_ids ) ) {
+
+            $users = tp_twitch_get_users_from_api( array( 'user_id' => $user_ids ) );
+
+        } else {
+
+            $steps = ceil( sizeof( $user_ids ) / $limit );
+
+            for ( $i = 0; $i < $steps; $i++ ) {
+
+                $partial = array_slice( $user_ids, $limit * $i, $limit );
+
+                $api_response = tp_twitch_get_users_from_api( array( 'user_id' => $partial ) );
+
+                if ( empty( $api_response ) )
+                    continue;
+
+                $users = array_merge( $users, $api_response );
+            }
+        }
+    }
 
 	// Handling offline users/streams
     if ( ! empty ( $streams_args['streamer'] ) ) {
@@ -608,7 +595,29 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
 
         // Maybe fetch missing users
         if ( sizeof( $user_logins_missing ) > 0 ) {
-            $users_offline = tp_twitch_get_users_from_api( array( 'user_login' => $user_logins_missing ) );
+
+            if ( $limit >= sizeof( $user_logins_missing ) ) {
+
+                $users_offline = tp_twitch_get_users_from_api( array( 'user_login' => $user_logins_missing ) );
+
+            } else {
+
+                $steps = ceil( sizeof( $user_logins_missing ) / $limit );
+
+                $users_offline = array();
+
+                for ( $i = 0; $i < $steps; $i++ ) {
+
+                    $partial = array_slice( $user_logins_missing, $limit * $i, $limit );
+
+                    $api_response = tp_twitch_get_users_from_api( array( 'user_login' => $partial ) );
+
+                    if ( empty( $api_response ) )
+                        continue;
+
+                    $users_offline = array_merge( $users_offline, $api_response );
+                }
+            }
 
             //tp_twitch_debug( $users_offline, '$users_offline' );
 
@@ -712,6 +721,15 @@ function tp_twitch_setup_streams_data( $streams, $streams_args ) {
  */
 function tp_twitch_get_default_streams_max() {
     return 3;
+}
+
+/**
+ * Get maximum number of objects to return allowed by twitch API for a single request
+ *
+ * @return int
+ */
+function tp_twitch_get_request_limit() {
+    return 100;
 }
 
 /**
