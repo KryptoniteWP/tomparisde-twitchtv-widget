@@ -463,13 +463,6 @@ function tp_twitch_prepare_streams_args( $args, $output_args ) {
 
     $stream_array = explode( ',', $args['streamer'] );
 
-    if ( ! empty( $args['max'] ) ) {
-
-        if ( count( $stream_array ) > $args['max'] ) {
-            $stream_array = array_slice( $stream_array, 0,  $args['max'] );
-        }
-    }
-
     // Pagination
     if ( count( $stream_array ) > $limit ) {
 
