@@ -4,8 +4,8 @@ Donate link: https://donate.flowdee.de/
 Tags: twitch, twitch.tv, twitchtv, twitch api
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
-Tested up to: 5.7.2
-Stable tag: 3.2.4
+Tested up to: 5.8.3
+Stable tag: 3.2.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,9 @@ Yes of course.
 3. Settings Page
 
 == Changelog ==
+
+= Version 3.2.5 (12th January 2021) =
+* Fix: "max" number of streams applies before the ordering in the pro version
 
 = Version 3.2.4 (7th July 2021) =
 * Tweak: Optimized for pro version stream pagination
