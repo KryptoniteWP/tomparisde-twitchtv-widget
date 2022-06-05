@@ -1,6 +1,6 @@
 === Twitch for WordPress ===
 Contributors: flowdee, kryptonitewp
-Donate link: https://donate.flowdee.de/
+Donate link: https://github.com/sponsors/flowdee
 Tags: twitch, twitch.tv, twitchtv, twitch api
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
