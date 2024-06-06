@@ -1,13 +1,13 @@
 {
   "name": "tp-twitch-widget",
-  "version": "3.2.5",
+  "version": "3.3.0",
   "private": true,
   "description": "Twitch WP",
   "author": "KryptoniteWP",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/flowdee/tomparisde-twitchtv-widget"
+    "url": "https://github.com/KryptoniteWP/tomparisde-twitchtv-widget"
   },
   "scripts": {
     "development": "mix",

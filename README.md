@@ -5,14 +5,11 @@ Promote coupons and deals of products and earn money with affiliate referrals.
 
 ## Description
 
-[Official WordPress.org Plugin](https://wordpress.org/plugins/tomparisde-twitchtv-widget/)
-
+[Plugin Site](https://kryptonitewp.com/plugins/twitch-for-wp-free/)
 [Live-Demonstration](https://kryptonitewp.com/demo/twitch-wordpress/)
 
 ### Credits
 
 This plugin is not official made or maintained by Twitch™. All data provided through the official Twitch™ API.
 
-This plugin was developed by [flowdee](http://flowdee.de/). 
-
-You like my work? [Support me](https://donate.flowdee.de/) or not. I don't mind, as long as I was able to help you :wink:
+This plugin was developed by [KryptoniteWP](https://kryptonitewp.com/).

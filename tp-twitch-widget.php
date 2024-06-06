@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:     Twitch for WordPress
- * Plugin URI:      https://de.wordpress.org/plugins/tomparisde-twitchtv-widget/
+ * Plugin URI:      https://kryptonitewp.com/plugins/twitch-for-wp-free/
  * Description:     Display Twitch streams on your sidebars.
  * Version:         3.2.5
  * Author:          KryptoniteWP
@@ -41,7 +41,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		 * @since  2.0.0
 		 * @var    string
 		 */
-		private $version = '3.2.5';
+		private $version = '3.3.0';
 
 		/**
 		 * The settings instance variable.
@@ -171,7 +171,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 
 			// WordPress.org URL
             if ( ! defined( 'TP_TWITCH_WP_ORG_URL' ) ) {
-                define( 'TP_TWITCH_WP_ORG_URL', 'https://wordpress.org/plugins/tomparisde-twitchtv-widget/');
+                define( 'TP_TWITCH_WP_ORG_URL', 'https://kryptonitewp.com/plugins/twitch-for-wp-free/');
             }
 
 			// Docs URL

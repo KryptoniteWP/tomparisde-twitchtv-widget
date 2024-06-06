@@ -1,11 +1,10 @@
 === Twitch for WordPress ===
-Contributors: flowdee, kryptonitewp
-Donate link: https://github.com/sponsors/flowdee
+Contributors: kryptonitewp
 Tags: twitch, twitch.tv, twitchtv, twitch api
 Requires at least: 3.5.1
 Requires PHP: 5.6.0
 Tested up to: 5.8.3
-Stable tag: 3.2.5
+Stable tag: 3.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -50,7 +49,7 @@ Details and upgrade can be found **[here](https://kryptonitewp.com/downloads/twi
 = Support =
 
 * Detailed online [documentation](https://kryptonitewp.com/support/knb/twitch-wordpress-documentation/)
-* Browse [issue tracker](https://github.com/flowdee/tomparisde-twitchtv-widget/issues) on GitHub
+* Browse [issue tracker](https://github.com/KryptoniteWP/tomparisde-twitchtv-widget/issues) on GitHub
 * [Follow us on Twitter](https://twitter.com/kryptonitewp) to stay in contact and informed about updates
 
 = Credits =
@@ -96,6 +95,9 @@ Yes of course.
 3. Settings Page
 
 == Changelog ==
+
+= Version 3.3.0 (6th June 2024) =
+* New: New owners now solely KryptoniteWP. Update removal from wordpress.org to main website.
 
 = Version 3.2.5 (12th January 2021) =
 * Fix: "max" number of streams applies before the ordering in the pro version
