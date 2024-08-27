@@ -25,7 +25,7 @@ function tp_twitch_admin_scripts( $hook ) {
 
 	//if ( tp_twitch_is_plugin_admin_area() || ( isset( $screen->base ) && 'widgets' === $screen->base ) ) {
 
-		wp_enqueue_script( 'tp-twitch-admin', TP_TWITCH_PLUGIN_URL . 'assets/dist/js/admin.js', array( 'jquery' ), TP_TWITCH_VERSION );
+		wp_enqueue_script( 'tp-twitch-admin', TP_TWITCH_PLUGIN_URL . 'assets/dist/js/admin.js', array( 'jquery' ), TP_TWITCH_VERSION, false );
 		wp_enqueue_style( 'tp-twitch-admin', TP_TWITCH_PLUGIN_URL . 'assets/dist/css/admin.css', false, TP_TWITCH_VERSION );
 
 		do_action( 'tp_twitch_enqueue_admin_scripts' );
