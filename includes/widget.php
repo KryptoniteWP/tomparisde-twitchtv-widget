@@ -34,13 +34,13 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 		 * @param array $instance Saved values from database.
 		 */
 		public function widget( $args, $instance ) {
-			echo $args['before_widget'];
+			echo wp_kses_post($args['before_widget']);
 
 			/*
 			 * Widget Header
 			 */
 			if ( ! empty( $instance['title'] ) ) {
-				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
+				echo wp_kses_post($args['before_title']) . esc_html(apply_filters( 'widget_title', $instance['title'] )) . wp_kses_post($args['after_title']);
 			}
 
 			/*
@@ -105,7 +105,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			/*
 			 * Widget Footer
 			 */
-			echo $args['after_widget'];
+			echo wp_kses_post($args['after_widget']);
 		}
 
 		/**
@@ -130,7 +130,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 			$streamer = ( ! empty( $instance['streamer'] ) ) ? $instance['streamer'] : '';
             ?>
 
-            <h4><?php _e('Streams Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
+            <h4><?php esc_html_e('Streams Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
             <!-- Streamer -->
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'streamer' ) ); ?>"><?php esc_attr_e( 'Streamer', 'tomparisde-twitchtv-widget' ); ?></label>
@@ -138,10 +138,14 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 <?php tp_twitch_pre_pro_the_widget_streams_max_note(); ?>
             </p>
             <p class="description">
-                <?php printf( esc_html__( 'The username of a streamer. For instance: %s', 'tomparisde-twitchtv-widget' ), '<strong>dreamhackcs</strong>' ); ?>
+                <?php
+                /* translators: %s: Example streamer name */
+                printf( esc_html__( 'The username of a streamer. For instance: %s', 'tomparisde-twitchtv-widget' ), '<strong>dreamhackcs</strong>' ); ?>
             </p>
             <p class="description">
-                <?php printf( esc_html__( 'Comma separate multiple streamers as follows: %s', 'tomparisde-twitchtv-widget' ), '<strong>dreamhackcs,RiotGames2</strong>' ); ?>
+                <?php
+                /* translators: %s: Example of multiple streamer names */
+                printf( esc_html__( 'Comma separate multiple streamers as follows: %s', 'tomparisde-twitchtv-widget' ), '<strong>dreamhackcs,RiotGames2</strong>' ); ?>
             </p>
 
             <div class="tp-twitch-widget-config-search-block"<?php if ( ! empty( $streamer ) ) echo ' style="display: none;"'; ?>><!-- Don't show this block when streamers were entered -->
@@ -174,7 +178,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
                 </p>
             </div>
 
-            <h4><?php _e('Output Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
+            <h4><?php esc_html_e('Output Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
             <!-- Maximum Amount of Streams -->
             <?php $max = ( ! empty( $instance['max'] ) && is_numeric( $instance['max'] ) ) ? intval( $instance['max'] ) : tp_twitch_get_default_streams_max(); ?>
             <p>
@@ -192,7 +196,7 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
 
             <?php do_action( 'tp_twitch_widget_form_output_settings', $this, $instance ); ?>
 
-            <h4><?php _e('Template Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
+            <h4><?php esc_html_e('Template Settings', 'tomparisde-twitchtv-widget' ); ?></h4>
             <!-- Style -->
             <?php
             $style_options = tp_twitch_get_widget_style_options( false );
@@ -237,9 +241,11 @@ if ( ! class_exists( 'TP_Twitch_Widget' ) ) :
             <?php do_action( 'tp_twitch_widget_form_template_settings', $instance ); ?>
 
             <!-- Documentation -->
-            <h4><?php _e('Need help?', 'tomparisde-twitchtv-widget'); ?></h4>
+            <h4><?php esc_html_e('Need help?', 'tomparisde-twitchtv-widget'); ?></h4>
             <p>
-                <?php printf( wp_kses( __( 'Please take a look into the <a href="%s">documentation</a> for help and find out more options.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( add_query_arg( array(
+                <?php
+                /* translators: %s: URL to documentation */
+                printf( wp_kses( __( 'Please take a look into the <a href="%s">documentation</a> for help and find out more options.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( add_query_arg( array(
                     'utm_source'   => 'widgets-page',
                     'utm_medium'   => 'need-help-note',
                     'utm_campaign' => 'Twitch WP',

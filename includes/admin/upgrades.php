@@ -58,13 +58,23 @@ function tp_twitch_plugin_upgrade_v2_rebuild() {
     add_action( 'admin_notices', function() {
         ?>
         <div class="notice-warning notice tp-twitch-notice is-dismissible">
-            <p><?php _e('Welcome to our brand new Stream Embed for Twitch plugin!', 'tomparisde-twitchtv-widget' ); ?></p>
-            <p><?php _e('We made a complete rebuild of our plugin which allows us to implement more amazing features for you. Please complete the following steps in order to continue using the plugin:', 'tomparisde-twitchtv-widget' ); ?></p>
+            <p><?php esc_html_e('Welcome to our brand new Stream Embed for Twitch plugin!', 'tomparisde-twitchtv-widget' ); ?></p>
+            <p><?php esc_html_e('We made a complete rebuild of our plugin which allows us to implement more amazing features for you. Please complete the following steps in order to continue using the plugin:', 'tomparisde-twitchtv-widget' ); ?></p>
             <ol>
-               <li><?php printf( wp_kses( __( 'Please go to the <a href="%s">settings page</a> and enter your credentials for the new Twitch API.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'options-general.php?page=tp_twitch' ) ) ); ?></li>
-                <li><?php printf( wp_kses( __( 'Afterward, visit the <a href="%s">widgets page</a> and place our new widgets in your sidebar.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'widgets.php' ) ) ); ?></li>
+                <?php
+                // translators: %s: URL to the settings page
+                $settings_link = sprintf( wp_kses( __( 'Please go to the <a href="%s">settings page</a> and enter your credentials for the new Twitch API.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'options-general.php?page=tp_twitch' ) ) );
+                ?>
+                <li><?php echo wp_kses_post($settings_link); ?></li>
+                <?php
+                // translators: %s: URL to the widgets page
+                $widgets_link = sprintf( wp_kses( __( 'Afterward, visit the <a href="%s">widgets page</a> and place our new widgets in your sidebar.', 'tomparisde-twitchtv-widget' ),
+                        array( 'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'widgets.php' ) )
+                );
+                ?>
+                <li><?php echo wp_kses_post($widgets_link); ?></li>
             </ol>
-            <p><?php _e('Thank you for using our plugin! You are awesome.', 'tomparisde-twitchtv-widget' ); ?></p>
+            <p><?php esc_html_e('Thank you for using our plugin! You are awesome.', 'tomparisde-twitchtv-widget' ); ?></p>
         </div>
         <?php
     });

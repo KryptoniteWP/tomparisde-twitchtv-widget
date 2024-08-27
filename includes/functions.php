@@ -90,7 +90,7 @@ function tp_twitch_delete_cache() {
 
 	$sql = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "%_transient_tp_twitch_%"';
 
-	$wpdb->query( $sql );
+	$wpdb->query( $sql ); // WPCS: unprepared SQL OK.
 
     if ( tp_twitch_is_pro_version() ) {
         set_transient( 'tp_twitch_delete_cache', '1', 10 ); // 10 sec
@@ -106,7 +106,7 @@ function tp_twitch_delete_streams_cache() {
 
 	$sql = 'DELETE FROM ' . $wpdb->options . ' WHERE option_name LIKE "%_transient_tp_twitch_streams_%"';
 
-	$wpdb->query( $sql );
+	$wpdb->query( $sql ); // WPCS: unprepared SQL OK.
 }
 
 /**
@@ -339,7 +339,7 @@ function tp_twitch_get_widget_preview_options( $is_settings_page = true ) {
  * @return string
  */
 function tp_twitch_get_streams_key( $args = array() ) {
-	return 'tp_twitch_streams_' . md5( json_encode( $args ) );
+	return 'tp_twitch_streams_' . md5( wp_json_encode( $args ) );
 }
 
 /**
@@ -729,10 +729,8 @@ function tp_twitch_get_request_limit() {
  * Get current site host
  *
  * @return string
- */
+    */
 function tp_twitch_get_site_host() {
-
-	$parsed_url = parse_url( get_site_url() );
-
-	return $parsed_url['host'];
+    $parsed_url = wp_parse_url( get_site_url() );
+    return isset( $parsed_url['host'] ) ? $parsed_url['host'] : '';
 }

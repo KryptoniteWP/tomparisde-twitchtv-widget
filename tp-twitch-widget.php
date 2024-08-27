@@ -7,6 +7,8 @@
  * Author:          KryptoniteWP
  * Author URI:      https://kryptonitewp.com
  * Text Domain:     tomparisde-twitchtv-widget
+ * License: GPLv3 or later
+*License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @author          KryptoniteWP
  * @copyright       Copyright (c) KryptoniteWP
@@ -108,7 +110,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		 */
 		public function __clone() {
 			// Cloning instances of the class is forbidden
-			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'tomparisde-twitchtv-widget' ), '1.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'tomparisde-twitchtv-widget' ), '1.0' );
 		}
 
 		/**
@@ -120,7 +122,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		 */
 		public function __wakeup() {
 			// Unserializing instances of the class is forbidden
-			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'tomparisde-twitchtv-widget' ), '1.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'tomparisde-twitchtv-widget' ), '1.0' );
 		}
 
 		/**
@@ -135,7 +137,11 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 			?>
 			<div class="error">
 				<p>
-					<?php sprintf( esc_html__( 'Your version of PHP is below the minimum version of PHP required by our Twitch plugin. Please contact your hosting company and request that your version will be upgraded to %1$s or later.', 'tomparisde-twitchtv-widget' ), '5.3' ); ?>
+					<?php echo wp_kses_post(sprintf(
+						/* translators: %s: Minimum required PHP version */
+						__('Your version of PHP is below the minimum version of PHP required by our Twitch plugin. Please contact your hosting company and request that your version will be upgraded to %s or later.', 'tomparisde-twitchtv-widget'),
+						'<strong>5.3</strong>'
+					)); ?>
 				</p>
 			</div>
 			<?php

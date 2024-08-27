@@ -76,7 +76,7 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 
 		 // Template not found.
 		} else {
-			_e( 'Template not found.', 'tomparisde-twitchtv-widget' );
+			esc_html_e( 'Template not found.', 'tomparisde-twitchtv-widget' );
 		}
 
 	// No streams found.
@@ -87,10 +87,8 @@ function tp_twitch_display_streams( $streams_args = array(), $template_args = ar
 		$no_streams_found_text = ( isset ( $no_streams_found_text ) ) ? $no_streams_found_text : __( 'No streams found', 'tomparisde-twitchtv-widget' );
 		$no_streams_found_text = apply_filters( 'tp_twitch_no_streams_found_text', $no_streams_found_text );
 
-		if ( 'show' === $no_streams_found ) {
-			echo $no_streams_found_text;
-		} elseif ( 'admin' === $no_streams_found && tp_twitch_is_user_admin() ) {
-			echo $no_streams_found_text;
+		if ( 'show' === $no_streams_found || ( 'admin' === $no_streams_found && tp_twitch_is_user_admin() ) ) {
+			echo esc_html( $no_streams_found_text );
 		}
 	}
 }
@@ -116,9 +114,9 @@ function tp_twitch_the_streams_classes( $classes = '', $template_args = array() 
     if ( is_array( $additional_classes ) && sizeof( $additional_classes ) > 0 ) {
 
         foreach ( $additional_classes as $additional_class ) {
-            $classes .= ' tp-twitch-streams--' . esc_html( $additional_class );
+            $classes .= ' tp-twitch-streams--' . esc_attr( $additional_class );
         }
     }
 
-    echo $classes;
+    echo esc_attr( $classes );
 }

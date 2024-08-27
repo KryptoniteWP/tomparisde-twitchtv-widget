@@ -113,7 +113,7 @@ function tp_twitch_sanitize_comma_separated_input( $input ) {
 function tp_twitch_addlog( $string ) {
 
     $log = get_option( 'tp_twitch_log', '' );
-    $string = date( 'd.m.Y H:i:s' ) . " >>> " . $string . "\n";
+    $string = gmdate( 'd.m.Y H:i:s' ) . " >>> " . $string . "\n";
     $log .= $string;
     update_option( 'tp_twitch_log', $log );
 }
@@ -129,7 +129,7 @@ function tp_twitch_debug( $args, $title = false ) {
 	if ( defined( 'WP_DEBUG') && true === WP_DEBUG ) {
 
 		if ( $title ) {
-			echo '<h3>' . $title . '</h3>';
+			echo '<h3>' . esc_html( $title ) . '</h3>';
 		}
 
 		if ( $args ) {

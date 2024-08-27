@@ -25,6 +25,7 @@ function tp_twitch_admin_notices() {
             'type' => 'warning',
             'content' =>
                 '<p><strong>' . __( 'Action required:', 'tomparisde-twitchtv-widget' ) . '</strong>&nbsp;' .
+                // translators: %s: URL to the settings page
                 sprintf( wp_kses( __( 'Starting on April 30, 2020, the Twitch API requires additional API credentials. Please go to the <a href="%s">settings page</a> and complete your API credentials.', 'tomparisde-twitchtv-widget' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( admin_url( 'options-general.php?page=tp_twitch' ) ) ) . '</p>'
         );
     }
@@ -41,7 +42,7 @@ function tp_twitch_admin_notices() {
                 continue;
             ?>
             <div class="notice-<?php echo esc_attr( $notice['type'] ); ?> notice tp-twitch-notice is-dismissible">
-                <?php echo $notice['content']; ?>
+                <?php echo wp_kses_post( $notice['content'] ); ?>
             </div>
             <?php
         }

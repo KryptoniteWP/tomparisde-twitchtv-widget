@@ -49,7 +49,7 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
                 $classes .= ' tp-twitch-stream--offline';
             }
 
-		    echo $classes;
+		    echo esc_attr( $classes );
         }
 
         /**
@@ -121,6 +121,7 @@ if ( ! class_exists( 'TP_Twitch_Stream' ) ) {
 		 * @return string
 		 */
 		public function get_thumbnail_alt() {
+			// Translators: %s is the display name of the Twitch streamer
 			return sprintf( esc_html__( 'Twitch stream of %s', 'tomparisde-twitchtv-widget' ), $this->get_user_display_name() );
 		}
 
