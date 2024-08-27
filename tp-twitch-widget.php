@@ -3,12 +3,12 @@
  * Plugin Name:     Stream Embed for Twitch
  * Plugin URI:      https://kryptonitewp.com/plugins/twitch-for-wp-free/
  * Description:     Display Twitch streams on your sidebars.
- * Version:         3.3.0
+ * Version:         3.4.0
  * Author:          KryptoniteWP
  * Author URI:      https://kryptonitewp.com
  * Text Domain:     tomparisde-twitchtv-widget
  * License: GPLv3 or later
-*License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @author          KryptoniteWP
  * @copyright       Copyright (c) KryptoniteWP
@@ -43,7 +43,7 @@ if( ! class_exists( 'TP_Twitch' ) ) :
 		 * @since  2.0.0
 		 * @var    string
 		 */
-		private $version = '3.3.0';
+		private $version = '3.4.0';
 
 		/**
 		 * The settings instance variable.
