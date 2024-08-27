@@ -1,4 +1,4 @@
-=== Twitch for WordPress ===
+=== Stream Embed for Twitch ===
 Contributors: kryptonitewp
 Tags: twitch, twitch.tv, twitchtv, twitch api
 Requires at least: 3.5.1

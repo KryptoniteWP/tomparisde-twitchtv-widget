@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Twitch for WordPress\n"
+"Project-Id-Version: Stream Embed for Twitch\n"
 "POT-Creation-Date: 2021-03-15 10:44+0100\n"
 "PO-Revision-Date: 2018-09-24 17:41+0700\n"
 "Last-Translator: \n"
@@ -324,7 +324,7 @@ msgstr ""
 
 #. Plugin Name of the plugin/theme
 #: includes/admin/class-settings.php:733
-msgid "Twitch for WordPress"
+msgid "Stream Embed for Twitch"
 msgstr ""
 
 #: includes/admin/class-settings.php:748

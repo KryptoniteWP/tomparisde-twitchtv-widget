@@ -35,7 +35,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 		function add_admin_menu() {
 
 			add_options_page(
-				'Twitch for WordPress', // Page title
+				'Stream Embed for Twitch', // Page title
 				'Twitch', // Menu title
 				'manage_options', // Capabilities
 				'tp_twitch', // Menu slug
@@ -730,7 +730,7 @@ if ( ! class_exists( 'TP_Twitch_Settings' ) ) {
 
             <div class="tp-twitch-settings">
                 <div class="wrap">
-                    <h2><?php echo apply_filters( 'tp_twitch_settings_page_title', __( 'Twitch for WordPress', 'tomparisde-twitchtv-widget' ) ); ?></h2>
+                    <h2><?php echo apply_filters( 'tp_twitch_settings_page_title', __( 'Stream Embed for Twitch', 'tomparisde-twitchtv-widget' ) ); ?></h2>
 
                     <div id="poststuff">
                         <div id="post-body" class="metabox-holder columns-2">

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:     Twitch for WordPress
+ * Plugin Name:     Stream Embed for Twitch
  * Plugin URI:      https://kryptonitewp.com/plugins/twitch-for-wp-free/
  * Description:     Display Twitch streams on your sidebars.
  * Version:         3.3.0
